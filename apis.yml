@@ -7,10 +7,9 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
+  - Fraud Prevention
   - Identity Verification
   - KYC
-  - Fraud Prevention
-  - API
 url: >-
   https://raw.githubusercontent.com/api-evangelist/persona/refs/heads/main/apis.yml
 created: '2026-03-16'
@@ -25,9 +24,9 @@ apis:
     humanURL: https://docs.withpersona.com/reference/introduction
     baseURL: https://withpersona.com/api/v1
     tags:
+      - Fraud Prevention
       - Identity Verification
       - KYC
-      - Fraud Prevention
     properties:
       - type: Documentation
         url: https://docs.withpersona.com/
