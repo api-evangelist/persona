@@ -5,9 +5,9 @@ Persona provides identity verification and fraud prevention APIs. Their platform
 
 ## Scope
 
-- **Type:** Index 
-- **Position:** Consuming 
-- **Access:** 3rd-Party 
+- **Type:** Index
+- **Position:** Consuming
+- **Access:** 3rd-Party
 
 ## Tags:
 
@@ -15,8 +15,8 @@ Persona provides identity verification and fraud prevention APIs. Their platform
 
 ## Timestamps
 
-- **Created:** 2026-03-16 
-- **Modified:** 2026-03-16 
+- **Created:** 2026-03-16
+- **Modified:** 2026-04-28
 
 ## APIs
 
@@ -25,6 +25,7 @@ Identity verification and fraud prevention API for verifying users through docum
 
 **Human URL:** [https://docs.withpersona.com/reference/introduction](https://docs.withpersona.com/reference/introduction)
 
+**Base URL:** `https://withpersona.com/api/v1`
 
 #### Tags:
 
@@ -36,6 +37,7 @@ Identity verification and fraud prevention API for verifying users through docum
 - [Reference](https://docs.withpersona.com/reference/introduction)
 - [Getting Started](https://docs.withpersona.com/docs/getting-started)
 - [Authentication](https://docs.withpersona.com/reference/authentication)
+- [OpenAPI](openapi/persona-openapi.yml)
 
 ## Common Properties
 

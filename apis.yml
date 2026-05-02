@@ -13,7 +13,7 @@ tags:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/persona/refs/heads/main/apis.yml
 created: '2026-03-16'
-modified: '2026-03-16'
+modified: '2026-04-28'
 specificationVersion: '0.19'
 apis:
   - aid: persona:persona
@@ -36,6 +36,8 @@ apis:
         url: https://docs.withpersona.com/docs/getting-started
       - type: Authentication
         url: https://docs.withpersona.com/reference/authentication
+      - type: OpenAPI
+        url: openapi/persona-openapi.yml
 common:
   - type: Portal
     url: https://withpersona.com/
