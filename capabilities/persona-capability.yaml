@@ -1,0 +1,990 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Persona API
+  description: The Persona API enables identity verification, fraud prevention, and Know Your Customer (KYC) workflows. Use
+    the API to create and manage inquiries, accounts, verifications, reports, transactions, lists, and webhooks for verifying
+    users via document checks, selfie checks, and database lookups.
+  tags:
+  - Persona
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: persona
+    baseUri: https://withpersona.com/api/v1
+    description: Persona API HTTP API.
+    authentication:
+      type: bearer
+      token: '{{PERSONA_TOKEN}}'
+    resources:
+    - name: accounts
+      path: /accounts
+      operations:
+      - name: listaccounts
+        method: GET
+        description: List all Accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createaccount
+        method: POST
+        description: Create an Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-id
+      path: /accounts/{id}
+      operations:
+      - name: retrieveaccount
+        method: GET
+        description: Retrieve an Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateaccount
+        method: PATCH
+        description: Update an Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-id-redact
+      path: /accounts/{id}/redact
+      operations:
+      - name: redactaccount
+        method: POST
+        description: Redact an Account
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-id-tags
+      path: /accounts/{id}/tags
+      operations:
+      - name: addaccounttag
+        method: POST
+        description: Add tag to an Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: removeaccounttag
+        method: DELETE
+        description: Remove tag from an Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-id-relations
+      path: /accounts/{id}/relations
+      operations:
+      - name: listaccountrelations
+        method: GET
+        description: Get all relations for an Account
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-consolidate
+      path: /accounts/consolidate
+      operations:
+      - name: consolidateaccounts
+        method: POST
+        description: Consolidate Accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-search
+      path: /accounts/search
+      operations:
+      - name: searchaccounts
+        method: POST
+        description: Search Accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: inquiries
+      path: /inquiries
+      operations:
+      - name: listinquiries
+        method: GET
+        description: List all Inquiries
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createinquiry
+        method: POST
+        description: Create an Inquiry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: inquiries-id
+      path: /inquiries/{id}
+      operations:
+      - name: retrieveinquiry
+        method: GET
+        description: Retrieve an Inquiry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateinquiry
+        method: PATCH
+        description: Update an Inquiry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: inquiries-id-redact
+      path: /inquiries/{id}/redact
+      operations:
+      - name: redactinquiry
+        method: POST
+        description: Redact an Inquiry
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: inquiries-id-approve
+      path: /inquiries/{id}/approve
+      operations:
+      - name: approveinquiry
+        method: POST
+        description: Approve an Inquiry
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: inquiries-id-decline
+      path: /inquiries/{id}/decline
+      operations:
+      - name: declineinquiry
+        method: POST
+        description: Decline an Inquiry
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: inquiries-id-expire
+      path: /inquiries/{id}/expire
+      operations:
+      - name: expireinquiry
+        method: POST
+        description: Expire an Inquiry
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: verifications-id
+      path: /verifications/{id}
+      operations:
+      - name: retrieveverification
+        method: POST
+        description: Retrieve a Verification
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: reports
+      path: /reports
+      operations:
+      - name: listreports
+        method: GET
+        description: List all Reports
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createreport
+        method: POST
+        description: Create a Report
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: reports-id
+      path: /reports/{id}
+      operations:
+      - name: retrievereport
+        method: GET
+        description: Retrieve a Report
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lists
+      path: /lists
+      operations:
+      - name: listlists
+        method: GET
+        description: List all Lists
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createlist
+        method: POST
+        description: Create a List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: transactions
+      path: /transactions
+      operations:
+      - name: listtransactions
+        method: GET
+        description: List all Transactions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createtransaction
+        method: POST
+        description: Create a Transaction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: webhooks
+      path: /webhooks
+      operations:
+      - name: listwebhooks
+        method: GET
+        description: List all Webhooks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createwebhook
+        method: POST
+        description: Create a Webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: persona-rest
+    description: REST adapter for Persona API.
+    resources:
+    - path: /accounts
+      name: listaccounts
+      operations:
+      - method: GET
+        name: listaccounts
+        description: List all Accounts
+        call: persona.listaccounts
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts
+      name: createaccount
+      operations:
+      - method: POST
+        name: createaccount
+        description: Create an Account
+        call: persona.createaccount
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{id}
+      name: retrieveaccount
+      operations:
+      - method: GET
+        name: retrieveaccount
+        description: Retrieve an Account
+        call: persona.retrieveaccount
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{id}
+      name: updateaccount
+      operations:
+      - method: PATCH
+        name: updateaccount
+        description: Update an Account
+        call: persona.updateaccount
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{id}/redact
+      name: redactaccount
+      operations:
+      - method: POST
+        name: redactaccount
+        description: Redact an Account
+        call: persona.redactaccount
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{id}/tags
+      name: addaccounttag
+      operations:
+      - method: POST
+        name: addaccounttag
+        description: Add tag to an Account
+        call: persona.addaccounttag
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{id}/tags
+      name: removeaccounttag
+      operations:
+      - method: DELETE
+        name: removeaccounttag
+        description: Remove tag from an Account
+        call: persona.removeaccounttag
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/{id}/relations
+      name: listaccountrelations
+      operations:
+      - method: GET
+        name: listaccountrelations
+        description: Get all relations for an Account
+        call: persona.listaccountrelations
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/consolidate
+      name: consolidateaccounts
+      operations:
+      - method: POST
+        name: consolidateaccounts
+        description: Consolidate Accounts
+        call: persona.consolidateaccounts
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /accounts/search
+      name: searchaccounts
+      operations:
+      - method: POST
+        name: searchaccounts
+        description: Search Accounts
+        call: persona.searchaccounts
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /inquiries
+      name: listinquiries
+      operations:
+      - method: GET
+        name: listinquiries
+        description: List all Inquiries
+        call: persona.listinquiries
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /inquiries
+      name: createinquiry
+      operations:
+      - method: POST
+        name: createinquiry
+        description: Create an Inquiry
+        call: persona.createinquiry
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /inquiries/{id}
+      name: retrieveinquiry
+      operations:
+      - method: GET
+        name: retrieveinquiry
+        description: Retrieve an Inquiry
+        call: persona.retrieveinquiry
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /inquiries/{id}
+      name: updateinquiry
+      operations:
+      - method: PATCH
+        name: updateinquiry
+        description: Update an Inquiry
+        call: persona.updateinquiry
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /inquiries/{id}/redact
+      name: redactinquiry
+      operations:
+      - method: POST
+        name: redactinquiry
+        description: Redact an Inquiry
+        call: persona.redactinquiry
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /inquiries/{id}/approve
+      name: approveinquiry
+      operations:
+      - method: POST
+        name: approveinquiry
+        description: Approve an Inquiry
+        call: persona.approveinquiry
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /inquiries/{id}/decline
+      name: declineinquiry
+      operations:
+      - method: POST
+        name: declineinquiry
+        description: Decline an Inquiry
+        call: persona.declineinquiry
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /inquiries/{id}/expire
+      name: expireinquiry
+      operations:
+      - method: POST
+        name: expireinquiry
+        description: Expire an Inquiry
+        call: persona.expireinquiry
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /verifications/{id}
+      name: retrieveverification
+      operations:
+      - method: POST
+        name: retrieveverification
+        description: Retrieve a Verification
+        call: persona.retrieveverification
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /reports
+      name: listreports
+      operations:
+      - method: GET
+        name: listreports
+        description: List all Reports
+        call: persona.listreports
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /reports
+      name: createreport
+      operations:
+      - method: POST
+        name: createreport
+        description: Create a Report
+        call: persona.createreport
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /reports/{id}
+      name: retrievereport
+      operations:
+      - method: GET
+        name: retrievereport
+        description: Retrieve a Report
+        call: persona.retrievereport
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /lists
+      name: listlists
+      operations:
+      - method: GET
+        name: listlists
+        description: List all Lists
+        call: persona.listlists
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /lists
+      name: createlist
+      operations:
+      - method: POST
+        name: createlist
+        description: Create a List
+        call: persona.createlist
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /transactions
+      name: listtransactions
+      operations:
+      - method: GET
+        name: listtransactions
+        description: List all Transactions
+        call: persona.listtransactions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /transactions
+      name: createtransaction
+      operations:
+      - method: POST
+        name: createtransaction
+        description: Create a Transaction
+        call: persona.createtransaction
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /webhooks
+      name: listwebhooks
+      operations:
+      - method: GET
+        name: listwebhooks
+        description: List all Webhooks
+        call: persona.listwebhooks
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /webhooks
+      name: createwebhook
+      operations:
+      - method: POST
+        name: createwebhook
+        description: Create a Webhook
+        call: persona.createwebhook
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: persona-mcp
+    transport: http
+    description: MCP adapter for Persona API for AI agent use.
+    tools:
+    - name: listaccounts
+      description: List all Accounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona.listaccounts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createaccount
+      description: Create an Account
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.createaccount
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieveaccount
+      description: Retrieve an Account
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona.retrieveaccount
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateaccount
+      description: Update an Account
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.updateaccount
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: redactaccount
+      description: Redact an Account
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.redactaccount
+      with:
+        id: tools.id
+      inputParameters:
+      - name: id
+        type: string
+        description: id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: addaccounttag
+      description: Add tag to an Account
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.addaccounttag
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: removeaccounttag
+      description: Remove tag from an Account
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: persona.removeaccounttag
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listaccountrelations
+      description: Get all relations for an Account
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona.listaccountrelations
+      with:
+        id: tools.id
+      inputParameters:
+      - name: id
+        type: string
+        description: id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: consolidateaccounts
+      description: Consolidate Accounts
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.consolidateaccounts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: searchaccounts
+      description: Search Accounts
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.searchaccounts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listinquiries
+      description: List all Inquiries
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona.listinquiries
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createinquiry
+      description: Create an Inquiry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.createinquiry
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieveinquiry
+      description: Retrieve an Inquiry
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona.retrieveinquiry
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateinquiry
+      description: Update an Inquiry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.updateinquiry
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: redactinquiry
+      description: Redact an Inquiry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.redactinquiry
+      with:
+        id: tools.id
+      inputParameters:
+      - name: id
+        type: string
+        description: id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: approveinquiry
+      description: Approve an Inquiry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.approveinquiry
+      with:
+        id: tools.id
+      inputParameters:
+      - name: id
+        type: string
+        description: id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: declineinquiry
+      description: Decline an Inquiry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.declineinquiry
+      with:
+        id: tools.id
+      inputParameters:
+      - name: id
+        type: string
+        description: id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expireinquiry
+      description: Expire an Inquiry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.expireinquiry
+      with:
+        id: tools.id
+      inputParameters:
+      - name: id
+        type: string
+        description: id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieveverification
+      description: Retrieve a Verification
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.retrieveverification
+      with:
+        id: tools.id
+      inputParameters:
+      - name: id
+        type: string
+        description: id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listreports
+      description: List all Reports
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona.listreports
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createreport
+      description: Create a Report
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.createreport
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrievereport
+      description: Retrieve a Report
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona.retrievereport
+      with:
+        id: tools.id
+      inputParameters:
+      - name: id
+        type: string
+        description: id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listlists
+      description: List all Lists
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona.listlists
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createlist
+      description: Create a List
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.createlist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listtransactions
+      description: List all Transactions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona.listtransactions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createtransaction
+      description: Create a Transaction
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.createtransaction
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listwebhooks
+      description: List all Webhooks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona.listwebhooks
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createwebhook
+      description: Create a Webhook
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona.createwebhook
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    PERSONA_TOKEN: PERSONA_TOKEN
