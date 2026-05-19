@@ -1,0 +1,316 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Persona API — Inquiries
+  description: 'Persona API — Inquiries. 8 operations. Lead operation: List all Inquiries. Self-contained Naftiko capability
+    covering one Persona business surface.'
+  tags:
+  - Persona
+  - Inquiries
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PERSONA_API_KEY: PERSONA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: persona-inquiries
+    baseUri: https://withpersona.com/api/v1
+    description: Persona API — Inquiries business capability. Self-contained, no shared references.
+    resources:
+    - name: inquiries
+      path: /inquiries
+      operations:
+      - name: listinquiries
+        method: GET
+        description: List all Inquiries
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createinquiry
+        method: POST
+        description: Create an Inquiry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: inquiries-id
+      path: /inquiries/{id}
+      operations:
+      - name: retrieveinquiry
+        method: GET
+        description: Retrieve an Inquiry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateinquiry
+        method: PATCH
+        description: Update an Inquiry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: inquiries-id-approve
+      path: /inquiries/{id}/approve
+      operations:
+      - name: approveinquiry
+        method: POST
+        description: Approve an Inquiry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+    - name: inquiries-id-decline
+      path: /inquiries/{id}/decline
+      operations:
+      - name: declineinquiry
+        method: POST
+        description: Decline an Inquiry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+    - name: inquiries-id-expire
+      path: /inquiries/{id}/expire
+      operations:
+      - name: expireinquiry
+        method: POST
+        description: Expire an Inquiry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+    - name: inquiries-id-redact
+      path: /inquiries/{id}/redact
+      operations:
+      - name: redactinquiry
+        method: POST
+        description: Redact an Inquiry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.PERSONA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: persona-inquiries-rest
+    port: 8080
+    description: REST adapter for Persona API — Inquiries. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/inquiries
+      name: inquiries
+      description: REST surface for inquiries.
+      operations:
+      - method: GET
+        name: listinquiries
+        description: List all Inquiries
+        call: persona-inquiries.listinquiries
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createinquiry
+        description: Create an Inquiry
+        call: persona-inquiries.createinquiry
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/inquiries/{id}
+      name: inquiries-id
+      description: REST surface for inquiries-id.
+      operations:
+      - method: GET
+        name: retrieveinquiry
+        description: Retrieve an Inquiry
+        call: persona-inquiries.retrieveinquiry
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateinquiry
+        description: Update an Inquiry
+        call: persona-inquiries.updateinquiry
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/inquiries/{id}/approve
+      name: inquiries-id-approve
+      description: REST surface for inquiries-id-approve.
+      operations:
+      - method: POST
+        name: approveinquiry
+        description: Approve an Inquiry
+        call: persona-inquiries.approveinquiry
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/inquiries/{id}/decline
+      name: inquiries-id-decline
+      description: REST surface for inquiries-id-decline.
+      operations:
+      - method: POST
+        name: declineinquiry
+        description: Decline an Inquiry
+        call: persona-inquiries.declineinquiry
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/inquiries/{id}/expire
+      name: inquiries-id-expire
+      description: REST surface for inquiries-id-expire.
+      operations:
+      - method: POST
+        name: expireinquiry
+        description: Expire an Inquiry
+        call: persona-inquiries.expireinquiry
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/inquiries/{id}/redact
+      name: inquiries-id-redact
+      description: REST surface for inquiries-id-redact.
+      operations:
+      - method: POST
+        name: redactinquiry
+        description: Redact an Inquiry
+        call: persona-inquiries.redactinquiry
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: persona-inquiries-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Persona API — Inquiries. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-inquiries
+      description: List all Inquiries
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona-inquiries.listinquiries
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-inquiry
+      description: Create an Inquiry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona-inquiries.createinquiry
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-inquiry
+      description: Retrieve an Inquiry
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona-inquiries.retrieveinquiry
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-inquiry
+      description: Update an Inquiry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: persona-inquiries.updateinquiry
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: approve-inquiry
+      description: Approve an Inquiry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona-inquiries.approveinquiry
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: decline-inquiry
+      description: Decline an Inquiry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona-inquiries.declineinquiry
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expire-inquiry
+      description: Expire an Inquiry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona-inquiries.expireinquiry
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: redact-inquiry
+      description: Redact an Inquiry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona-inquiries.redactinquiry
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

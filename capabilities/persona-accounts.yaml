@@ -1,0 +1,355 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Persona API — Accounts
+  description: 'Persona API — Accounts. 10 operations. Lead operation: List all Accounts. Self-contained Naftiko capability
+    covering one Persona business surface.'
+  tags:
+  - Persona
+  - Accounts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PERSONA_API_KEY: PERSONA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: persona-accounts
+    baseUri: https://withpersona.com/api/v1
+    description: Persona API — Accounts business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts
+      path: /accounts
+      operations:
+      - name: listaccounts
+        method: GET
+        description: List all Accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createaccount
+        method: POST
+        description: Create an Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-consolidate
+      path: /accounts/consolidate
+      operations:
+      - name: consolidateaccounts
+        method: POST
+        description: Consolidate Accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-search
+      path: /accounts/search
+      operations:
+      - name: searchaccounts
+        method: POST
+        description: Search Accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-id
+      path: /accounts/{id}
+      operations:
+      - name: retrieveaccount
+        method: GET
+        description: Retrieve an Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateaccount
+        method: PATCH
+        description: Update an Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-id-redact
+      path: /accounts/{id}/redact
+      operations:
+      - name: redactaccount
+        method: POST
+        description: Redact an Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+    - name: accounts-id-relations
+      path: /accounts/{id}/relations
+      operations:
+      - name: listaccountrelations
+        method: GET
+        description: Get all relations for an Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+    - name: accounts-id-tags
+      path: /accounts/{id}/tags
+      operations:
+      - name: addaccounttag
+        method: POST
+        description: Add tag to an Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: removeaccounttag
+        method: DELETE
+        description: Remove tag from an Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.PERSONA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: persona-accounts-rest
+    port: 8080
+    description: REST adapter for Persona API — Accounts. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/accounts
+      name: accounts
+      description: REST surface for accounts.
+      operations:
+      - method: GET
+        name: listaccounts
+        description: List all Accounts
+        call: persona-accounts.listaccounts
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createaccount
+        description: Create an Account
+        call: persona-accounts.createaccount
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/consolidate
+      name: accounts-consolidate
+      description: REST surface for accounts-consolidate.
+      operations:
+      - method: POST
+        name: consolidateaccounts
+        description: Consolidate Accounts
+        call: persona-accounts.consolidateaccounts
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/search
+      name: accounts-search
+      description: REST surface for accounts-search.
+      operations:
+      - method: POST
+        name: searchaccounts
+        description: Search Accounts
+        call: persona-accounts.searchaccounts
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{id}
+      name: accounts-id
+      description: REST surface for accounts-id.
+      operations:
+      - method: GET
+        name: retrieveaccount
+        description: Retrieve an Account
+        call: persona-accounts.retrieveaccount
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateaccount
+        description: Update an Account
+        call: persona-accounts.updateaccount
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{id}/redact
+      name: accounts-id-redact
+      description: REST surface for accounts-id-redact.
+      operations:
+      - method: POST
+        name: redactaccount
+        description: Redact an Account
+        call: persona-accounts.redactaccount
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{id}/relations
+      name: accounts-id-relations
+      description: REST surface for accounts-id-relations.
+      operations:
+      - method: GET
+        name: listaccountrelations
+        description: Get all relations for an Account
+        call: persona-accounts.listaccountrelations
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{id}/tags
+      name: accounts-id-tags
+      description: REST surface for accounts-id-tags.
+      operations:
+      - method: POST
+        name: addaccounttag
+        description: Add tag to an Account
+        call: persona-accounts.addaccounttag
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: removeaccounttag
+        description: Remove tag from an Account
+        call: persona-accounts.removeaccounttag
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: persona-accounts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Persona API — Accounts. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-accounts
+      description: List all Accounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona-accounts.listaccounts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-account
+      description: Create an Account
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona-accounts.createaccount
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: consolidate-accounts
+      description: Consolidate Accounts
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona-accounts.consolidateaccounts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-accounts
+      description: Search Accounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: persona-accounts.searchaccounts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-account
+      description: Retrieve an Account
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona-accounts.retrieveaccount
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-account
+      description: Update an Account
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: persona-accounts.updateaccount
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: redact-account
+      description: Redact an Account
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona-accounts.redactaccount
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-relations-account
+      description: Get all relations for an Account
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona-accounts.listaccountrelations
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-tag-account
+      description: Add tag to an Account
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona-accounts.addaccounttag
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-tag-account
+      description: Remove tag from an Account
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: persona-accounts.removeaccounttag
+      outputParameters:
+      - type: object
+        mapping: $.

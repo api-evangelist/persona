@@ -1,0 +1,136 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Persona API — Reports
+  description: 'Persona API — Reports. 3 operations. Lead operation: List all Reports. Self-contained Naftiko capability covering
+    one Persona business surface.'
+  tags:
+  - Persona
+  - Reports
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PERSONA_API_KEY: PERSONA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: persona-reports
+    baseUri: https://withpersona.com/api/v1
+    description: Persona API — Reports business capability. Self-contained, no shared references.
+    resources:
+    - name: reports
+      path: /reports
+      operations:
+      - name: listreports
+        method: GET
+        description: List all Reports
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createreport
+        method: POST
+        description: Create a Report
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: reports-id
+      path: /reports/{id}
+      operations:
+      - name: retrievereport
+        method: GET
+        description: Retrieve a Report
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.PERSONA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: persona-reports-rest
+    port: 8080
+    description: REST adapter for Persona API — Reports. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/reports
+      name: reports
+      description: REST surface for reports.
+      operations:
+      - method: GET
+        name: listreports
+        description: List all Reports
+        call: persona-reports.listreports
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createreport
+        description: Create a Report
+        call: persona-reports.createreport
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/reports/{id}
+      name: reports-id
+      description: REST surface for reports-id.
+      operations:
+      - method: GET
+        name: retrievereport
+        description: Retrieve a Report
+        call: persona-reports.retrievereport
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: persona-reports-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Persona API — Reports. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-reports
+      description: List all Reports
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona-reports.listreports
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-report
+      description: Create a Report
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: persona-reports.createreport
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-report
+      description: Retrieve a Report
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: persona-reports.retrievereport
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
