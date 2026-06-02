@@ -1,0 +1,1119 @@
+asyncapi: '2.6.0'
+id: 'urn:com:withpersona:webhooks'
+info:
+  title: Persona Webhooks
+  version: '2025-12-08'
+  description: |
+    AsyncAPI description of Persona's webhook surface for identity verification,
+    fraud prevention, and KYC events.
+
+    Persona delivers webhook events as HTTP POST requests with JSON:API formatted
+    payloads. Each request is authenticated with an HMAC-SHA256 signature carried
+    in the `Persona-Signature` header.
+
+    The signature header contains two comma-separated key-value pairs:
+
+      * `t=<unix_timestamp>` - unix time the request was sent
+      * `v1=<signature>`     - hex HMAC-SHA256 of `"<t>.<raw_request_body>"`
+                               using the webhook secret as the key
+
+    During secret rotation the header may contain two space-separated sets of
+    these pairs; either signature is considered valid.
+
+    Persona retries failed deliveries up to 7 additional times with exponential
+    backoff (approximately 3, 64, 729, 4096, 15625, 46656, 117649 seconds) if it
+    does not receive a 2xx response within 5 seconds. Retry context is exposed
+    via the `Persona-Webhook-Attempts-Left`, `Persona-Webhook-Attempts-Made`,
+    and `Persona-Webhook-First-Attempted-At` headers.
+
+    Source documentation:
+      * https://docs.withpersona.com/webhooks
+      * https://docs.withpersona.com/events
+      * https://docs.withpersona.com/webhooks-best-practices
+      * https://docs.withpersona.com/quickstart-webhooks
+  contact:
+    name: Persona Support
+    url: https://docs.withpersona.com/docs/support
+  license:
+    name: Proprietary
+    url: https://withpersona.com/legal/terms-of-service
+  termsOfService: https://withpersona.com/legal/terms-of-service
+
+defaultContentType: application/json
+
+tags:
+  - name: account
+    description: Account lifecycle events.
+  - name: case
+    description: Case management events.
+  - name: connect
+    description: Persona Connect share token events.
+  - name: document
+    description: Document verification events.
+  - name: inquiry
+    description: Inquiry lifecycle events.
+  - name: inquiry-session
+    description: Inquiry session events for individual device sessions.
+  - name: report
+    description: Report processing and match events.
+  - name: selfie
+    description: Selfie verification events.
+  - name: transaction
+    description: Transaction events.
+  - name: verification
+    description: Verification lifecycle events.
+
+servers:
+  subscriber:
+    url: '{subscriberEndpoint}'
+    protocol: https
+    description: |
+      The subscriber-controlled HTTPS endpoint registered in the Persona
+      Dashboard (Integration > Webhooks) that receives event POST requests.
+    variables:
+      subscriberEndpoint:
+        default: https://example.com/persona/webhooks
+        description: Fully-qualified URL of the subscriber webhook receiver.
+    security:
+      - personaSignature: []
+
+channels:
+  /:
+    description: |
+      Single delivery channel for all Persona webhook events. The specific event
+      type is carried in the `data.attributes.name` field of the payload.
+    publish:
+      operationId: receivePersonaWebhook
+      summary: Persona webhook event delivery.
+      description: |
+        Persona POSTs an event to the subscriber endpoint. The body conforms to
+        the JSON:API specification. Affected and related objects are included in
+        the `data.attributes.payload` attribute and use the same schema as their
+        API resource endpoints.
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+      message:
+        oneOf:
+          - $ref: '#/components/messages/AccountCreated'
+          - $ref: '#/components/messages/AccountRedacted'
+          - $ref: '#/components/messages/AccountArchived'
+          - $ref: '#/components/messages/AccountRestored'
+          - $ref: '#/components/messages/AccountConsolidated'
+          - $ref: '#/components/messages/AccountTagAdded'
+          - $ref: '#/components/messages/AccountTagRemoved'
+          - $ref: '#/components/messages/CaseCreated'
+          - $ref: '#/components/messages/CaseAssigned'
+          - $ref: '#/components/messages/CaseResolved'
+          - $ref: '#/components/messages/CaseReopened'
+          - $ref: '#/components/messages/CaseUpdated'
+          - $ref: '#/components/messages/ConnectShareTokenOutboundCreated'
+          - $ref: '#/components/messages/ConnectShareTokenOutboundRedeemed'
+          - $ref: '#/components/messages/ConnectShareTokenInboundCreated'
+          - $ref: '#/components/messages/ConnectShareTokenInboundRedeemed'
+          - $ref: '#/components/messages/DocumentCreated'
+          - $ref: '#/components/messages/DocumentSubmitted'
+          - $ref: '#/components/messages/DocumentProcessed'
+          - $ref: '#/components/messages/DocumentErrored'
+          - $ref: '#/components/messages/InquiryCreated'
+          - $ref: '#/components/messages/InquiryStarted'
+          - $ref: '#/components/messages/InquiryExpired'
+          - $ref: '#/components/messages/InquiryCompleted'
+          - $ref: '#/components/messages/InquiryFailed'
+          - $ref: '#/components/messages/InquiryMarkedForReview'
+          - $ref: '#/components/messages/InquiryApproved'
+          - $ref: '#/components/messages/InquiryDeclined'
+          - $ref: '#/components/messages/InquiryTransitioned'
+          - $ref: '#/components/messages/InquirySessionStarted'
+          - $ref: '#/components/messages/InquirySessionExpired'
+          - $ref: '#/components/messages/InquirySessionCanceled'
+          - $ref: '#/components/messages/ReportAddressLookupReady'
+          - $ref: '#/components/messages/ReportAddressLookupErrored'
+          - $ref: '#/components/messages/ReportAdverseMediaMatched'
+          - $ref: '#/components/messages/ReportAdverseMediaReady'
+          - $ref: '#/components/messages/ReportAdverseMediaErrored'
+          - $ref: '#/components/messages/ReportBusinessAdverseMediaMatched'
+          - $ref: '#/components/messages/ReportBusinessAdverseMediaReady'
+          - $ref: '#/components/messages/ReportBusinessAdverseMediaErrored'
+          - $ref: '#/components/messages/ReportBusinessWatchlistReady'
+          - $ref: '#/components/messages/ReportBusinessWatchlistMatched'
+          - $ref: '#/components/messages/ReportBusinessWatchlistErrored'
+          - $ref: '#/components/messages/ReportEmailAddressReady'
+          - $ref: '#/components/messages/ReportEmailAddressErrored'
+          - $ref: '#/components/messages/ReportPhoneNumberReady'
+          - $ref: '#/components/messages/ReportPhoneNumberErrored'
+          - $ref: '#/components/messages/ReportProfileReady'
+          - $ref: '#/components/messages/ReportProfileErrored'
+          - $ref: '#/components/messages/ReportPoliticallyExposedPersonMatched'
+          - $ref: '#/components/messages/ReportPoliticallyExposedPersonReady'
+          - $ref: '#/components/messages/ReportPoliticallyExposedPersonErrored'
+          - $ref: '#/components/messages/ReportWatchlistMatched'
+          - $ref: '#/components/messages/ReportWatchlistReady'
+          - $ref: '#/components/messages/ReportWatchlistErrored'
+          - $ref: '#/components/messages/SelfieCreated'
+          - $ref: '#/components/messages/SelfieSubmitted'
+          - $ref: '#/components/messages/SelfieProcessed'
+          - $ref: '#/components/messages/SelfieErrored'
+          - $ref: '#/components/messages/TransactionCreated'
+          - $ref: '#/components/messages/TransactionRedacted'
+          - $ref: '#/components/messages/TransactionStatusUpdated'
+          - $ref: '#/components/messages/VerificationCreated'
+          - $ref: '#/components/messages/VerificationSubmitted'
+          - $ref: '#/components/messages/VerificationPassed'
+          - $ref: '#/components/messages/VerificationFailed'
+          - $ref: '#/components/messages/VerificationRequiresRetry'
+          - $ref: '#/components/messages/VerificationCanceled'
+
+components:
+  securitySchemes:
+    personaSignature:
+      type: httpApiKey
+      in: header
+      name: Persona-Signature
+      description: |
+        HMAC-SHA256 signature header. Format:
+        `t=<unix_timestamp>,v1=<hex_signature>`. The signature is computed by
+        applying HMAC-SHA256 with the webhook secret as the key over the
+        dot-separated string `"<t>.<raw_request_body>"` and hex-encoding the
+        result. During secret rotation the header may contain two
+        space-separated sets of `t=...,v1=...` pairs; either valid signature
+        authenticates the request.
+
+  messageTraits:
+    PersonaWebhookHeaders:
+      headers:
+        type: object
+        required:
+          - Persona-Signature
+          - Content-Type
+        properties:
+          Content-Type:
+            type: string
+            const: application/json
+            description: Always `application/json`.
+          Persona-Signature:
+            type: string
+            description: |
+              HMAC-SHA256 signature in the form
+              `t=<unix_timestamp>,v1=<hex_signature>`. During secret rotation,
+              two space-separated `t=...,v1=...` pairs may be present.
+            example: t=1764686826,v1=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          Persona-Webhook-Attempts-Left:
+            type: string
+            description: Number of delivery attempts remaining after this one.
+            example: '7'
+          Persona-Webhook-Attempts-Made:
+            type: string
+            description: Number of delivery attempts made so far, including this one.
+            example: '1'
+          Persona-Webhook-First-Attempted-At:
+            type: string
+            description: Unix timestamp of the first delivery attempt for this event.
+            example: '1764686826'
+
+  messages:
+    AccountCreated:
+      name: account.created
+      title: Account created
+      summary: Occurs whenever an account is created.
+      tags:
+        - name: account
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/AccountEventEnvelope'
+    AccountRedacted:
+      name: account.redacted
+      title: Account redacted
+      summary: Occurs whenever an account is redacted.
+      tags:
+        - name: account
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/AccountEventEnvelope'
+    AccountArchived:
+      name: account.archived
+      title: Account archived
+      summary: Occurs whenever an account is archived.
+      tags:
+        - name: account
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/AccountEventEnvelope'
+    AccountRestored:
+      name: account.restored
+      title: Account restored
+      summary: Occurs whenever an account is un-archived.
+      tags:
+        - name: account
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/AccountEventEnvelope'
+    AccountConsolidated:
+      name: account.consolidated
+      title: Account consolidated
+      summary: Occurs when the account was combined with another account.
+      tags:
+        - name: account
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/AccountEventEnvelope'
+    AccountTagAdded:
+      name: account.tag-added
+      title: Account tag added
+      summary: Occurs when a tag was added to an account.
+      tags:
+        - name: account
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/AccountEventEnvelope'
+    AccountTagRemoved:
+      name: account.tag-removed
+      title: Account tag removed
+      summary: Occurs when a tag was removed from an account.
+      tags:
+        - name: account
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/AccountEventEnvelope'
+
+    CaseCreated:
+      name: case.created
+      title: Case created
+      summary: Occurs when a case is created.
+      tags:
+        - name: case
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/CaseEventEnvelope'
+    CaseAssigned:
+      name: case.assigned
+      title: Case assigned
+      summary: Occurs when a case is assigned.
+      tags:
+        - name: case
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/CaseEventEnvelope'
+    CaseResolved:
+      name: case.resolved
+      title: Case resolved
+      summary: Occurs when a case is resolved.
+      tags:
+        - name: case
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/CaseEventEnvelope'
+    CaseReopened:
+      name: case.reopened
+      title: Case reopened
+      summary: Occurs when a case is reopened.
+      tags:
+        - name: case
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/CaseEventEnvelope'
+    CaseUpdated:
+      name: case.updated
+      title: Case updated
+      summary: Occurs when a case is updated.
+      tags:
+        - name: case
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/CaseEventEnvelope'
+
+    ConnectShareTokenOutboundCreated:
+      name: connect/share-token.outbound-created
+      title: Connect share token outbound created
+      summary: Occurs in the Source Organization when it creates a Share Token for a Destination Organization.
+      tags:
+        - name: connect
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ConnectShareTokenEventEnvelope'
+    ConnectShareTokenOutboundRedeemed:
+      name: connect/share-token.outbound-redeemed
+      title: Connect share token outbound redeemed
+      summary: Occurs in the Source Organization when the Destination Organization's Share Token redemption has finished.
+      tags:
+        - name: connect
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ConnectShareTokenEventEnvelope'
+    ConnectShareTokenInboundCreated:
+      name: connect/share-token.inbound-created
+      title: Connect share token inbound created
+      summary: Occurs in the Destination Organization when a Source Organization creates a Share Token for it.
+      tags:
+        - name: connect
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ConnectShareTokenEventEnvelope'
+    ConnectShareTokenInboundRedeemed:
+      name: connect/share-token.inbound-redeemed
+      title: Connect share token inbound redeemed
+      summary: Occurs in the Destination Organization when its Share Token redemption has finished.
+      tags:
+        - name: connect
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ConnectShareTokenEventEnvelope'
+
+    DocumentCreated:
+      name: document.created
+      title: Document created
+      summary: Occurs whenever a document is created.
+      tags:
+        - name: document
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/DocumentEventEnvelope'
+    DocumentSubmitted:
+      name: document.submitted
+      title: Document submitted
+      summary: Occurs whenever a document is submitted.
+      tags:
+        - name: document
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/DocumentEventEnvelope'
+    DocumentProcessed:
+      name: document.processed
+      title: Document processed
+      summary: Occurs whenever a document is processed.
+      tags:
+        - name: document
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/DocumentEventEnvelope'
+    DocumentErrored:
+      name: document.errored
+      title: Document errored
+      summary: Occurs whenever a document errors while processing.
+      tags:
+        - name: document
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/DocumentEventEnvelope'
+
+    InquiryCreated:
+      name: inquiry.created
+      title: Inquiry created
+      summary: Occurs whenever an inquiry is created.
+      tags:
+        - name: inquiry
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/InquiryEventEnvelope'
+    InquiryStarted:
+      name: inquiry.started
+      title: Inquiry started
+      summary: Occurs whenever an inquiry is started. This happens the moment a verification is created or submitted on an inquiry.
+      tags:
+        - name: inquiry
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/InquiryEventEnvelope'
+    InquiryExpired:
+      name: inquiry.expired
+      title: Inquiry expired
+      summary: Occurs when an inquiry expires. The default expiry is 24 hours.
+      tags:
+        - name: inquiry
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/InquiryEventEnvelope'
+    InquiryCompleted:
+      name: inquiry.completed
+      title: Inquiry completed
+      summary: Occurs whenever an inquiry completes all the configured verifications.
+      tags:
+        - name: inquiry
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/InquiryEventEnvelope'
+    InquiryFailed:
+      name: inquiry.failed
+      title: Inquiry failed
+      summary: Occurs whenever an inquiry exceeds the configured number of verifications.
+      tags:
+        - name: inquiry
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/InquiryEventEnvelope'
+    InquiryMarkedForReview:
+      name: inquiry.marked-for-review
+      title: Inquiry marked for review
+      summary: Occurs when an inquiry was marked for review either through Workflows or the API.
+      tags:
+        - name: inquiry
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/InquiryEventEnvelope'
+    InquiryApproved:
+      name: inquiry.approved
+      title: Inquiry approved
+      summary: Occurs whenever an inquiry is approved manually in the dashboard or automatically through Workflows or the API.
+      tags:
+        - name: inquiry
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/InquiryEventEnvelope'
+      examples:
+        - name: inquiry.approved
+          summary: Inquiry approved with driver-license and selfie verifications.
+          payload:
+            data:
+              type: event
+              id: evt_XGuYWp7WuDzNxie5z16s7sGJ
+              attributes:
+                name: inquiry.approved
+                created-at: '2019-09-09T22:46:27.598Z'
+                payload:
+                  data:
+                    type: inquiry
+                    id: inq_2CVZ4HyVg7qaboXz2PUHknAn
+                    attributes:
+                      status: approved
+                      reference-id: null
+                      created-at: '2019-09-09T22:40:56.000Z'
+                      completed-at: '2019-09-09T22:44:51.000Z'
+                      expired-at: null
+                    relationships:
+                      reports:
+                        data: []
+                      template:
+                        data:
+                          id: blu_biqYXr3aNfHuLeXUdJUNFNET
+                          type: template
+                      verifications:
+                        data:
+                          - id: ver_KnqQRXmxmtquRE65CHTzymhR
+                            type: verification/driver-license
+                          - id: ver_2aguhcwq66zcmqipmrqjxw68
+                            type: verification/selfie
+                  included:
+                    - type: template
+                      id: blu_biqYXr3aNfHuLeXUdJUNFNET
+                      attributes:
+                        name: 'Acme #1'
+                    - type: verification/driver-license
+                      id: ver_KnqQRXmxmtquRE65CHTzymhR
+                      attributes:
+                        status: passed
+                        created-at: '2019-09-09T22:41:29.000Z'
+                        completed-at: '2019-09-09T22:41:40.000Z'
+                    - type: verification/selfie
+                      id: ver_2aguhcwq66zcmqipmrqjxw68
+                      attributes:
+                        status: passed
+                        created-at: '2019-09-09T22:42:43.000Z'
+                        completed-at: '2019-09-09T22:42:46.000Z'
+    InquiryDeclined:
+      name: inquiry.declined
+      title: Inquiry declined
+      summary: Occurs when an inquiry is declined manually in the dashboard or automatically through Workflows or the API.
+      tags:
+        - name: inquiry
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/InquiryEventEnvelope'
+    InquiryTransitioned:
+      name: inquiry.transitioned
+      title: Inquiry transitioned
+      summary: Occurs whenever a dynamic flow inquiry moves from one step in the inquiry flow to the next.
+      tags:
+        - name: inquiry
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/InquiryEventEnvelope'
+
+    InquirySessionStarted:
+      name: inquiry-session.started
+      title: Inquiry session started
+      summary: Occurs whenever a user starts a session on an inquiry with a device. Multiple devices will each spawn a session.
+      tags:
+        - name: inquiry-session
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/InquirySessionEventEnvelope'
+    InquirySessionExpired:
+      name: inquiry-session.expired
+      title: Inquiry session expired
+      summary: Occurs when a session expires.
+      tags:
+        - name: inquiry-session
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/InquirySessionEventEnvelope'
+    InquirySessionCanceled:
+      name: inquiry-session.canceled
+      title: Inquiry session canceled
+      summary: Occurs when a session is manually canceled by the user. Because sessions may be resumed, there may be multiple cancel events for a given session.
+      tags:
+        - name: inquiry-session
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/InquirySessionEventEnvelope'
+
+    ReportAddressLookupReady:
+      name: report/address-lookup.ready
+      title: Address lookup report ready
+      summary: Occurs when an address lookup report has completed processing.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportAddressLookupErrored:
+      name: report/address-lookup.errored
+      title: Address lookup report errored
+      summary: Occurs when an address lookup report's processing has errored.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportAdverseMediaMatched:
+      name: report/adverse-media.matched
+      title: Adverse media report matched
+      summary: Occurs when an adverse media report has matched against at least one adverse media source as specified within the configuration.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportAdverseMediaReady:
+      name: report/adverse-media.ready
+      title: Adverse media report ready
+      summary: Occurs when an adverse media report has completed processing.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportAdverseMediaErrored:
+      name: report/adverse-media.errored
+      title: Adverse media report errored
+      summary: Occurs when an adverse media report's processing has errored.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportBusinessAdverseMediaMatched:
+      name: report/business-adverse-media.matched
+      title: Business adverse media report matched
+      summary: Occurs when a business adverse media report has matched against at least one adverse media source as specified within configuration.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportBusinessAdverseMediaReady:
+      name: report/business-adverse-media.ready
+      title: Business adverse media report ready
+      summary: Occurs when a business adverse media report has completed processing.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportBusinessAdverseMediaErrored:
+      name: report/business-adverse-media.errored
+      title: Business adverse media report errored
+      summary: Occurs when a business adverse media report's processing has errored.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportBusinessWatchlistReady:
+      name: report/business-watchlist.ready
+      title: Business watchlist report ready
+      summary: Occurs when a business watchlist report has completed processing.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportBusinessWatchlistMatched:
+      name: report/business-watchlist.matched
+      title: Business watchlist report matched
+      summary: Occurs when a business watchlist report has matched against a watchlist as specified within the configuration.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportBusinessWatchlistErrored:
+      name: report/business-watchlist.errored
+      title: Business watchlist report errored
+      summary: Occurs when a business watchlist report's processing has errored.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportEmailAddressReady:
+      name: report/email-address.ready
+      title: Email address report ready
+      summary: Occurs when an email address report has completed processing.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportEmailAddressErrored:
+      name: report/email-address.errored
+      title: Email address report errored
+      summary: Occurs when an email address report's processing has errored.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportPhoneNumberReady:
+      name: report/phone-number.ready
+      title: Phone number report ready
+      summary: Occurs when a phone number report is ready.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportPhoneNumberErrored:
+      name: report/phone-number.errored
+      title: Phone number report errored
+      summary: Occurs when a phone number report's processing has errored.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportProfileReady:
+      name: report/profile.ready
+      title: Profile report ready
+      summary: Occurs when a profile report is ready.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportProfileErrored:
+      name: report/profile.errored
+      title: Profile report errored
+      summary: Occurs when a profile report's processing has errored.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportPoliticallyExposedPersonMatched:
+      name: report/politically-exposed-person.matched
+      title: PEP report matched
+      summary: Occurs when a politically exposed person (PEP) report has matched against a watchlist as specified within the configuration.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportPoliticallyExposedPersonReady:
+      name: report/politically-exposed-person.ready
+      title: PEP report ready
+      summary: Occurs when a politically exposed person (PEP) report has completed processing.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportPoliticallyExposedPersonErrored:
+      name: report/politically-exposed-person.errored
+      title: PEP report errored
+      summary: Occurs when a politically exposed person (PEP) report's processing has errored.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportWatchlistMatched:
+      name: report/watchlist.matched
+      title: Watchlist report matched
+      summary: Occurs when a watchlist report has matched against a watchlist as specified within the configuration.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportWatchlistReady:
+      name: report/watchlist.ready
+      title: Watchlist report ready
+      summary: Occurs when a watchlist report has completed processing.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+    ReportWatchlistErrored:
+      name: report/watchlist.errored
+      title: Watchlist report errored
+      summary: Occurs when a watchlist report's processing has errored.
+      tags:
+        - name: report
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportEventEnvelope'
+
+    SelfieCreated:
+      name: selfie.created
+      title: Selfie created
+      summary: Occurs whenever a selfie is created.
+      tags:
+        - name: selfie
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/SelfieEventEnvelope'
+    SelfieSubmitted:
+      name: selfie.submitted
+      title: Selfie submitted
+      summary: Occurs whenever a selfie is submitted.
+      tags:
+        - name: selfie
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/SelfieEventEnvelope'
+    SelfieProcessed:
+      name: selfie.processed
+      title: Selfie processed
+      summary: Occurs whenever a selfie is processed.
+      tags:
+        - name: selfie
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/SelfieEventEnvelope'
+    SelfieErrored:
+      name: selfie.errored
+      title: Selfie errored
+      summary: Occurs whenever a selfie's processing has errored.
+      tags:
+        - name: selfie
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/SelfieEventEnvelope'
+
+    TransactionCreated:
+      name: transaction.created
+      title: Transaction created
+      summary: Occurs whenever a transaction is created.
+      tags:
+        - name: transaction
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/TransactionEventEnvelope'
+    TransactionRedacted:
+      name: transaction.redacted
+      title: Transaction redacted
+      summary: Occurs whenever a transaction is redacted.
+      tags:
+        - name: transaction
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/TransactionEventEnvelope'
+    TransactionStatusUpdated:
+      name: transaction.status-updated
+      title: Transaction status updated
+      summary: Occurs whenever a transaction's status is updated.
+      tags:
+        - name: transaction
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/TransactionEventEnvelope'
+
+    VerificationCreated:
+      name: verification.created
+      title: Verification created
+      summary: Occurs whenever a verification is created.
+      tags:
+        - name: verification
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/VerificationEventEnvelope'
+    VerificationSubmitted:
+      name: verification.submitted
+      title: Verification submitted
+      summary: Occurs when a verification is submitted.
+      tags:
+        - name: verification
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/VerificationEventEnvelope'
+    VerificationPassed:
+      name: verification.passed
+      title: Verification passed
+      summary: Occurs when a verification passes.
+      tags:
+        - name: verification
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/VerificationEventEnvelope'
+    VerificationFailed:
+      name: verification.failed
+      title: Verification failed
+      summary: Occurs when a verification fails.
+      tags:
+        - name: verification
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/VerificationEventEnvelope'
+    VerificationRequiresRetry:
+      name: verification.requires-retry
+      title: Verification requires retry
+      summary: Occurs when a verification requires the individual to retry.
+      tags:
+        - name: verification
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/VerificationEventEnvelope'
+    VerificationCanceled:
+      name: verification.canceled
+      title: Verification canceled
+      summary: Occurs when a verification gets canceled.
+      tags:
+        - name: verification
+      traits:
+        - $ref: '#/components/messageTraits/PersonaWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/VerificationEventEnvelope'
+
+  schemas:
+    EventId:
+      type: string
+      description: Persona event identifier (prefixed `evt_`).
+      example: evt_XGuYWp7WuDzNxie5z16s7sGJ
+
+    EventTimestamp:
+      type: string
+      format: date-time
+      description: ISO 8601 timestamp the event was created in Persona.
+
+    JsonApiResourceRef:
+      type: object
+      description: JSON:API resource linkage object referencing a related resource.
+      required:
+        - type
+        - id
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+
+    JsonApiIncludedResource:
+      type: object
+      description: |
+        JSON:API included resource. Objects within the payload use the same
+        schema as their corresponding Persona API resource endpoint.
+      required:
+        - type
+        - id
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
+
+    EventEnvelopeBase:
+      type: object
+      description: |
+        Common JSON:API event envelope used for all Persona webhook events.
+        The specific event type is identified by `data.attributes.name`. The
+        affected resource and related objects are nested under
+        `data.attributes.payload`.
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - type
+            - id
+            - attributes
+          properties:
+            type:
+              type: string
+              const: event
+            id:
+              $ref: '#/components/schemas/EventId'
+            attributes:
+              type: object
+              required:
+                - name
+                - payload
+                - created-at
+              properties:
+                name:
+                  type: string
+                  description: The fully-qualified event name (for example `inquiry.approved`).
+                created-at:
+                  $ref: '#/components/schemas/EventTimestamp'
+                payload:
+                  type: object
+                  description: JSON:API document containing the affected resource and any related resources.
+                  required:
+                    - data
+                  properties:
+                    data:
+                      type: object
+                      required:
+                        - type
+                        - id
+                      properties:
+                        type:
+                          type: string
+                        id:
+                          type: string
+                        attributes:
+                          type: object
+                          additionalProperties: true
+                        relationships:
+                          type: object
+                          additionalProperties: true
+                    included:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/JsonApiIncludedResource'
+
+    AccountEventEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          description: Event envelope whose primary payload resource is an `account`.
+
+    CaseEventEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          description: Event envelope whose primary payload resource is a `case`.
+
+    ConnectShareTokenEventEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          description: Event envelope whose primary payload resource is a Persona Connect share token.
+
+    DocumentEventEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          description: Event envelope whose primary payload resource is a `document/*` resource.
+
+    InquiryEventEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          description: Event envelope whose primary payload resource is an `inquiry`.
+
+    InquirySessionEventEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          description: Event envelope whose primary payload resource is an `inquiry-session`.
+
+    ReportEventEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          description: Event envelope whose primary payload resource is a `report/*` resource.
+
+    SelfieEventEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          description: Event envelope whose primary payload resource is a `selfie/*` resource.
+
+    TransactionEventEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          description: Event envelope whose primary payload resource is a `transaction`.
+
+    VerificationEventEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          description: Event envelope whose primary payload resource is a `verification/*` resource.
