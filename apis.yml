@@ -47,7 +47,7 @@ common:
     url: https://withpersona.com/
   - type: Documentation
     url: https://docs.withpersona.com/
-  - type: SignUp
+  - type: Signup
     url: https://withpersona.com/dashboard/sign-up
   - type: Login
     url: https://withpersona.com/dashboard/login
@@ -65,7 +65,7 @@ common:
     url: https://withpersona.com/blog
   - type: Website
     url: https://withpersona.com/
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.withpersona.com/llms.txt
 maintainers:
   - FN: Kin Lane
