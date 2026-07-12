@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/persona-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: |-
+    Persona uses bearer-token authentication. Pass your API key as
+    `Authorization: Bearer <YOUR_API_KEY>` on every request.
+  sources:
+  - openapi/persona-openapi.yml
