@@ -39,6 +39,8 @@ apis:
       - type: AsyncAPI
         url: openapi/persona-asyncapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/persona-agentic-access.yml
   - type: TrustCenter
     url: security/persona-trust-center.yml
   - type: VulnerabilityDisclosure
