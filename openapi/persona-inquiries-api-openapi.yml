@@ -1,0 +1,155 @@
+openapi: 3.1.0
+info:
+  title: Persona Accounts Inquiries API
+  description: 'The Persona API enables identity verification, fraud prevention, and
+
+    Know Your Customer (KYC) workflows. Use the API to create and manage
+
+    inquiries, accounts, verifications, reports, transactions, lists, and
+
+    webhooks for verifying users via document checks, selfie checks, and
+
+    database lookups.
+
+    '
+  version: 2025-12-08
+  contact:
+    name: Persona Support
+    url: https://docs.withpersona.com/docs/support
+  termsOfService: https://withpersona.com/legal/terms-of-service
+servers:
+- url: https://withpersona.com/api/v1
+  description: Persona production API
+tags:
+- name: Inquiries
+  description: Create, manage, and review identity verification inquiries.
+paths:
+  /inquiries:
+    get:
+      operationId: listInquiries
+      summary: List all Inquiries
+      tags:
+      - Inquiries
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: A list of inquiries.
+    post:
+      operationId: createInquiry
+      summary: Create an Inquiry
+      tags:
+      - Inquiries
+      security:
+      - bearerAuth: []
+      responses:
+        '201':
+          description: Inquiry created.
+  /inquiries/{id}:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: retrieveInquiry
+      summary: Retrieve an Inquiry
+      tags:
+      - Inquiries
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: The requested inquiry.
+    patch:
+      operationId: updateInquiry
+      summary: Update an Inquiry
+      tags:
+      - Inquiries
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Inquiry updated.
+  /inquiries/{id}/redact:
+    post:
+      operationId: redactInquiry
+      summary: Redact an Inquiry
+      tags:
+      - Inquiries
+      security:
+      - bearerAuth: []
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Inquiry redacted.
+  /inquiries/{id}/approve:
+    post:
+      operationId: approveInquiry
+      summary: Approve an Inquiry
+      tags:
+      - Inquiries
+      security:
+      - bearerAuth: []
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Inquiry approved.
+  /inquiries/{id}/decline:
+    post:
+      operationId: declineInquiry
+      summary: Decline an Inquiry
+      tags:
+      - Inquiries
+      security:
+      - bearerAuth: []
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Inquiry declined.
+  /inquiries/{id}/expire:
+    post:
+      operationId: expireInquiry
+      summary: Expire an Inquiry
+      tags:
+      - Inquiries
+      security:
+      - bearerAuth: []
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Inquiry expired.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Persona uses bearer-token authentication. Pass your API key as
+
+        `Authorization: Bearer <YOUR_API_KEY>` on every request.
+
+        '
+externalDocs:
+  description: Persona API Reference
+  url: https://docs.withpersona.com/reference/introduction

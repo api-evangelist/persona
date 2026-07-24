@@ -1,0 +1,176 @@
+openapi: 3.1.0
+info:
+  title: Persona Accounts API
+  description: 'The Persona API enables identity verification, fraud prevention, and
+
+    Know Your Customer (KYC) workflows. Use the API to create and manage
+
+    inquiries, accounts, verifications, reports, transactions, lists, and
+
+    webhooks for verifying users via document checks, selfie checks, and
+
+    database lookups.
+
+    '
+  version: 2025-12-08
+  contact:
+    name: Persona Support
+    url: https://docs.withpersona.com/docs/support
+  termsOfService: https://withpersona.com/legal/terms-of-service
+servers:
+- url: https://withpersona.com/api/v1
+  description: Persona production API
+tags:
+- name: Accounts
+  description: Manage end-user account records that group identity data and inquiries.
+paths:
+  /accounts:
+    get:
+      operationId: listAccounts
+      summary: List all Accounts
+      description: Returns a paginated list of accounts in the organization.
+      tags:
+      - Accounts
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: A list of accounts.
+    post:
+      operationId: createAccount
+      summary: Create an Account
+      description: Creates a new account record.
+      tags:
+      - Accounts
+      security:
+      - bearerAuth: []
+      responses:
+        '201':
+          description: Account created.
+  /accounts/{id}:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: retrieveAccount
+      summary: Retrieve an Account
+      description: Retrieves a specific account by ID.
+      tags:
+      - Accounts
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: The requested account.
+    patch:
+      operationId: updateAccount
+      summary: Update an Account
+      description: Updates editable fields on the account.
+      tags:
+      - Accounts
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Account updated.
+  /accounts/{id}/redact:
+    post:
+      operationId: redactAccount
+      summary: Redact an Account
+      description: Redacts personal information stored on the account.
+      tags:
+      - Accounts
+      security:
+      - bearerAuth: []
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Account redacted.
+  /accounts/{id}/tags:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: string
+    post:
+      operationId: addAccountTag
+      summary: Add tag to an Account
+      tags:
+      - Accounts
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Tag added.
+    delete:
+      operationId: removeAccountTag
+      summary: Remove tag from an Account
+      tags:
+      - Accounts
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Tag removed.
+  /accounts/{id}/relations:
+    get:
+      operationId: listAccountRelations
+      summary: Get all relations for an Account
+      tags:
+      - Accounts
+      security:
+      - bearerAuth: []
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Account relations.
+  /accounts/consolidate:
+    post:
+      operationId: consolidateAccounts
+      summary: Consolidate Accounts
+      description: Merges duplicate accounts into a single record.
+      tags:
+      - Accounts
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Accounts consolidated.
+  /accounts/search:
+    post:
+      operationId: searchAccounts
+      summary: Search Accounts
+      tags:
+      - Accounts
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Matching accounts.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Persona uses bearer-token authentication. Pass your API key as
+
+        `Authorization: Bearer <YOUR_API_KEY>` on every request.
+
+        '
+externalDocs:
+  description: Persona API Reference
+  url: https://docs.withpersona.com/reference/introduction
