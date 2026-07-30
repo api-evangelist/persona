@@ -4,7 +4,20 @@ description: >-
   Persona provides identity verification and fraud prevention APIs. Their platform allows businesses to verify the
   identity of their users through document verification, selfie checks, database verifications, and more.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/persona.png
 tags:
   - Fraud Prevention
   - Identity Verification
@@ -14,30 +27,146 @@ created: '2026-03-16'
 modified: '2026-05-30'
 specificationVersion: '0.19'
 apis:
-  - aid: persona:persona
-    name: Persona API
-    description: >-
-      Identity verification and fraud prevention API for verifying users through document verification, selfie checks,
-      and database lookups.
-    humanURL: https://docs.withpersona.com/reference/introduction
-    baseURL: https://withpersona.com/api/v1
-    tags:
-      - Fraud Prevention
-      - Identity Verification
-      - KYC
-    properties:
-      - type: Documentation
-        url: https://docs.withpersona.com/
-      - type: Reference
-        url: https://docs.withpersona.com/reference/introduction
-      - type: GettingStarted
-        url: https://docs.withpersona.com/docs/getting-started
-      - type: Authentication
-        url: https://docs.withpersona.com/reference/authentication
-      - type: OpenAPI
-        url: openapi/persona-openapi.yml
-      - type: AsyncAPI
-        url: openapi/persona-asyncapi.yml
+- aid: persona:persona-accounts-api
+  name: Persona Accounts API
+  description: Manage end-user account records that group identity data and inquiries.
+  humanURL: https://docs.withpersona.com/reference/introduction
+  baseURL: https://withpersona.com/api/v1
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/persona-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withpersona.com/
+  - type: Reference
+    url: https://docs.withpersona.com/reference/introduction
+  - type: GettingStarted
+    url: https://docs.withpersona.com/docs/getting-started
+  - type: Authentication
+    url: https://docs.withpersona.com/reference/authentication
+  - type: AsyncAPI
+    url: openapi/persona-asyncapi.yml
+- aid: persona:persona-inquiries-api
+  name: Persona Inquiries API
+  description: Create, manage, and review identity verification inquiries.
+  humanURL: https://docs.withpersona.com/reference/introduction
+  baseURL: https://withpersona.com/api/v1
+  tags:
+  - Inquiries
+  properties:
+  - type: OpenAPI
+    url: openapi/persona-inquiries-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withpersona.com/
+  - type: Reference
+    url: https://docs.withpersona.com/reference/introduction
+  - type: GettingStarted
+    url: https://docs.withpersona.com/docs/getting-started
+  - type: Authentication
+    url: https://docs.withpersona.com/reference/authentication
+  - type: AsyncAPI
+    url: openapi/persona-asyncapi.yml
+- aid: persona:persona-lists-api
+  name: Persona Lists API
+  description: Manage allowlists, blocklists, and other reference lists.
+  humanURL: https://docs.withpersona.com/reference/introduction
+  baseURL: https://withpersona.com/api/v1
+  tags:
+  - Lists
+  properties:
+  - type: OpenAPI
+    url: openapi/persona-lists-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withpersona.com/
+  - type: Reference
+    url: https://docs.withpersona.com/reference/introduction
+  - type: GettingStarted
+    url: https://docs.withpersona.com/docs/getting-started
+  - type: Authentication
+    url: https://docs.withpersona.com/reference/authentication
+  - type: AsyncAPI
+    url: openapi/persona-asyncapi.yml
+- aid: persona:persona-reports-api
+  name: Persona Reports API
+  description: Run database-driven reports such as watchlist or adverse media checks.
+  humanURL: https://docs.withpersona.com/reference/introduction
+  baseURL: https://withpersona.com/api/v1
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/persona-reports-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withpersona.com/
+  - type: Reference
+    url: https://docs.withpersona.com/reference/introduction
+  - type: GettingStarted
+    url: https://docs.withpersona.com/docs/getting-started
+  - type: Authentication
+    url: https://docs.withpersona.com/reference/authentication
+  - type: AsyncAPI
+    url: openapi/persona-asyncapi.yml
+- aid: persona:persona-transactions-api
+  name: Persona Transactions API
+  description: Track monitored transactions tied to an account.
+  humanURL: https://docs.withpersona.com/reference/introduction
+  baseURL: https://withpersona.com/api/v1
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/persona-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withpersona.com/
+  - type: Reference
+    url: https://docs.withpersona.com/reference/introduction
+  - type: GettingStarted
+    url: https://docs.withpersona.com/docs/getting-started
+  - type: Authentication
+    url: https://docs.withpersona.com/reference/authentication
+  - type: AsyncAPI
+    url: openapi/persona-asyncapi.yml
+- aid: persona:persona-verifications-api
+  name: Persona Verifications API
+  description: Retrieve and manage individual verification checks within an inquiry.
+  humanURL: https://docs.withpersona.com/reference/introduction
+  baseURL: https://withpersona.com/api/v1
+  tags:
+  - Verifications
+  properties:
+  - type: OpenAPI
+    url: openapi/persona-verifications-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withpersona.com/
+  - type: Reference
+    url: https://docs.withpersona.com/reference/introduction
+  - type: GettingStarted
+    url: https://docs.withpersona.com/docs/getting-started
+  - type: Authentication
+    url: https://docs.withpersona.com/reference/authentication
+  - type: AsyncAPI
+    url: openapi/persona-asyncapi.yml
+- aid: persona:persona-webhooks-api
+  name: Persona Webhooks API
+  description: Manage webhook subscriptions for asynchronous event delivery.
+  humanURL: https://docs.withpersona.com/reference/introduction
+  baseURL: https://withpersona.com/api/v1
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/persona-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withpersona.com/
+  - type: Reference
+    url: https://docs.withpersona.com/reference/introduction
+  - type: GettingStarted
+    url: https://docs.withpersona.com/docs/getting-started
+  - type: Authentication
+    url: https://docs.withpersona.com/reference/authentication
+  - type: AsyncAPI
+    url: openapi/persona-asyncapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/persona-agentic-access.yml
