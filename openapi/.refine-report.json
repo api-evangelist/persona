@@ -1,0 +1,26 @@
+{
+  "provider": "persona",
+  "sources": [
+    "persona-accounts-api-openapi.yml",
+    "persona-inquiries-api-openapi.yml",
+    "persona-lists-api-openapi.yml",
+    "persona-reports-api-openapi.yml",
+    "persona-transactions-api-openapi.yml",
+    "persona-verifications-api-openapi.yml",
+    "persona-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "persona-accounts-api-openapi.yml",
+    "persona-inquiries-api-openapi.yml",
+    "persona-lists-api-openapi.yml",
+    "persona-reports-api-openapi.yml",
+    "persona-transactions-api-openapi.yml",
+    "persona-verifications-api-openapi.yml",
+    "persona-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

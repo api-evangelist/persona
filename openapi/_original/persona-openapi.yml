@@ -1,0 +1,416 @@
+openapi: 3.1.0
+info:
+  title: Persona API
+  description: |
+    The Persona API enables identity verification, fraud prevention, and
+    Know Your Customer (KYC) workflows. Use the API to create and manage
+    inquiries, accounts, verifications, reports, transactions, lists, and
+    webhooks for verifying users via document checks, selfie checks, and
+    database lookups.
+  version: 2025-12-08
+  contact:
+    name: Persona Support
+    url: https://docs.withpersona.com/docs/support
+  termsOfService: https://withpersona.com/legal/terms-of-service
+externalDocs:
+  description: Persona API Reference
+  url: https://docs.withpersona.com/reference/introduction
+servers:
+  - url: https://withpersona.com/api/v1
+    description: Persona production API
+tags:
+  - name: Accounts
+    description: Manage end-user account records that group identity data and inquiries.
+  - name: Inquiries
+    description: Create, manage, and review identity verification inquiries.
+  - name: Verifications
+    description: Retrieve and manage individual verification checks within an inquiry.
+  - name: Reports
+    description: Run database-driven reports such as watchlist or adverse media checks.
+  - name: Transactions
+    description: Track monitored transactions tied to an account.
+  - name: Lists
+    description: Manage allowlists, blocklists, and other reference lists.
+  - name: Webhooks
+    description: Manage webhook subscriptions for asynchronous event delivery.
+paths:
+  /accounts:
+    get:
+      operationId: listAccounts
+      summary: List all Accounts
+      description: Returns a paginated list of accounts in the organization.
+      tags:
+        - Accounts
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: A list of accounts.
+    post:
+      operationId: createAccount
+      summary: Create an Account
+      description: Creates a new account record.
+      tags:
+        - Accounts
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Account created.
+  /accounts/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: retrieveAccount
+      summary: Retrieve an Account
+      description: Retrieves a specific account by ID.
+      tags:
+        - Accounts
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: The requested account.
+    patch:
+      operationId: updateAccount
+      summary: Update an Account
+      description: Updates editable fields on the account.
+      tags:
+        - Accounts
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Account updated.
+  /accounts/{id}/redact:
+    post:
+      operationId: redactAccount
+      summary: Redact an Account
+      description: Redacts personal information stored on the account.
+      tags:
+        - Accounts
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Account redacted.
+  /accounts/{id}/tags:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: addAccountTag
+      summary: Add tag to an Account
+      tags:
+        - Accounts
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Tag added.
+    delete:
+      operationId: removeAccountTag
+      summary: Remove tag from an Account
+      tags:
+        - Accounts
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Tag removed.
+  /accounts/{id}/relations:
+    get:
+      operationId: listAccountRelations
+      summary: Get all relations for an Account
+      tags:
+        - Accounts
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Account relations.
+  /accounts/consolidate:
+    post:
+      operationId: consolidateAccounts
+      summary: Consolidate Accounts
+      description: Merges duplicate accounts into a single record.
+      tags:
+        - Accounts
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Accounts consolidated.
+  /accounts/search:
+    post:
+      operationId: searchAccounts
+      summary: Search Accounts
+      tags:
+        - Accounts
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Matching accounts.
+  /inquiries:
+    get:
+      operationId: listInquiries
+      summary: List all Inquiries
+      tags:
+        - Inquiries
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: A list of inquiries.
+    post:
+      operationId: createInquiry
+      summary: Create an Inquiry
+      tags:
+        - Inquiries
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Inquiry created.
+  /inquiries/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: retrieveInquiry
+      summary: Retrieve an Inquiry
+      tags:
+        - Inquiries
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: The requested inquiry.
+    patch:
+      operationId: updateInquiry
+      summary: Update an Inquiry
+      tags:
+        - Inquiries
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Inquiry updated.
+  /inquiries/{id}/redact:
+    post:
+      operationId: redactInquiry
+      summary: Redact an Inquiry
+      tags:
+        - Inquiries
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Inquiry redacted.
+  /inquiries/{id}/approve:
+    post:
+      operationId: approveInquiry
+      summary: Approve an Inquiry
+      tags:
+        - Inquiries
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Inquiry approved.
+  /inquiries/{id}/decline:
+    post:
+      operationId: declineInquiry
+      summary: Decline an Inquiry
+      tags:
+        - Inquiries
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Inquiry declined.
+  /inquiries/{id}/expire:
+    post:
+      operationId: expireInquiry
+      summary: Expire an Inquiry
+      tags:
+        - Inquiries
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Inquiry expired.
+  /verifications/{id}:
+    post:
+      operationId: retrieveVerification
+      summary: Retrieve a Verification
+      description: Retrieves details of a verification step.
+      tags:
+        - Verifications
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The requested verification.
+  /reports:
+    get:
+      operationId: listReports
+      summary: List all Reports
+      tags:
+        - Reports
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: A list of reports.
+    post:
+      operationId: createReport
+      summary: Create a Report
+      tags:
+        - Reports
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Report created.
+  /reports/{id}:
+    get:
+      operationId: retrieveReport
+      summary: Retrieve a Report
+      tags:
+        - Reports
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The requested report.
+  /lists:
+    get:
+      operationId: listLists
+      summary: List all Lists
+      tags:
+        - Lists
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: A list of lists.
+    post:
+      operationId: createList
+      summary: Create a List
+      tags:
+        - Lists
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: List created.
+  /transactions:
+    get:
+      operationId: listTransactions
+      summary: List all Transactions
+      tags:
+        - Transactions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: A list of transactions.
+    post:
+      operationId: createTransaction
+      summary: Create a Transaction
+      tags:
+        - Transactions
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Transaction created.
+  /webhooks:
+    get:
+      operationId: listWebhooks
+      summary: List all Webhooks
+      tags:
+        - Webhooks
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: A list of webhooks.
+    post:
+      operationId: createWebhook
+      summary: Create a Webhook
+      tags:
+        - Webhooks
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Webhook created.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: |
+        Persona uses bearer-token authentication. Pass your API key as
+        `Authorization: Bearer <YOUR_API_KEY>` on every request.
