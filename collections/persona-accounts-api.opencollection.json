@@ -1,0 +1,210 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Persona Accounts API",
+    "version": "2025-12-08"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://withpersona.com/api/v1/accounts",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a paginated list of accounts in the organization."
+        },
+        {
+          "info": {
+            "name": "Create an Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://withpersona.com/api/v1/accounts",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new account record."
+        },
+        {
+          "info": {
+            "name": "Retrieve an Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://withpersona.com/api/v1/accounts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a specific account by ID."
+        },
+        {
+          "info": {
+            "name": "Update an Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://withpersona.com/api/v1/accounts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates editable fields on the account."
+        },
+        {
+          "info": {
+            "name": "Redact an Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://withpersona.com/api/v1/accounts/:id/redact",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Redacts personal information stored on the account."
+        },
+        {
+          "info": {
+            "name": "Add tag to an Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://withpersona.com/api/v1/accounts/:id/tags",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add tag to an Account"
+        },
+        {
+          "info": {
+            "name": "Remove tag from an Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://withpersona.com/api/v1/accounts/:id/tags",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove tag from an Account"
+        },
+        {
+          "info": {
+            "name": "Get all relations for an Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://withpersona.com/api/v1/accounts/:id/relations",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all relations for an Account"
+        },
+        {
+          "info": {
+            "name": "Consolidate Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://withpersona.com/api/v1/accounts/consolidate",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Merges duplicate accounts into a single record."
+        },
+        {
+          "info": {
+            "name": "Search Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://withpersona.com/api/v1/accounts/search",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search Accounts"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

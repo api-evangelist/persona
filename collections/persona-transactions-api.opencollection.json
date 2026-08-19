@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Persona Accounts Transactions API",
+    "version": "2025-12-08"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://withpersona.com/api/v1/transactions",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all Transactions"
+        },
+        {
+          "info": {
+            "name": "Create a Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://withpersona.com/api/v1/transactions",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a Transaction"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

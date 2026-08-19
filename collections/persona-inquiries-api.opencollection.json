@@ -1,0 +1,180 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Persona Accounts Inquiries API",
+    "version": "2025-12-08"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inquiries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Inquiries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://withpersona.com/api/v1/inquiries",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all Inquiries"
+        },
+        {
+          "info": {
+            "name": "Create an Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://withpersona.com/api/v1/inquiries",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create an Inquiry"
+        },
+        {
+          "info": {
+            "name": "Retrieve an Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://withpersona.com/api/v1/inquiries/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve an Inquiry"
+        },
+        {
+          "info": {
+            "name": "Update an Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://withpersona.com/api/v1/inquiries/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an Inquiry"
+        },
+        {
+          "info": {
+            "name": "Redact an Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://withpersona.com/api/v1/inquiries/:id/redact",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Redact an Inquiry"
+        },
+        {
+          "info": {
+            "name": "Approve an Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://withpersona.com/api/v1/inquiries/:id/approve",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Approve an Inquiry"
+        },
+        {
+          "info": {
+            "name": "Decline an Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://withpersona.com/api/v1/inquiries/:id/decline",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Decline an Inquiry"
+        },
+        {
+          "info": {
+            "name": "Expire an Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://withpersona.com/api/v1/inquiries/:id/expire",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Expire an Inquiry"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

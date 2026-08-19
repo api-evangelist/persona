@@ -1,0 +1,178 @@
+{
+  "item": [
+    {
+      "id": "010ec68a-82d4-41fb-9ef3-ce151c4f337b",
+      "name": "Lists",
+      "description": {
+        "content": "Manage allowlists, blocklists, and other reference lists.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c8a4f07e-aef8-4131-b1b6-230a1489b638",
+          "name": "List all Lists",
+          "request": {
+            "name": "List all Lists",
+            "description": {},
+            "url": {
+              "path": [
+                "lists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "413bc6d7-d844-44c5-8645-fc8f9497a426",
+              "name": "A list of lists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "604ac112-cec1-4cd1-8834-925083439bad",
+          "name": "Create a List",
+          "request": {
+            "name": "Create a List",
+            "description": {},
+            "url": {
+              "path": [
+                "lists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f4c2e9b6-ef51-40bd-acd4-e23ad6a02b41",
+              "name": "List created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://withpersona.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e27711af-9381-4a43-828d-f31da7c6cf5a",
+    "name": "Persona Accounts Lists API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Persona API enables identity verification, fraud prevention, and\nKnow Your Customer (KYC) workflows. Use the API to create and manage\ninquiries, accounts, verifications, reports, transactions, lists, and\nwebhooks for verifying users via document checks, selfie checks, and\ndatabase lookups.\n\n\nContact Support:\n Name: Persona Support",
+      "type": "text/plain"
+    }
+  }
+}

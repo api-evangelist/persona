@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Persona Accounts Verifications API",
+    "version": "2025-12-08"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Verifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a Verification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://withpersona.com/api/v1/verifications/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves details of a verification step."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
