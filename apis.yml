@@ -33,6 +33,8 @@ apis:
   humanURL: https://docs.withpersona.com/reference/introduction
   baseURL: https://withpersona.com/api/v1
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -73,6 +75,8 @@ apis:
   humanURL: https://docs.withpersona.com/reference/introduction
   baseURL: https://withpersona.com/api/v1
   tags:
+  - List
+  tags_raw:
   - Lists
   properties:
   - type: OpenAPI
@@ -113,6 +117,8 @@ apis:
   humanURL: https://docs.withpersona.com/reference/introduction
   baseURL: https://withpersona.com/api/v1
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
@@ -133,6 +139,8 @@ apis:
   humanURL: https://docs.withpersona.com/reference/introduction
   baseURL: https://withpersona.com/api/v1
   tags:
+  - Verification
+  tags_raw:
   - Verifications
   properties:
   - type: OpenAPI
@@ -153,6 +161,8 @@ apis:
   humanURL: https://docs.withpersona.com/reference/introduction
   baseURL: https://withpersona.com/api/v1
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
