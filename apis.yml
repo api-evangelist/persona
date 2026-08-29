@@ -4,6 +4,18 @@ description: >-
   Persona provides identity verification and fraud prevention APIs. Their platform allows businesses to verify the
   identity of their users through document verification, selfie checks, database verifications, and more.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
