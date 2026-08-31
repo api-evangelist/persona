@@ -151,7 +151,7 @@ apis:
   humanURL: https://docs.withpersona.com/reference/introduction
   baseURL: https://withpersona.com/api/v1
   tags:
-  - Verification
+  - Verifications
   tags_raw:
   - Verifications
   properties:
