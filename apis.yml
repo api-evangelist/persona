@@ -1,8 +1,6 @@
 aid: persona
 name: Persona
-description: >-
-  Persona provides identity verification and fraud prevention APIs. Their platform allows businesses to verify the
-  identity of their users through document verification, selfie checks, database verifications, and more.
+description: Persona provides identity verification and fraud prevention APIs. Their platform allows businesses to verify the identity of their users through document verification, selfie checks, database verifications, and more.
 type: Index
 deliveryModel:
   model: saas
@@ -32,9 +30,9 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/persona.png
 tags:
-  - Fraud Prevention
-  - Identity Verification
-  - KYC
+- Fraud Prevention
+- Identity Verification
+- KYC
 url: https://raw.githubusercontent.com/api-evangelist/persona/refs/heads/main/apis.yml
 created: '2026-03-16'
 modified: '2026-05-30'
@@ -190,45 +188,341 @@ apis:
     url: https://docs.withpersona.com/reference/authentication
   - type: AsyncAPI
     url: openapi/persona-asyncapi.yml
-common:
-  - type: AgenticAccess
-    url: agentic-access/persona-agentic-access.yml
-  - type: TrustCenter
-    url: security/persona-trust-center.yml
-  - type: VulnerabilityDisclosure
-    url: security/persona-vulnerability-disclosure.yml
-  - type: DomainSecurity
-    url: security/persona-domain-security.yml
-  - type: Authentication
-    url: authentication/persona-authentication.yml
-  - type: GitHubOrganization
-    url: https://github.com/withpersona
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/persona-identities
-  - type: Portal
-    url: https://withpersona.com/
+- aid: persona:withpersona-cases-api
+  name: Persona Cases API
+  description: Grouped Persona objects for manual review.
+  humanURL: https://docs.withpersona.com/api-reference/inquiries
+  baseURL: https://api.withpersona.com/api/v1
+  tags:
+  - Cases
+  properties:
+  - type: OpenAPI
+    url: openapi/withpersona-cases-api-openapi.yml
   - type: Documentation
-    url: https://docs.withpersona.com/
-  - type: Signup
-    url: https://withpersona.com/dashboard/sign-up
-  - type: Login
-    url: https://withpersona.com/dashboard/login
-  - type: Pricing
-    url: https://withpersona.com/pricing
-  - type: TermsOfService
-    url: https://withpersona.com/legal/terms-of-service
-  - type: PrivacyPolicy
-    url: https://withpersona.com/legal/privacy-policy
-  - type: StatusPage
-    url: https://status.withpersona.com/
-  - type: Support
-    url: https://docs.withpersona.com/docs/support
-  - type: Blog
-    url: https://withpersona.com/blog
-  - type: Website
-    url: https://withpersona.com/
-  - type: LlmsText
-    url: https://docs.withpersona.com/llms.txt
+    url: https://docs.withpersona.com/api-reference/inquiries
+  - type: APIReference
+    url: https://docs.withpersona.com/api-reference/inquiries
+  - type: PostmanCollection
+    url: collections/withpersona.postman_collection.json
+  - type: OpenCollection
+    url: collections/withpersona.opencollection.json
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/inquiry-sessions
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/accounts
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/verifications
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/reports
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/cases
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/transactions
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/devices
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/documents
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/webhooks
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/events
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/importers
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/workflows
+- aid: persona:withpersona-devices-api
+  name: Persona Devices API
+  description: Device-intelligence records.
+  humanURL: https://docs.withpersona.com/api-reference/inquiries
+  baseURL: https://api.withpersona.com/api/v1
+  tags:
+  - Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/withpersona-devices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/inquiries
+  - type: APIReference
+    url: https://docs.withpersona.com/api-reference/inquiries
+  - type: PostmanCollection
+    url: collections/withpersona.postman_collection.json
+  - type: OpenCollection
+    url: collections/withpersona.opencollection.json
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/inquiry-sessions
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/accounts
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/verifications
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/reports
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/cases
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/transactions
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/devices
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/documents
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/webhooks
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/events
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/importers
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/workflows
+- aid: persona:withpersona-documents-api
+  name: Persona Documents API
+  description: Files collected during verification.
+  humanURL: https://docs.withpersona.com/api-reference/inquiries
+  baseURL: https://api.withpersona.com/api/v1
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/withpersona-documents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/inquiries
+  - type: APIReference
+    url: https://docs.withpersona.com/api-reference/inquiries
+  - type: PostmanCollection
+    url: collections/withpersona.postman_collection.json
+  - type: OpenCollection
+    url: collections/withpersona.opencollection.json
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/inquiry-sessions
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/accounts
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/verifications
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/reports
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/cases
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/transactions
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/devices
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/documents
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/webhooks
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/events
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/importers
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/workflows
+- aid: persona:withpersona-events-api
+  name: Persona Events API
+  description: Immutable record of everything that happens in an account.
+  humanURL: https://docs.withpersona.com/api-reference/inquiries
+  baseURL: https://api.withpersona.com/api/v1
+  tags:
+  - Event
+  tags_raw:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/withpersona-events-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/inquiries
+  - type: APIReference
+    url: https://docs.withpersona.com/api-reference/inquiries
+  - type: PostmanCollection
+    url: collections/withpersona.postman_collection.json
+  - type: OpenCollection
+    url: collections/withpersona.opencollection.json
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/inquiry-sessions
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/accounts
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/verifications
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/reports
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/cases
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/transactions
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/devices
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/documents
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/webhooks
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/events
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/importers
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/workflows
+- aid: persona:withpersona-importers-api
+  name: Persona Importers API
+  description: Bulk-load data into Persona lists.
+  humanURL: https://docs.withpersona.com/api-reference/inquiries
+  baseURL: https://api.withpersona.com/api/v1
+  tags:
+  - Importers
+  properties:
+  - type: OpenAPI
+    url: openapi/withpersona-importers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/inquiries
+  - type: APIReference
+    url: https://docs.withpersona.com/api-reference/inquiries
+  - type: PostmanCollection
+    url: collections/withpersona.postman_collection.json
+  - type: OpenCollection
+    url: collections/withpersona.opencollection.json
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/inquiry-sessions
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/accounts
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/verifications
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/reports
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/cases
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/transactions
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/devices
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/documents
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/webhooks
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/events
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/importers
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/workflows
+- aid: persona:withpersona-inquiry-sessions-api
+  name: Persona Inquiry Sessions API
+  description: Individual sessions within an Inquiry.
+  humanURL: https://docs.withpersona.com/api-reference/inquiries
+  baseURL: https://api.withpersona.com/api/v1
+  tags:
+  - Inquiry Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/withpersona-inquiry-sessions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/inquiries
+  - type: APIReference
+    url: https://docs.withpersona.com/api-reference/inquiries
+  - type: PostmanCollection
+    url: collections/withpersona.postman_collection.json
+  - type: OpenCollection
+    url: collections/withpersona.opencollection.json
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/inquiry-sessions
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/accounts
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/verifications
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/reports
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/cases
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/transactions
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/devices
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/documents
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/webhooks
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/events
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/importers
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/workflows
+- aid: persona:withpersona-workflows-api
+  name: Persona Workflows API
+  description: Automation runs triggered by verification results or events.
+  humanURL: https://docs.withpersona.com/api-reference/inquiries
+  baseURL: https://api.withpersona.com/api/v1
+  tags:
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/withpersona-workflows-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/inquiries
+  - type: APIReference
+    url: https://docs.withpersona.com/api-reference/inquiries
+  - type: PostmanCollection
+    url: collections/withpersona.postman_collection.json
+  - type: OpenCollection
+    url: collections/withpersona.opencollection.json
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/inquiry-sessions
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/accounts
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/verifications
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/reports
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/cases
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/transactions
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/devices
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/documents
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/webhooks
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/events
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/importers
+  - type: Documentation
+    url: https://docs.withpersona.com/api-reference/workflows
+common:
+- type: AgenticAccess
+  url: agentic-access/persona-agentic-access.yml
+- type: TrustCenter
+  url: security/persona-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/persona-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/persona-domain-security.yml
+- type: Authentication
+  url: authentication/persona-authentication.yml
+- type: GitHubOrganization
+  url: https://github.com/withpersona
+- type: LinkedIn
+  url: https://www.linkedin.com/company/persona-identities
+- type: Portal
+  url: https://withpersona.com/
+- type: Documentation
+  url: https://docs.withpersona.com/
+- type: Signup
+  url: https://withpersona.com/dashboard/sign-up
+- type: Login
+  url: https://withpersona.com/dashboard/login
+- type: Pricing
+  url: https://withpersona.com/pricing
+- type: TermsOfService
+  url: https://withpersona.com/legal/terms-of-service
+- type: PrivacyPolicy
+  url: https://withpersona.com/legal/privacy-policy
+- type: StatusPage
+  url: https://status.withpersona.com/
+- type: Support
+  url: https://docs.withpersona.com/docs/support
+- type: Blog
+  url: https://withpersona.com/blog
+- type: Website
+  url: https://withpersona.com/
+- type: LlmsText
+  url: https://docs.withpersona.com/llms.txt
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
