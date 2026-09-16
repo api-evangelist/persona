@@ -188,16 +188,16 @@ apis:
     url: https://docs.withpersona.com/reference/authentication
   - type: AsyncAPI
     url: openapi/persona-asyncapi.yml
-- aid: persona:withpersona-cases-api
+- aid: persona:persona-cases-api
   name: Persona Cases API
   description: Grouped Persona objects for manual review.
-  humanURL: https://docs.withpersona.com/api-reference/inquiries
-  baseURL: https://api.withpersona.com/api/v1
+  humanURL: https://docs.withpersona.com/reference/introduction
+  baseURL: https://withpersona.com/api/v1
   tags:
   - Cases
   properties:
   - type: OpenAPI
-    url: openapi/withpersona-cases-api-openapi.yml
+    url: openapi/persona-cases-api-openapi.yml
   - type: Documentation
     url: https://docs.withpersona.com/api-reference/inquiries
   - type: APIReference
@@ -230,16 +230,16 @@ apis:
     url: https://docs.withpersona.com/api-reference/importers
   - type: Documentation
     url: https://docs.withpersona.com/api-reference/workflows
-- aid: persona:withpersona-devices-api
+- aid: persona:persona-devices-api
   name: Persona Devices API
   description: Device-intelligence records.
-  humanURL: https://docs.withpersona.com/api-reference/inquiries
-  baseURL: https://api.withpersona.com/api/v1
+  humanURL: https://docs.withpersona.com/reference/introduction
+  baseURL: https://withpersona.com/api/v1
   tags:
   - Devices
   properties:
   - type: OpenAPI
-    url: openapi/withpersona-devices-api-openapi.yml
+    url: openapi/persona-devices-api-openapi.yml
   - type: Documentation
     url: https://docs.withpersona.com/api-reference/inquiries
   - type: APIReference
@@ -272,16 +272,16 @@ apis:
     url: https://docs.withpersona.com/api-reference/importers
   - type: Documentation
     url: https://docs.withpersona.com/api-reference/workflows
-- aid: persona:withpersona-documents-api
+- aid: persona:persona-documents-api
   name: Persona Documents API
   description: Files collected during verification.
-  humanURL: https://docs.withpersona.com/api-reference/inquiries
-  baseURL: https://api.withpersona.com/api/v1
+  humanURL: https://docs.withpersona.com/reference/introduction
+  baseURL: https://withpersona.com/api/v1
   tags:
   - Documents
   properties:
   - type: OpenAPI
-    url: openapi/withpersona-documents-api-openapi.yml
+    url: openapi/persona-documents-api-openapi.yml
   - type: Documentation
     url: https://docs.withpersona.com/api-reference/inquiries
   - type: APIReference
@@ -314,18 +314,16 @@ apis:
     url: https://docs.withpersona.com/api-reference/importers
   - type: Documentation
     url: https://docs.withpersona.com/api-reference/workflows
-- aid: persona:withpersona-events-api
+- aid: persona:persona-events-api
   name: Persona Events API
   description: Immutable record of everything that happens in an account.
-  humanURL: https://docs.withpersona.com/api-reference/inquiries
-  baseURL: https://api.withpersona.com/api/v1
+  humanURL: https://docs.withpersona.com/reference/introduction
+  baseURL: https://withpersona.com/api/v1
   tags:
-  - Event
-  tags_raw:
   - Events
   properties:
   - type: OpenAPI
-    url: openapi/withpersona-events-api-openapi.yml
+    url: openapi/persona-events-api-openapi.yml
   - type: Documentation
     url: https://docs.withpersona.com/api-reference/inquiries
   - type: APIReference
@@ -358,16 +356,16 @@ apis:
     url: https://docs.withpersona.com/api-reference/importers
   - type: Documentation
     url: https://docs.withpersona.com/api-reference/workflows
-- aid: persona:withpersona-importers-api
+- aid: persona:persona-importers-api
   name: Persona Importers API
   description: Bulk-load data into Persona lists.
-  humanURL: https://docs.withpersona.com/api-reference/inquiries
-  baseURL: https://api.withpersona.com/api/v1
+  humanURL: https://docs.withpersona.com/reference/introduction
+  baseURL: https://withpersona.com/api/v1
   tags:
   - Importers
   properties:
   - type: OpenAPI
-    url: openapi/withpersona-importers-api-openapi.yml
+    url: openapi/persona-importers-api-openapi.yml
   - type: Documentation
     url: https://docs.withpersona.com/api-reference/inquiries
   - type: APIReference
@@ -400,16 +398,16 @@ apis:
     url: https://docs.withpersona.com/api-reference/importers
   - type: Documentation
     url: https://docs.withpersona.com/api-reference/workflows
-- aid: persona:withpersona-inquiry-sessions-api
+- aid: persona:persona-inquiry-sessions-api
   name: Persona Inquiry Sessions API
   description: Individual sessions within an Inquiry.
-  humanURL: https://docs.withpersona.com/api-reference/inquiries
-  baseURL: https://api.withpersona.com/api/v1
+  humanURL: https://docs.withpersona.com/reference/introduction
+  baseURL: https://withpersona.com/api/v1
   tags:
   - Inquiry Sessions
   properties:
   - type: OpenAPI
-    url: openapi/withpersona-inquiry-sessions-api-openapi.yml
+    url: openapi/persona-inquiry-sessions-api-openapi.yml
   - type: Documentation
     url: https://docs.withpersona.com/api-reference/inquiries
   - type: APIReference
@@ -442,16 +440,16 @@ apis:
     url: https://docs.withpersona.com/api-reference/importers
   - type: Documentation
     url: https://docs.withpersona.com/api-reference/workflows
-- aid: persona:withpersona-workflows-api
+- aid: persona:persona-workflows-api
   name: Persona Workflows API
   description: Automation runs triggered by verification results or events.
-  humanURL: https://docs.withpersona.com/api-reference/inquiries
-  baseURL: https://api.withpersona.com/api/v1
+  humanURL: https://docs.withpersona.com/reference/introduction
+  baseURL: https://withpersona.com/api/v1
   tags:
   - Workflows
   properties:
   - type: OpenAPI
-    url: openapi/withpersona-workflows-api-openapi.yml
+    url: openapi/persona-workflows-api-openapi.yml
   - type: Documentation
     url: https://docs.withpersona.com/api-reference/inquiries
   - type: APIReference
