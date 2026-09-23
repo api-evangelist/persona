@@ -1,13 +1,14 @@
 {
   "provider": "persona",
   "sources": [
-    "persona-accounts-api-openapi.yml",
-    "persona-inquiries-api-openapi.yml",
-    "persona-lists-api-openapi.yml",
-    "persona-reports-api-openapi.yml",
-    "persona-transactions-api-openapi.yml",
-    "persona-verifications-api-openapi.yml",
-    "persona-webhooks-api-openapi.yml"
+    "_original/persona-openapi.yml",
+    "_original/withpersona-cases-api-openapi.yml",
+    "_original/withpersona-devices-api-openapi.yml",
+    "_original/withpersona-documents-api-openapi.yml",
+    "_original/withpersona-events-api-openapi.yml",
+    "_original/withpersona-importers-api-openapi.yml",
+    "_original/withpersona-inquiry-sessions-api-openapi.yml",
+    "_original/withpersona-workflows-api-openapi.yml"
   ],
   "outputs": [
     "persona-accounts-api-openapi.yml",
@@ -16,11 +17,37 @@
     "persona-reports-api-openapi.yml",
     "persona-transactions-api-openapi.yml",
     "persona-verifications-api-openapi.yml",
-    "persona-webhooks-api-openapi.yml"
+    "persona-webhooks-api-openapi.yml",
+    "persona-cases-api-openapi.yml",
+    "persona-devices-api-openapi.yml",
+    "persona-documents-api-openapi.yml",
+    "persona-events-api-openapi.yml",
+    "persona-importers-api-openapi.yml",
+    "persona-inquiry-sessions-api-openapi.yml",
+    "persona-workflows-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (8 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "persona-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "persona-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "persona-cases-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "persona-devices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "persona-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "persona-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "persona-importers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "persona-inquiries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "persona-inquiry-sessions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "persona-lists-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "persona-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "persona-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "persona-verifications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "persona-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "persona-workflows-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

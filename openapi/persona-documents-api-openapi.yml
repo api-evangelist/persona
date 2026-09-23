@@ -1,0 +1,73 @@
+openapi: 3.2.0
+info:
+  title: Persona Accounts Documents API
+  description: The Persona API is a configurable identity platform for KYC, KYB, AML, and fraud prevention.
+  termsOfService: https://withpersona.com/legal/terms-of-service
+  contact:
+    name: Persona Support
+    url: https://help.withpersona.com
+    email: support@withpersona.com
+  version: '2023-01-05'
+servers:
+- url: https://api.withpersona.com/api/v1
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Documents
+  description: Files collected during verification.
+paths:
+  /documents/{document-id}:
+    parameters:
+    - name: document-id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: retrieveDocument
+      tags:
+      - Documents
+      summary: Retrieve a Document
+      description: Retrieves a Document collected during verification (generic or government-ID document).
+      responses:
+        '200':
+          description: The requested Document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+components:
+  schemas:
+    GenericResource:
+      type: object
+      description: A JSON:API document wrapping a single resource.
+      properties:
+        data:
+          $ref: '#/components/schemas/ResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        meta:
+          type: object
+          additionalProperties: true
+    ResourceObject:
+      type: object
+      description: A JSON:API resource object.
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Persona API key passed as a Bearer token in the Authorization header.
