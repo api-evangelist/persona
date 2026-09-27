@@ -91,33 +91,6 @@ paths:
                 $ref: '#/components/schemas/GenericResource'
 components:
   schemas:
-    GenericResource:
-      type: object
-      description: A JSON:API document wrapping a single resource.
-      properties:
-        data:
-          $ref: '#/components/schemas/ResourceObject'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceObject'
-        meta:
-          type: object
-          additionalProperties: true
-    ResourceObject:
-      type: object
-      description: A JSON:API resource object.
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-        attributes:
-          type: object
-          additionalProperties: true
-        relationships:
-          type: object
-          additionalProperties: true
     GenericList:
       type: object
       description: A JSON:API document wrapping a collection of resources.
@@ -137,7 +110,41 @@ components:
               type:
               - string
               - 'null'
+    ResourceObject:
+      type: object
+      description: A JSON:API resource object.
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
+    GenericResource:
+      type: object
+      description: A JSON:API document wrapping a single resource.
+      properties:
+        data:
+          $ref: '#/components/schemas/ResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        meta:
+          type: object
+          additionalProperties: true
   parameters:
+    PageAfter:
+      name: page[after]
+      in: query
+      required: false
+      description: Cursor for the object after which to start the page.
+      schema:
+        type: string
     PageSize:
       name: page[size]
       in: query
@@ -147,13 +154,6 @@ components:
         type: integer
         default: 10
         maximum: 100
-    PageAfter:
-      name: page[after]
-      in: query
-      required: false
-      description: Cursor for the object after which to start the page.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http
