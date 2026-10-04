@@ -54,33 +54,6 @@ paths:
                 $ref: '#/components/schemas/GenericResource'
 components:
   schemas:
-    GenericResource:
-      type: object
-      description: A JSON:API document wrapping a single resource.
-      properties:
-        data:
-          $ref: '#/components/schemas/ResourceObject'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceObject'
-        meta:
-          type: object
-          additionalProperties: true
-    ResourceObject:
-      type: object
-      description: A JSON:API resource object.
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-        attributes:
-          type: object
-          additionalProperties: true
-        relationships:
-          type: object
-          additionalProperties: true
     GenericList:
       type: object
       description: A JSON:API document wrapping a collection of resources.
@@ -100,6 +73,33 @@ components:
               type:
               - string
               - 'null'
+    ResourceObject:
+      type: object
+      description: A JSON:API resource object.
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
+    GenericResource:
+      type: object
+      description: A JSON:API document wrapping a single resource.
+      properties:
+        data:
+          $ref: '#/components/schemas/ResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        meta:
+          type: object
+          additionalProperties: true
   parameters:
     PageSize:
       name: page[size]
