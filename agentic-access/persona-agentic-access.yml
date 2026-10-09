@@ -1,17 +1,21 @@
-generated: '2026-07-15'
+generated: '2026-09-23'
 method: generated
-source: openapi/persona-openapi.yml
+source: openapi/persona-accounts-api-openapi.yml, openapi/persona-cases-api-openapi.yml, openapi/persona-devices-api-openapi.yml,
+  openapi/persona-documents-api-openapi.yml, openapi/persona-events-api-openapi.yml, openapi/persona-importers-api-openapi.yml,
+  openapi/persona-inquiries-api-openapi.yml, openapi/persona-inquiry-sessions-api-openapi.yml,
+  openapi/persona-lists-api-openapi.yml, openapi/persona-reports-api-openapi.yml, openapi/persona-transactions-api-openapi.yml,
+  openapi/persona-verifications-api-openapi.yml, openapi/persona-webhooks-api-openapi.yml, openapi/persona-workflows-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
-  operations: 28
+  operations: 47
   by_action_class:
-    connected: 10
-    acting: 18
+    connected: 25
+    acting: 22
   by_consequence:
-    read: 10
-    write: 18
+    read: 25
+    write: 22
   human_in_the_loop_required: 0
 operations:
 - path: /accounts
@@ -144,6 +148,26 @@ operations:
   method: post
   operationId: searchAccounts
   x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cases
+  method: get
+  operationId: listAllCases
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cases
+  method: post
+  operationId: createCase
+  x-agentic-access:
     action-class: acting
     consequence: write
     subject: required
@@ -156,6 +180,118 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /cases/{case-id}
+  method: get
+  operationId: retrieveCase
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cases/{case-id}
+  method: patch
+  operationId: updateCase
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /cases/{case-id}/assign
+  method: post
+  operationId: assignCase
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /devices
+  method: get
+  operationId: listAllDevices
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /devices/{device-id}
+  method: get
+  operationId: retrieveDevice
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /documents/{document-id}
+  method: get
+  operationId: retrieveDocument
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /events
+  method: get
+  operationId: listAllEvents
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /events/{event-id}
+  method: get
+  operationId: retrieveEvent
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /importer
+  method: get
+  operationId: listAllImporters
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /importer/{importer-id}
+  method: get
+  operationId: retrieveImporter
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /inquiries
   method: get
   operationId: listInquiries
@@ -272,9 +408,71 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /verifications/{id}
+- path: /inquiry-sessions
+  method: get
+  operationId: listAllInquirySessions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /inquiry-sessions
   method: post
-  operationId: retrieveVerification
+  operationId: createInquirySession
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /inquiry-sessions/{inquiry-session-id}
+  method: get
+  operationId: retrieveInquirySession
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /inquiry-sessions/{inquiry-session-id}/expire
+  method: post
+  operationId: expireInquirySession
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /lists
+  method: get
+  operationId: listLists
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lists
+  method: post
+  operationId: createList
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -324,32 +522,6 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /lists
-  method: get
-  operationId: listLists
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /lists
-  method: post
-  operationId: createList
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
 - path: /transactions
   method: get
   operationId: listTransactions
@@ -376,6 +548,16 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /verifications/{id}
+  method: post
+  operationId: retrieveVerification
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /webhooks
   method: get
   operationId: listWebhooks
@@ -402,3 +584,39 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /workflow-runs
+  method: get
+  operationId: listAllWorkflowRuns
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /workflow-runs
+  method: post
+  operationId: createWorkflowRun
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /workflow-runs/{workflow-run-id}
+  method: get
+  operationId: retrieveWorkflowRun
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
