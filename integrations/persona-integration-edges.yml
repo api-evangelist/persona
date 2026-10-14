@@ -19,7 +19,49 @@ edges:
     api_families_basis: null
     detected_by: sweep-telco-network-apis.py
     detected: '2026-10-12'
+- partner_name: Greenhouse (own)
+  partner: greenhouse
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://integrations.greenhouse.com/partners/persona
+  mirror_of: greenhouse/integrations/greenhouse-integration-edges.yml
+  apps:
+  - Persona
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+- partner_name: Okta (own)
+  partner: okta
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.okta.com/integrations/integrator-7184229_personaidv_1/
+  mirror_of: okta/integrations/okta-integration-edges.yml
+  apps:
+  - Persona IDV
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Identity Verification
+  badges:
+  - OKTA_VERIFIED
+  features:
+  - INBOUND_FEDERATION
 generated: '2026-10-12'
 method: searched
 checked:
+- greenhouse/integrations/greenhouse-integration-edges.yml
 - https://raw.githubusercontent.com/camaraproject/camara-landscape/main/landscape.yml
+- okta/integrations/okta-integration-edges.yml
+source:
+- greenhouse/integrations/greenhouse-integration-edges.yml
+- okta/integrations/okta-integration-edges.yml
