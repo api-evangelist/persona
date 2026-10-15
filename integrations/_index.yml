@@ -52,3 +52,74 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: persona-uk-dvs-register-dsit
+  label: UK DVS register (DSIT)
+  partner_name: UK DVS register (DSIT)
+  category: Digital identity verification
+  type: register
+  channel: regulator-register
+  evidence: https://www.access-dvs-register.service.gov.uk/register/service-details?serviceId=261
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: UK digital verification services register (DIATF; access-dvs-register.service.gov.uk)
+    spec_file: null
+    standard: UK DIATF (digital verification services)
+    role: dvs-registered
+    registered_name: Persona Identities Inc
+    trading_name: Not applicable
+    register_id: Persona Identities Inc
+    website: www.withpersona.com
+    matched_domain: withpersona.com
+    matched_by: domain
+    certified_products:
+    - product: Identity service
+      newest_expiry: '2028-12-15'
+      lapsed: false
+    dvs_services:
+    - Persona
+    conformity_assessment_bodies:
+    - Kantara
+    signal_note: certified_products = one entry per ROLE certified (identity / attribute / orchestration...), lapsed
+      when every certificate for the role has expired; services and schemes are context
+    detected_by: sweep-regtech-aml.py
+    detected: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
+- slug: persona-kantara-initiative-trust-status-list
+  label: Kantara Initiative (Trust Status List)
+  partner_name: Kantara Initiative (Trust Status List)
+  category: Identity assurance certification
+  type: register
+  channel: standard-directory
+  evidence: https://kantarainitiative.org/trust-status-list/
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: Kantara Initiative Trust Status List (kantarainitiative.org/trust-status-list)
+    spec_file: null
+    standard: Kantara Identity Assurance (NIST SP 800-63)
+    role: kantara-approved-service
+    registered_name: Persona Identities, Inc.
+    register_id: Persona Identities, Inc.
+    website: https://withpersona.com/
+    matched_domain: withpersona.com
+    matched_by: domain
+    kantara_services:
+    - service: Persona
+      scheme: NIST 800-63 rev.3
+      assurance_levels: IAL2
+      status: Good Standing
+      approval: IAF-Approval.25.12-KI
+      expiry: '2028-11-30'
+      table: component_services
+    signal_note: certified_products = one entry per approved service TYPE (Full / Component / Classic), lapsed unless
+      Good Standing and inside the triennial approval; registered applicants are participation only; services and
+      assurance levels are context
+    detected_by: sweep-regtech-aml.py
+    detected: '2026-10-15'
+    certified_products:
+    - product: Component Service
+      lapsed: false
+  status: not-a-workflow
+  arazzo: null
