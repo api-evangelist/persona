@@ -151,7 +151,7 @@
     - alpha
     in_cloud: true
     builder: unknown (community connector; contributor not in the record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: persona-fivetran
   label: Fivetran
@@ -177,5 +177,5 @@
     - connectors/applications/persona
     vendor_link: https://withpersona.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
