@@ -26,111 +26,28 @@ tools_note: No tool list captured. This manifest records a PROBED, reachable end
   authorship. Do NOT derive a tool list from the OpenAPI and store it here -- that is a candidate manifest,
   and it belongs under an X-MCPServerCandidate pointer.
 tool_quality:
-  tool_count: 219
-  tokens_total: 41670
-  tokens_per_tool_median: 126
+  tool_count: 202
+  tokens_total: 41486
+  tokens_per_tool_median: 136
   heavy_tools:
   - name: search-cases
-    tokens: 1884
+    tokens: 1890
   - name: search-webhook-events
-    tokens: 1694
+    tokens: 1703
   - name: search-accounts
-    tokens: 1617
+    tokens: 1624
   - name: search-inquiries
-    tokens: 1593
+    tokens: 1601
   - name: create-an-inquiry
-    tokens: 1492
+    tokens: 1499
   heavy_tool_count: 5
-  params_total: 258
+  params_total: 238
   params_undescribed: 78
-  params_described_pct: 69.8
+  params_described_pct: 67.2
   tools_with_undescribed_params: 77
-  tools_annotated: 0
-  annotated_pct: 0.0
-  state_changing_unhinted:
-  - create-an-account
-  - update-an-account
-  - runAccountAction
-  - create-an-api-key
-  - update-an-api-key
-  - create-a-connect-connection
-  - create-a-share-token
-  - create-a-batch-job
-  - create-a-case
-  - update-a-case
-  - add-persona-objects
-  - remove-persona-objects
-  - assign-a-case
-  - set-status-for-a-case
-  - add-tag
-  - remove-tag
-  - set-tags
-  - add-comment
-  - create-a-graph-query
-  - import-an-account
-  - import-email-address-lists
-  - import-geolocation-lists
-  - import-government-id-number-lists
-  - import-ip-address-lists
-  - import-name-lists
-  - import-phone-number-lists
-  - create-an-inquiry
-  - update-an-inquiry
-  - approve-an-inquiry
-  - generate-a-one-time-link
-  - create-an-inquiry-session
-  - generate-a-one-time-link-for-an-inquiry-session
-  - import-inquiry-template-translations
-  - create-a-browser-fingerprint-list-item
-  - archive-a-browser-fingerprint-list-item
-  - create-a-country-list-item
-  - archive-a-country-list-item
-  - create-a-device-fingerprint-list-item
-  - archive-a-device-fingerprint-list-item
-  - create-an-email-address-list-item
-  - archive-an-email-address-list-item
-  - create-a-field-list-item
-  - archive-a-field-list-item
-  - create-a-geolocation-list-item
-  - archive-a-geolocation-list-item
-  - create-a-government-id-number-list-item
-  - archive-a-government-id-number-list-item
-  - create-an-ip-address-list-item
-  - archive-an-ip-address-list-item
-  - create-a-name-list-item
-  - archive-a-name-list-item
-  - create-a-phone-number-list-item
-  - archive-a-phone-number-list-item
-  - create-a-string-list-item
-  - archive-a-string-list-item
-  - create-a-browser-fingerprint-list
-  - create-a-country-list
-  - create-an-email-address-list
-  - create-a-geolocation-list
-  - create-a-government-id-number-list
-  - create-an-ip-address-list
-  - create-a-name-list
-  - create-a-phone-number-list
-  - create-a-strings-list
-  - archive-a-list
-  - create-authorization
-  - create-access-token
-  - create-a-privacy-pass
-  - create-a-relay
-  - generate-a-relay-claim
-  - create-a-report
-  - create-a-theme-set
-  - archive-a-theme-set
-  - update-a-theme-set
-  - create-a-transaction
-  - update-a-transaction
-  - create-a-transaction-label
-  - create-a-webhook
-  - update-a-webhook
-  - archive-a-webhook
-  - enable-a-webhook
-  - disable-a-webhook
-  - create-a-workflow-run
+  tools_annotated: 202
+  annotated_pct: 100.0
+  state_changing_unhinted: []
   tools_missing_schema: 0
   short_descriptions: 3
   duplicate_descriptions: 28

@@ -11,6 +11,7 @@
     "tools": [
       {
         "name": "retrieve-an-account-type",
+        "title": "Retrieve an Account Type",
         "description": "Retrieves the details of an existing Account Type, including its configured field schemas.",
         "inputSchema": {
           "type": "object",
@@ -23,10 +24,14 @@
           "required": [
             "account-type-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "list-all-accounts",
+        "title": "List all Accounts",
         "description": "Returns a list of your organization's account(s). Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
@@ -47,10 +52,14 @@
               }
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "create-an-account",
+        "title": "Create an Account",
         "description": "Creates a new Account for your organization.",
         "inputSchema": {
           "type": "object",
@@ -249,10 +258,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-an-account",
+        "title": "Retrieve an Account",
         "description": "Retrieves the details of an existing Account.",
         "inputSchema": {
           "type": "object",
@@ -264,10 +278,14 @@
           "required": [
             "account-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "redact-an-account",
+        "title": "Redact an Account",
         "description": "Permanently deletes personally identifiable information (PII) for an Account and all associated Inquiries, Verifications and Reports. The response indicates a successful redaction of the Account. Redaction of the Account's associated child objects is done asynchronously and may take  some time before all associated child objects are fully redacted. **This action cannot be undone**.\n\nThis endpoint can be used to comply with privacy regulations such as GDPR / CCPA or to enforce data privacy.\n\nNote: An account is still updatable after redaction. If you want to delete data continuously, please reach out to us to help you setup a retention policy.",
         "inputSchema": {
           "type": "object",
@@ -279,10 +297,16 @@
           "required": [
             "account-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "update-an-account",
+        "title": "Update an Account",
         "description": "Updates an existing Account.",
         "inputSchema": {
           "type": "object",
@@ -461,10 +485,15 @@
           "required": [
             "account-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "accounts-add-objects",
+        "title": "Add Persona objects to an Account",
         "description": "Adds Persona objects (such as inquiries, documents, or reports) to an Account. To link an Account to another Account or a Transaction, use add-relation instead.",
         "inputSchema": {
           "type": "object",
@@ -504,10 +533,15 @@
           "required": [
             "account-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "accounts-add-relation",
+        "title": "Add a relation to an Account",
         "description": "Adds a relation from an Account to a target Account or Transaction",
         "inputSchema": {
           "type": "object",
@@ -547,10 +581,15 @@
           "required": [
             "account-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "accounts-add-tag",
+        "title": "Add tag to an Account",
         "description": "Adds a new tag to an Account",
         "inputSchema": {
           "type": "object",
@@ -586,10 +625,15 @@
           "required": [
             "account-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "consolidate-into-an-account",
+        "title": "Consolidate Accounts",
         "description": "Consolidates several source Accounts' information into one target Account. Any Persona resource associated with the source Account will be transferred over to the destination Account. However, the Account's attributes will **not** be transferred. After consolidation, you can update the destination Account's attributes using the [Account update endpoint](https://docs.withpersona.com/api-reference/accounts/update-an-account).\n\nThis endpoint can be used to clean up duplicate Accounts.\n\nNote: A source account can only be consolidated once. Afterwards, the source account will be archived and unable to be used moving forward - any attempts to create an inquiry attached to the source account will fail.",
         "inputSchema": {
           "type": "object",
@@ -628,10 +672,15 @@
           "required": [
             "account-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "accounts-list-all-relations",
+        "title": "List all relations for an Account",
         "description": "Gets relations for an Account by key",
         "inputSchema": {
           "type": "object",
@@ -665,10 +714,14 @@
             "account-id",
             "filter"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "accounts-remove-objects",
+        "title": "Remove Persona objects from an Account",
         "description": "Removes Persona objects (such as inquiries, documents, or reports) from an Account. This operation is idempotent — removing an object that is not attached succeeds without modifying the account. To unlink an Account from another Account or a Transaction, use remove-relation instead.",
         "inputSchema": {
           "type": "object",
@@ -708,10 +761,15 @@
           "required": [
             "account-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "accounts-remove-relation",
+        "title": "Remove a relation from an Account",
         "description": "Removes a relation from an Account to a target Account or Transaction.",
         "inputSchema": {
           "type": "object",
@@ -751,10 +809,15 @@
           "required": [
             "account-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "accounts-remove-tag",
+        "title": "Remove tag from an Account",
         "description": "Removes an existing tag from an Account",
         "inputSchema": {
           "type": "object",
@@ -790,10 +853,15 @@
           "required": [
             "account-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "accounts-set-all-tags",
+        "title": "Set tags on an Account",
         "description": "Sets all tags on an Account. Any tags that are not provided in the request will be removed.",
         "inputSchema": {
           "type": "object",
@@ -835,10 +903,16 @@
           "required": [
             "account-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "runAccountAction",
+        "title": "Run an Account action",
         "description": "Triggers an account action for the specified account",
         "inputSchema": {
           "type": "object",
@@ -882,10 +956,15 @@
             "account-id",
             "requestBody"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "search-accounts",
+        "title": "Search Accounts",
         "description": "Search for accounts using a flexible query language.\n\n## Search vs. List Endpoints\n\nThe Search and List endpoints serve different purposes and have distinct performance characteristics.\n\nUse the **Search** endpoint (`POST /accounts/search`) when you need to perform complex queries with boolean logic (AND/OR/NOT), filter by custom fields or identifiers, or apply multiple conditions simultaneously. Search is optimized for flexible querying and is faster than paginating through all resources when looking for specific records.\n\nUse the **List** endpoint (`GET /accounts`) for simple listing with basic filters like reference ID.\n\n## Data Freshness\n\nDo not use search for read-after-write flows because the data will not be immediately available to search.\nUnder normal operating conditions, data is searchable within approximately 1 minute of creation or modification.\nPropagation of new or updated data could be delayed during an outage.\nFor workflows that require immediate data availability after creating or updating an account, use the List Accounts endpoint instead.\n\n### Searchable Attributes\n\nThe following attributes can be used in query predicates:\n\n| Attribute | Description |\n|-----------|-------------|\n| `type` | Account type (e.g., `acttp_ABC123`) |\n| `status` | Account status (e.g., `actst_ABC123`) |\n| `created_at` | Account creation timestamp |\n| `updated_at` | Account last updated timestamp |\n| `identifiers.*` | Custom identifier (e.g., `identifiers.user_id`) |\n| `fields.*` | Custom account field (e.g., `fields.age`) |\n\n**Note:** Custom fields (`fields.*`) must be configured as searchable on the Account Type to be queryable.\n",
         "inputSchema": {
           "type": "object",
@@ -1106,124 +1185,14 @@
               "description": "The JSON request body."
             }
           }
-        }
-      },
-      {
-        "name": "list-all-api-keys",
-        "description": "Returns a list of your organization's API keys. Results are returned in reverse chronological order, with the most recently created objects first.",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "filter": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "description": "Filter API keys by name"
-                }
-              }
-            }
-          }
-        }
-      },
-      {
-        "name": "create-an-api-key",
-        "description": "Creates a new API key with response defaults and permissions.",
-        "inputSchema": {
-          "type": "object",
-          "properties": {}
-        }
-      },
-      {
-        "name": "retrieve-an-api-key",
-        "description": "Retrieves the information for an existing API key. The plaintext value is only returned when creating or cloning an API key.",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "api-key-id": {
-              "type": "string",
-              "description": "API key's ID (starts with \"api_\")"
-            }
-          },
-          "required": [
-            "api-key-id"
-          ]
-        }
-      },
-      {
-        "name": "update-an-api-key",
-        "description": "Updates an existing API key.",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "api-key-id": {
-              "type": "string",
-              "description": "API key's ID (starts with \"api_\")"
-            }
-          },
-          "required": [
-            "api-key-id"
-          ]
-        }
-      },
-      {
-        "name": "expire-an-api-key",
-        "description": "Deactivates an API key within some time period",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "api-key-id": {
-              "type": "string",
-              "description": "API key's ID (starts with \"api_\")"
-            },
-            "requestBody": {
-              "properties": {
-                "meta": {
-                  "properties": {
-                    "expires-in-seconds": {
-                      "description": "Number of seconds from now to expire the key (max of 30 days)",
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "expires-in-seconds"
-                  ],
-                  "type": "object",
-                  "additionalProperties": false
-                }
-              },
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "meta"
-              ],
-              "description": "The JSON request body."
-            }
-          },
-          "required": [
-            "api-key-id"
-          ]
-        }
-      },
-      {
-        "name": "clone-api-key",
-        "description": "Creates a copy of an existing API key. All attributes except the value are copied over to the new API key.",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "api-key-id": {
-              "type": "string",
-              "description": "The token/ID of the API key to be cloned."
-            }
-          },
-          "required": [
-            "api-key-id"
-          ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "list-all-connect-connections",
+        "title": "List all Connections",
         "description": "Returns a list of connect connections associated with your organization, including both outbound connections your organization created and inbound connections where your organization is the destination. Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
@@ -1243,52 +1212,14 @@
               }
             }
           }
-        }
-      },
-      {
-        "name": "create-a-connect-connection",
-        "description": "Creates a new Connection from your organization to a destination organization in the `pending` state. The destination organization must accept the connection before it transitions to `active`; share tokens cannot be redeemed through the connection until then. Connections cannot be deleted, but they can be deactivated and later reactivated to control access.",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "requestBody": {
-              "properties": {
-                "data": {
-                  "properties": {
-                    "attributes": {
-                      "unevaluatedProperties": false,
-                      "allOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "destination-organization-id": {
-                              "description": "The organization ID that will be authorized to access objects through this connection",
-                              "type": "string",
-                              "examples": [
-                                "org_XYZ789"
-                              ]
-                            }
-                          },
-                          "required": [
-                            "destination-organization-id"
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  "additionalProperties": false,
-                  "type": "object"
-                }
-              },
-              "additionalProperties": false,
-              "type": "object",
-              "description": "The JSON request body."
-            }
-          }
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-connect-connection",
+        "title": "Retrieve a Connection",
         "description": "Retrieves the details of an existing Connection.",
         "inputSchema": {
           "type": "object",
@@ -1301,10 +1232,14 @@
           "required": [
             "connection-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "deactivate-a-connect-connection",
+        "title": "Deactivate a Connection",
         "description": "Deactivates a Connection. Either the source or destination organization may deactivate a connection that is currently `pending` or `active`. Deactivation prevents further access through the connection but maintains the connection record. Connections that are already `inactive` cannot be deactivated again.",
         "inputSchema": {
           "type": "object",
@@ -1317,26 +1252,15 @@
           "required": [
             "connection-id"
           ]
-        }
-      },
-      {
-        "name": "reactivate-a-connect-connection",
-        "description": "Reactivates an inactive Connection, returning it to the `pending` state. Only the source organization can reactivate a connection. Once reactivated, the destination organization must accept the connection again before it returns to the `active` state. Only inactive connections can be reactivated.",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "connection-id": {
-              "type": "string",
-              "description": "ID of the connect connection"
-            }
-          },
-          "required": [
-            "connection-id"
-          ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "list-all-share-tokens",
+        "title": "List all Share Tokens",
         "description": "Returns a list of your organization's Share Tokens. Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
@@ -1374,73 +1298,14 @@
               }
             }
           }
-        }
-      },
-      {
-        "name": "create-a-share-token",
-        "description": "Creates a new Share Token with the specified connection and source. Share Tokens can be created from Accounts, Inquiries, Transactions, or Verifications.",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "requestBody": {
-              "required": [
-                "data"
-              ],
-              "properties": {
-                "data": {
-                  "required": [
-                    "attributes"
-                  ],
-                  "properties": {
-                    "attributes": {
-                      "required": [
-                        "connection-id",
-                        "source-id"
-                      ],
-                      "properties": {
-                        "connection-id": {
-                          "type": "string",
-                          "description": "The ID of the connect connection",
-                          "examples": [
-                            "cxn_ABC123"
-                          ]
-                        },
-                        "source-id": {
-                          "type": "string",
-                          "description": "The ID of the object to share.",
-                          "examples": [
-                            "act_ABC123",
-                            "inq_DEF456",
-                            "txn_GHI789",
-                            "ver_JKL012"
-                          ]
-                        },
-                        "expires-in-seconds": {
-                          "type": "number",
-                          "description": "The number of seconds from now until the share token expires. Must be between `60` (1 minute) and `1814400` (21 days). If omitted, defaults to 14 days.",
-                          "examples": [
-                            86400,
-                            3600
-                          ]
-                        }
-                      },
-                      "type": "object",
-                      "additionalProperties": false
-                    }
-                  },
-                  "type": "object",
-                  "additionalProperties": false
-                }
-              },
-              "type": "object",
-              "additionalProperties": false,
-              "description": "The JSON request body."
-            }
-          }
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-share-token",
+        "title": "Retrieve a Share Token",
         "description": "Retrieve the information for an existing Share Token.",
         "inputSchema": {
           "type": "object",
@@ -1458,102 +1323,27 @@
           "required": [
             "share-token-id"
           ]
-        }
-      },
-      {
-        "name": "expire-share-token",
-        "description": "Expires a Share Token, setting its status to expired and preventing further use.",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "share-token-id": {
-              "type": "string",
-              "description": "The token/ID of the Share Token to be expired."
-            }
-          },
-          "required": [
-            "share-token-id"
-          ]
-        }
-      },
-      {
-        "name": "redeem-share-token",
-        "description": "Initiates redemption of a Share Token in one of two modes:\n\n- **Clone:** Omit `data.attributes.destination-id` to create a new object from the source.\n  Inquiry and Verification Share Tokens can be cloned.\n- **Hydrate:** Provide `data.attributes.destination-id` to import source data into an existing\n  object. Account, Transaction, and Inquiry Share Tokens can hydrate an existing Account,\n  Transaction, or Inquiry.\n\nRedemption is asynchronous. A successful request returns the Share Token with a `pending`\nstatus while Persona processes the import.\n",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "share-token-id": {
-              "type": "string",
-              "description": "The token/ID of the Share Token to be redeemed."
-            },
-            "requestBody": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "attributes": {
-                      "type": "object",
-                      "additionalProperties": false,
-                      "properties": {
-                        "destination-id": {
-                          "type": "string",
-                          "description": "The ID of the existing destination object to hydrate. Omit this field, or\nthe entire request body, to clone the source into a new destination object.\n"
-                        }
-                      }
-                    }
-                  }
-                },
-                "meta": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "field-mappings": {
-                      "type": "array",
-                      "description": "Optional list of field mappings to apply when hydrating an existing destination.\nIf a source field name matches the destination field name, it is copied directly.\nThese mappings are applied for fields not already matched by name. Field mappings\nare not used when cloning; omit them from clone requests.\n",
-                      "items": {
-                        "type": "object",
-                        "additionalProperties": false,
-                        "required": [
-                          "source-field-name",
-                          "destination-field-name"
-                        ],
-                        "properties": {
-                          "source-field-name": {
-                            "type": "string",
-                            "description": "The name of the field in the source object."
-                          },
-                          "destination-field-name": {
-                            "type": "string",
-                            "description": "The name of the field in the destination object."
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "description": "The JSON request body."
-            }
-          },
-          "required": [
-            "share-token-id"
-          ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "list-all-api-logs",
-        "description": "Returns a list of your organization's API Logs. Results are returned in reverse chronological order, with the most recently created objects first.",
+        "title": "List all API Logs",
+        "description": "Returns a list of your organization's API logs, most recently created first. Each log includes the request method, path and IP address, the response status, when it was created, and the API key that made the request.",
         "inputSchema": {
           "type": "object",
           "properties": {}
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-an-api-log",
-        "description": "Retrieves the details of an existing API Log.",
+        "title": "Retrieve an API Log",
+        "description": "Retrieves an API log, including the request method, path and IP address, the response status, when it was created, and the API key that made the request.",
         "inputSchema": {
           "type": "object",
           "properties": {
@@ -1564,10 +1354,14 @@
           "required": [
             "api-log-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "create-a-batch-job",
+        "title": "Create a Batch Job",
         "description": "Submits a batch of rows to update or upsert Accounts, or update Inquiries, in bulk. Persona\nprocesses the rows asynchronously as a Batch Job; poll the returned job or retrieve its\nerrors to check progress.\n\n- **`object: account`** supports `operation: update` (lookup by `token` or `reference_id`) or\n  `operation: upsert` (lookup by `reference_id` only, and requires `account_type_id` on the\n  pipeline or on each row).\n- **`object: inquiry`** only supports `operation: update` with `lookup_field: token`.\n",
         "inputSchema": {
           "type": "object",
@@ -1660,10 +1454,15 @@
           "required": [
             "requestBody"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-a-batch-job",
+        "title": "Retrieve a Batch Job",
         "description": "Retrieve the status and counts for an existing Batch Job.",
         "inputSchema": {
           "type": "object",
@@ -1676,10 +1475,14 @@
           "required": [
             "batch-job-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-batch-job-errors",
+        "title": "Retrieve Batch Job errors",
         "description": "Retrieve global and per-row errors for an existing Batch Job.",
         "inputSchema": {
           "type": "object",
@@ -1719,11 +1522,15 @@
           "required": [
             "batch-job-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-case-template",
-        "description": "Retrieves the details of an existing Case Template, including its configured field schemas.",
+        "title": "Retrieve a Case Template",
+        "description": "Retrieves an existing case template, including its name, status, timestamps, field schemas, and `resolutions`: the statuses a case using this template can be resolved to.",
         "inputSchema": {
           "type": "object",
           "properties": {
@@ -1735,10 +1542,14 @@
           "required": [
             "case-template-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "list-all-cases",
+        "title": "List all Cases",
         "description": "Returns a list of your organization's cases.\n\nNote that this endpoint aggregates cases across all case template(s). See [Pagination](https://docs.withpersona.com/pagination)for more details about handling the response. Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
@@ -1792,10 +1603,14 @@
               }
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "create-a-case",
+        "title": "Create a Case",
         "description": "Creates a new case in your organization.",
         "inputSchema": {
           "type": "object",
@@ -1872,10 +1687,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-case",
+        "title": "Retrieve a Case",
         "description": "Retrieves the details of an existing Case.",
         "inputSchema": {
           "type": "object",
@@ -1887,10 +1707,14 @@
           "required": [
             "case-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "redact-a-case",
+        "title": "Redact a Case",
         "description": "Permanently redacts a Case and its fields. Case objects must be redacted individually. **This action cannot be undone**.",
         "inputSchema": {
           "type": "object",
@@ -1902,10 +1726,16 @@
           "required": [
             "case-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "update-a-case",
+        "title": "Update a Case",
         "description": "Updates the fields and add attachments on a Case that has been previously created.",
         "inputSchema": {
           "type": "object",
@@ -1989,10 +1819,15 @@
           "required": [
             "case-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "add-persona-objects",
+        "title": "Add Persona objects to a Case",
         "description": "Adds Persona objects (such as inquiries, accounts, or reports) to a Case",
         "inputSchema": {
           "type": "object",
@@ -2028,10 +1863,15 @@
           "required": [
             "case-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "remove-persona-objects",
+        "title": "Remove Persona objects from a Case",
         "description": "Removes Persona objects (such as inquiries, accounts, or reports) from a Case. This operation is idempotent — removing an object that is not attached succeeds without modifying the case.",
         "inputSchema": {
           "type": "object",
@@ -2067,10 +1907,15 @@
           "required": [
             "case-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "assign-a-case",
+        "title": "Assign a Case",
         "description": "Assigns a Case to a Persona user.",
         "inputSchema": {
           "type": "object",
@@ -2106,11 +1951,16 @@
           "required": [
             "case-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "set-status-for-a-case",
-        "description": "Sets the status of a Case.",
+        "title": "Set status on a Case",
+        "description": "Sets the status of a case. The status must be \"Open\" or exactly one of the `resolutions` of the case's case template, matched case-sensitively (for example \"Approved\", not \"approved\"). To find them, retrieve the case template from the case's `case-template` relationship.",
         "inputSchema": {
           "type": "object",
           "properties": {
@@ -2142,10 +1992,16 @@
           "required": [
             "case-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "add-tag",
+        "title": "Add tag to a Case",
         "description": "Adds a new tag to a Case",
         "inputSchema": {
           "type": "object",
@@ -2179,10 +2035,15 @@
           "required": [
             "case-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "remove-tag",
+        "title": "Remove tag from a Case",
         "description": "Removes an existing tag from a Case",
         "inputSchema": {
           "type": "object",
@@ -2216,10 +2077,15 @@
           "required": [
             "case-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "set-tags",
+        "title": "Set tags on a Case",
         "description": "Sets all tags on a Case. Any tags that are not provided in the request will be removed.",
         "inputSchema": {
           "type": "object",
@@ -2259,10 +2125,16 @@
           "required": [
             "case-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "add-comment",
+        "title": "Add comment to a Case",
         "description": "Adds a comment to a Case",
         "inputSchema": {
           "type": "object",
@@ -2300,10 +2172,15 @@
             "case-id",
             "requestBody"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "search-cases",
+        "title": "Search Cases",
         "description": "Search for cases using a flexible query language.\n\n## Search vs. List Endpoints\n\nThe Search and List endpoints serve different purposes and have distinct performance characteristics.\n\nUse the **Search** endpoint (`POST /cases/search`) when you need to perform complex queries with boolean logic (AND/OR/NOT), filter by custom fields, assignee, case queue, or SLA expiration, or apply multiple conditions simultaneously. Search is optimized for flexible querying and is faster than paginating through all resources when looking for specific records.\n\nUse the **List** endpoint (`GET /cases`) for simple listing with basic filters like status, case template, account, inquiry, or report.\n\n## Data Freshness\n\nDo not use search for read-after-write flows because the data will not be immediately available to search.\nUnder normal operating conditions, data is searchable within approximately 1 minute of creation or modification.\nPropagation of new or updated data could be delayed during an outage.\nFor workflows that require immediate data availability after creating or updating a case, use the List Cases endpoint instead.\n\n### Searchable Attributes\n\nThe following attributes can be used in query predicates:\n\n| Attribute | Description |\n|-----------|-------------|\n| `template` | Case template (e.g., `ctmpl_ABC123`) |\n| `case_template_id` | Case template (e.g., `ctmpl_ABC123`) |\n| `status` | Case status (e.g., `open`, `pending`, `resolved`) |\n| `state` | Case state |\n| `resolution` | Case resolution |\n| `created_at` | Case creation timestamp |\n| `updated_at` | Case last updated timestamp |\n| `resolved_at` | Case resolution timestamp |\n| `sla_expires_at` | SLA expiration timestamp |\n| `assignee` | Assigned user (e.g., `user_ABC123`) |\n| `case_queue` | Case queue (e.g., `cqueue_ABC123`) |\n| `case_queue_id` | Case queue (e.g., `cqueue_ABC123`) |\n| `resolver` | Resolver user |\n| `account_id` | Related account (e.g., `act_ABC123`) |\n| `inquiry_id` | Related inquiry (e.g., `inq_ABC123`) |\n| `tag_id` | Related tag (e.g., `tag_ABC123`) |\n| `fields.*` | Custom case field (e.g., `fields.priority`) |\n\n**Note:** Custom fields (`fields.*`) must be configured as searchable on the Case Template to be queryable.\n\n**Note:** `account_id`, `inquiry_id`, `tag_id`, `case_template_id`, `case_queue_id`, and\n`resolution` cannot be used in `sort`.\n\n**Note:** `account_id`, `inquiry_id`, and `tag_id` match against the 50 most recently added\naccounts, inquiries, and tags on a case. A case related to more than 50 of one of these will not\nmatch on the older ones.\n",
         "inputSchema": {
           "type": "object",
@@ -2524,10 +2401,14 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "list-all-devices",
+        "title": "List all Devices",
         "description": "Retrieves a list of Devices. Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
@@ -2549,10 +2430,14 @@
           "required": [
             "filter"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-device",
+        "title": "Retrieve a Device",
         "description": "Retrieves details of a specific Device.",
         "inputSchema": {
           "type": "object",
@@ -2565,11 +2450,15 @@
           "required": [
             "device-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-generic-document",
-        "description": "Retrieves the details of a generic document that has been previously created.",
+        "title": "Retrieve a Generic Document",
+        "description": "Retrieves a generic document, including its status, extracted fields, the name and size of each uploaded file, and related objects.",
         "inputSchema": {
           "type": "object",
           "properties": {
@@ -2580,11 +2469,15 @@
           "required": [
             "document-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-government-id-document",
-        "description": "Retrieves the details of a government-id document that has been previously created.",
+        "title": "Retrieve a Government ID Document",
+        "description": "Retrieves a government ID document, including its status, the fields extracted from the ID (such as name, birthdate, address and expiration date), the name and size of each photo, and related objects.",
         "inputSchema": {
           "type": "object",
           "properties": {
@@ -2595,11 +2488,15 @@
           "required": [
             "document-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-document",
-        "description": "Retrieves the details of a Document.",
+        "title": "Retrieve a Document",
+        "description": "Retrieves the details of a document, such as its status, extracted fields, the name and size of each file, and related objects.",
         "inputSchema": {
           "type": "object",
           "properties": {
@@ -2610,10 +2507,14 @@
           "required": [
             "document-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "list-all-events",
+        "title": "List all Events",
         "description": "Returns a list of your organization's events. Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
@@ -2637,10 +2538,14 @@
               }
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-an-event",
+        "title": "Retrieve an Event",
         "description": "Retrieves the details of an existing event.",
         "inputSchema": {
           "type": "object",
@@ -2652,10 +2557,14 @@
           "required": [
             "event-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "create-a-graph-query",
+        "title": "Create a Graph Query",
         "description": "Create a Graph Query",
         "inputSchema": {
           "type": "object",
@@ -2729,10 +2638,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-a-graph-query",
+        "title": "Retrieve a Graph Query",
         "description": "Retrieve a Graph Query",
         "inputSchema": {
           "type": "object",
@@ -2744,18 +2658,26 @@
           "required": [
             "graph-query-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "list-all-importers",
+        "title": "List all Importers",
         "description": "Returns a list of your organization's importers. Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
           "properties": {}
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-an-importer",
+        "title": "Retrieve an Importer",
         "description": "Retrieve the details of an existing importer.",
         "inputSchema": {
           "type": "object",
@@ -2768,10 +2690,14 @@
           "required": [
             "importer-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "import-an-account",
+        "title": "Import Accounts",
         "description": "Bulk import accounts by uploading a CSV file.\n\nEach row should be the details for a new account. The columns we allow are:\n  - reference_id\n  - name_first\n  - name_middle\n  - name_last\n  - birthdate\n  - social_security_number\n  - tags",
         "inputSchema": {
           "type": "object",
@@ -2820,58 +2746,93 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "import-email-address-lists",
+        "title": "Import Email Address Lists",
         "description": "Bulk import email address List Items by uploading a CSV file.\n\nEach row should be the details for a new List Item. The columns we allow are:\n  - value\n  - match_type (either 'email_address' or 'domain')\n\nA match_type of 'email_address' will need to match the entire email address of an individual, while a match_type of 'domain' will match on the email address domain of an individual (i.e. all email addresses with domain 'gmail.com').",
         "inputSchema": {
           "type": "object",
           "properties": {}
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "import-geolocation-lists",
+        "title": "Import Geolocation Lists",
         "description": "Bulk import geolocation List Items by uploading a CSV file.\n\nEach row should be the details for a new List Item. The columns we allow are:\n  - latitude\n  - longitude\n  - radius_meters",
         "inputSchema": {
           "type": "object",
           "properties": {}
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "import-government-id-number-lists",
+        "title": "Import Government ID Number Lists",
         "description": "Bulk import government ID number List Items by uploading a CSV file.\n\nEach row should be the details for a new List Item. The columns we allow are:\n  - id_number\n  - id_class\n\nCommon values for id_class include `pp` for passport and `dl` for driver license. Please contact us or reach out to [support@withpersona.com](mailto:support@withpersona.com) if you need help getting id_class values.",
         "inputSchema": {
           "type": "object",
           "properties": {}
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "import-ip-address-lists",
+        "title": "Import IP Address Lists",
         "description": "Bulk import IP address List Items by uploading a CSV file.\n\nEach row should be the details for a new List Item. The columns we allow are:\n  - value\n\nBoth IPv4 and IPv6 are supported.",
         "inputSchema": {
           "type": "object",
           "properties": {}
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "import-name-lists",
+        "title": "Import Name Lists",
         "description": "Bulk import name List Items by uploading a CSV file.\n\nEach row should be the details for a new list item. The columns we allow are:\n  - name_first\n  - name_last",
         "inputSchema": {
           "type": "object",
           "properties": {}
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "import-phone-number-lists",
+        "title": "Import Phone Number Lists",
         "description": "Bulk import phone number List Items by uploading a CSV file.\n\nEach row should be the details for a new list item. The columns we allow are:\n  - value",
         "inputSchema": {
           "type": "object",
           "properties": {}
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "list-all-inquiries",
+        "title": "List all Inquiries",
         "description": "Returns a list of your organization's inquiries.\n\nNote that this endpoint aggregates inquiries across all inquiry template(s). See [Pagination](https://docs.withpersona.com/pagination) for more details about handling the response. Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
@@ -2965,10 +2926,14 @@
               }
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "create-an-inquiry",
+        "title": "Create an Inquiry",
         "description": "Creates a new inquiry with optional pre-filled attributes.\n\nSee [Sessions](https://docs.withpersona.com/inquiry-sessions) for how to continue the inquiry in [Embedded Flow](https://docs.withpersona.com/embedded-flow) or [Hosted Flow](https://docs.withpersona.com/hosted-flow).",
         "inputSchema": {
           "type": "object",
@@ -3209,10 +3174,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-an-inquiry",
+        "title": "Retrieve an Inquiry",
         "description": "Retrieves the details of an existing Inquiry.\n\nIn the [Embedded Flow](https://docs.withpersona.com/embedded-flow), the `inquiry-id` is the first parameter of the onStart callback. In the [Hosted Flow](https://docs.withpersona.com/hosted-flow), the `inquiry-id` is a query parameter in the onComplete callback.\n\nTemplate information will be found in `data.relationships.inquiry-template` if the inquiry is a Dynamic Flow inquiry, and in `data.relationships.template` if the inquiry is a Legacy 2.0 inquiry. For more information, see [Dynamic Flow vs. Legacy Templates](https://docs.withpersona.com/inquiry-templates#dynamic-flow-vs-legacy-templates).",
         "inputSchema": {
           "type": "object",
@@ -3224,10 +3194,14 @@
           "required": [
             "inquiry-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "redact-an-inquiry",
+        "title": "Redact an Inquiry",
         "description": "Permanently deletes personally identifiable information (PII) for an Inquiry and all associated Verifications, Reports, or other Persona resources. The response indicates a successful redaction of the Inquiry. Redaction of the Inquiry's associated child objects are done asynchronously and may take some time before all associated child objects are fully redacted. **This action cannot be undone**.\n\nThis endpoint can be used to comply with privacy regulations such as GDPR / CCPA or to enforce data privacy.",
         "inputSchema": {
           "type": "object",
@@ -3239,10 +3213,16 @@
           "required": [
             "inquiry-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "update-an-inquiry",
+        "title": "Update an Inquiry",
         "description": "Updates an existing Inquiry.\n\nNote that if you use webhooks, updates to inquiries that are not in progress can result in data getting out of sync. For example, updating a completed Inquiry will not cause your Inquiry completed webhook to retrigger.\n\nInquiries represent a snapshot of data collected from an individual, so we generally do not recommend updating an Inquiry's data after the Inquiry has been finalized.",
         "inputSchema": {
           "type": "object",
@@ -3312,10 +3292,15 @@
           "required": [
             "inquiry-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "inquiries-add-tag",
+        "title": "Add tag to an Inquiry",
         "description": "Adds a new tag to an Inquiry.",
         "inputSchema": {
           "type": "object",
@@ -3327,10 +3312,15 @@
           "required": [
             "inquiry-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "approve-an-inquiry",
+        "title": "Approve an Inquiry",
         "description": "Approves an Inquiry.\n\nNote that this action will trigger any associated workflows and webhooks.\n\nApproving an inquiry will prevent further progress on the inquiry.",
         "inputSchema": {
           "type": "object",
@@ -3342,10 +3332,15 @@
           "required": [
             "inquiry-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "decline-an-inquiry",
+        "title": "Decline an Inquiry",
         "description": "Declines an Inquiry.\n\nNote that this action will trigger any associated workflows and webhooks.\n\nDeclining an inquiry will prevent further progress on the inquiry.",
         "inputSchema": {
           "type": "object",
@@ -3357,10 +3352,15 @@
           "required": [
             "inquiry-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "mark-an-inquiry-for-review",
+        "title": "Mark an Inquiry for manual review",
         "description": "Marks an Inquiry for manual review. Inquiries that are already\napproved or declined cannot be marked for review.\n\nNote that this action will trigger any associated workflows and webhooks.\n\nMarking an inquiry for review will prevent further progress on the inquiry.",
         "inputSchema": {
           "type": "object",
@@ -3372,10 +3372,15 @@
           "required": [
             "inquiry-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "expire-an-inquiry",
+        "title": "Expire an Inquiry",
         "description": "Expires an Inquiry and all sessions on the Inquiry. Cancels any pending Verifications on the inquiry.\n\nThe Inquiry can still be resumed after expiry.",
         "inputSchema": {
           "type": "object",
@@ -3387,10 +3392,15 @@
           "required": [
             "inquiry-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "generate-a-one-time-link",
+        "title": "Generate a one-time link for an Inquiry",
         "description": "Creates a new inquiry session and returns `meta.one-time-link`.",
         "inputSchema": {
           "type": "object",
@@ -3424,10 +3434,15 @@
           "required": [
             "inquiry-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "print-an-inquiry-pdf",
+        "title": "Print Inquiry PDF",
         "description": "Prints an Inquiry as PDF.",
         "inputSchema": {
           "type": "object",
@@ -3439,10 +3454,14 @@
           "required": [
             "inquiry-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "inquiries-remove-tag",
+        "title": "Remove tag from an Inquiry",
         "description": "Removes an existing tag from an Inquiry.",
         "inputSchema": {
           "type": "object",
@@ -3454,10 +3473,15 @@
           "required": [
             "inquiry-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "resume-an-inquiry",
+        "title": "Resume an Inquiry",
         "description": "Creates a session token that is returned as `meta.session-token`. If the inquiry's status is `expired`, changes the status to `pending`. The `session-token` must be included when loading the inquiry flow if the inquiry's status is `pending`.\nThis endpoint will error if the inquiry is redacted.\nThis endpoint first tries to reuse any existing valid unused [sessions](https://docs.withpersona.com/inquiry-sessions). If none exist, a new session is created.\nFor more information, see [Resuming Inquiries](https://docs.withpersona.com/resuming-inquiries).",
         "inputSchema": {
           "type": "object",
@@ -3469,10 +3493,15 @@
           "required": [
             "inquiry-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "inquiries-set-all-tags",
+        "title": "Set tags on an Inquiry",
         "description": "Sets all tags on an Inquiry. Any tags that are not provided in the request will be removed.",
         "inputSchema": {
           "type": "object",
@@ -3518,10 +3547,16 @@
           "required": [
             "inquiry-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "inquiries-perform-simulate-actions",
+        "title": "Perform Simulate Actions on an Inquiry",
         "description": "Performs a series of simulated actions on a Sandbox Inquiry.",
         "inputSchema": {
           "type": "object",
@@ -3567,10 +3602,15 @@
           "required": [
             "inquiry-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "search-inquiries",
+        "title": "Search Inquiries",
         "description": "Search for inquiries using a flexible query language.\n\n## Search vs. List Endpoints\n\nThe Search and List endpoints serve different purposes and have distinct performance characteristics.\n\nUse the **Search** endpoint (`POST /inquiries/search`) when you need to perform complex queries with boolean logic (AND/OR/NOT), filter on multiple statuses simultaneously, or apply multiple conditions at once. Search is optimized for flexible querying and is faster than paginating through all resources when looking for specific records.\n\nUse the **List** endpoint (`GET /inquiries`) for simple listing with basic filters like reference ID.\n\n## Data Freshness\n\nDo not use search for read-after-write flows because the data will not be immediately available to search.\nUnder normal operating conditions, data is searchable within approximately 1 minute of creation or modification.\nPropagation of new or updated data could be delayed during an outage.\nFor workflows that require immediate data availability after creating or updating an inquiry, use the List Inquiries endpoint instead.\n\n### Searchable Attributes\n\nThe following attributes can be used in query predicates:\n\n| Attribute | Description |\n|-----------|-------------|\n| `status` | Inquiry status (e.g., `pending`, `completed`, `approved`, `declined`) |\n| `created_at` | Inquiry creation timestamp |\n| `updated_at` | Inquiry last updated timestamp |\n| `reference_id` | Reference ID associated with the inquiry's account |\n| `inquiry_template_id` | Inquiry template ID (e.g., `itmpl_ABC123`) |\n",
         "inputSchema": {
           "type": "object",
@@ -3791,10 +3831,14 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "list-all-inquiry-sessions",
+        "title": "List all Inquiry Sessions",
         "description": "Retrieves a list of Inquiry Sessions. Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
@@ -3810,10 +3854,14 @@
               }
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "create-an-inquiry-session",
+        "title": "Create an Inquiry Session",
         "description": "Creates a new Inquiry Session. By default, we only allow up to 25 sessions per Inquiry.",
         "inputSchema": {
           "type": "object",
@@ -3845,10 +3893,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "expire-inquiry-sessions",
+        "title": "Expire Inquiry Sessions",
         "description": "Expires all active Inquiry Sessions for a given set of Inquiries.",
         "inputSchema": {
           "type": "object",
@@ -3876,10 +3929,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "retrieve-an-inquiry-session",
+        "title": "Retrieve an Inquiry Session",
         "description": "Retrieves details of a specific Inquiry Session.",
         "inputSchema": {
           "type": "object",
@@ -3892,10 +3950,14 @@
           "required": [
             "inquiry-session-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "expire-an-inquiry-session",
+        "title": "Expire an Inquiry Session",
         "description": "Expires a specific Inquiry Session.",
         "inputSchema": {
           "type": "object",
@@ -3907,10 +3969,15 @@
           "required": [
             "inquiry-session-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "generate-a-one-time-link-for-an-inquiry-session",
+        "title": "Generate a one-time link for an Inquiry Session",
         "description": "Generates a one-time link for a specific Inquiry Session.",
         "inputSchema": {
           "type": "object",
@@ -3922,10 +3989,15 @@
           "required": [
             "inquiry-session-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "list-all-inquiry-template-versions",
+        "title": "List all Inquiry Template Versions",
         "description": "Retrieves the published versions and current draft version of an Inquiry Template.\n\nUse a production API key and provide the Inquiry Template ID in `filter[inquiry-template-id]`. For security reasons, Inquiry Template Versions are not available in Sandbox.",
         "inputSchema": {
           "type": "object",
@@ -3950,18 +4022,26 @@
           "required": [
             "filter"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "list-all-inquiry-templates",
-        "description": "Retrieves a list of your organization's Inquiry Templates.\n\nNote: You must use a production API key to access this endpoint. For security reasons, we do not expose organization-level resources like Inquiry Templates in Sandbox via API. Results are returned in reverse chronological order, with the most recently created objects first.",
+        "title": "List all Inquiry Templates",
+        "description": "Returns a list of your organization's inquiry templates, most recently created first. Each template includes its ID, name, status, hosted and embedded flow settings, and latest published version. Retrieve a single inquiry template for its field schemas. Requires a production API key; inquiry templates are not available in Sandbox via API.",
         "inputSchema": {
           "type": "object",
           "properties": {}
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-an-inquiry-template",
+        "title": "Retrieve an Inquiry Template",
         "description": "Retrieves details of a specific Inquiry Template by ID.\n\nNote: You must use a production API key to access this endpoint. For security reasons, we do not expose organization-level resources like Inquiry Templates in Sandbox via API.",
         "inputSchema": {
           "type": "object",
@@ -3974,10 +4054,14 @@
           "required": [
             "inquiry-template-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-inquiry-template-translations",
+        "title": "Retrieve Inquiry Template Translations",
         "description": "Retrieves the translations for an Inquiry Template as a JSON:API resource.\n\nThe export uses the latest draft version if one exists, otherwise falls back to the latest published version.\n\nNote: You must use a production API key to access this endpoint. For security reasons, we do not expose organization-level resources like Inquiry Templates in Sandbox via API.",
         "inputSchema": {
           "type": "object",
@@ -3990,10 +4074,14 @@
           "required": [
             "inquiry-template-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "import-inquiry-template-translations",
+        "title": "Import Inquiry Template Translations",
         "description": "Imports translations for an Inquiry Template. Supports partial updates — translation rows not included in the request body are left unchanged.\n\nIf a draft version already exists, translations are applied to it. If no draft exists, a new draft is created from the latest published version before importing. The draft is never automatically published — publishing is always a manual step in the dashboard.\n\nNote: You must use a production API key to access this endpoint. For security reasons, we do not expose organization-level resources like Inquiry Templates in Sandbox via API.",
         "inputSchema": {
           "type": "object",
@@ -4084,10 +4172,15 @@
             "inquiry-template-id",
             "requestBody"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "create-a-browser-fingerprint-list-item",
+        "title": "Create a Browser Fingerprint List Item",
         "description": "Create a new item in a list.",
         "inputSchema": {
           "type": "object",
@@ -4120,10 +4213,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-a-browser-fingerprint-list-item",
+        "title": "Retrieve a Browser Fingerprint List Item",
         "description": "Retrieves the details of an existing browser fingerprint List Item.",
         "inputSchema": {
           "type": "object",
@@ -4136,10 +4234,14 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "archive-a-browser-fingerprint-list-item",
+        "title": "Archive a Browser Fingerprint List Item",
         "description": "Archived items are not matched against new inquiries.",
         "inputSchema": {
           "type": "object",
@@ -4152,10 +4254,16 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "create-a-country-list-item",
+        "title": "Create a Country List Item",
         "description": "Create a new item in a list.",
         "inputSchema": {
           "type": "object",
@@ -4188,10 +4296,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-a-country-list-item",
+        "title": "Retrieve a Country List Item",
         "description": "Retrieves the details of an existing country List Item.",
         "inputSchema": {
           "type": "object",
@@ -4204,10 +4317,14 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "archive-a-country-list-item",
+        "title": "Archive a Country List Item",
         "description": "Archived items are not matched against new inquiries.",
         "inputSchema": {
           "type": "object",
@@ -4220,10 +4337,16 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "create-a-device-fingerprint-list-item",
+        "title": "Create a Device Fingerprint List Item",
         "description": "Create a new item in a list.",
         "inputSchema": {
           "type": "object",
@@ -4256,10 +4379,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-a-device-fingerprint-list-item",
+        "title": "Retrieve a Device Fingerprint List Item",
         "description": "Retrieves the details of an existing device fingerprint List Item.",
         "inputSchema": {
           "type": "object",
@@ -4272,10 +4400,14 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "archive-a-device-fingerprint-list-item",
+        "title": "Archive a Device Fingerprint List Item",
         "description": "Archived items are not matched against new inquiries.",
         "inputSchema": {
           "type": "object",
@@ -4288,10 +4420,16 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "create-an-email-address-list-item",
+        "title": "Create an Email Address List Item",
         "description": "Create a new item in a list.",
         "inputSchema": {
           "type": "object",
@@ -4328,10 +4466,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-an-email-address-list-item",
+        "title": "Retrieve an Email Address List Item",
         "description": "Retrieves the details of an existing email address List Item.",
         "inputSchema": {
           "type": "object",
@@ -4344,10 +4487,14 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "archive-an-email-address-list-item",
+        "title": "Archive an Email Address List Item",
         "description": "Archived items are not matched against new inquiries.",
         "inputSchema": {
           "type": "object",
@@ -4360,10 +4507,16 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "create-a-field-list-item",
+        "title": "Create a Field List Item",
         "description": "Create a new item in a list.",
         "inputSchema": {
           "type": "object",
@@ -4396,10 +4549,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-a-field-list-item",
+        "title": "Retrieve a Field List Item",
         "description": "Retrieves the details of an existing field List Item.",
         "inputSchema": {
           "type": "object",
@@ -4412,10 +4570,14 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "archive-a-field-list-item",
+        "title": "Archive a Field List Item",
         "description": "Archived items are not matched against new inquiries.",
         "inputSchema": {
           "type": "object",
@@ -4428,10 +4590,16 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "create-a-geolocation-list-item",
+        "title": "Create a Geolocation List Item",
         "description": "Create a new item in a list.",
         "inputSchema": {
           "type": "object",
@@ -4475,10 +4643,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-a-geolocation-list-item",
+        "title": "Retrieve a Geolocation List Item",
         "description": "Retrieves the details of an existing geolocation List Item.",
         "inputSchema": {
           "type": "object",
@@ -4491,10 +4664,14 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "archive-a-geolocation-list-item",
+        "title": "Archive a Geolocation List Item",
         "description": "Archived items are not matched against new inquiries.",
         "inputSchema": {
           "type": "object",
@@ -4507,10 +4684,16 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "create-a-government-id-number-list-item",
+        "title": "Create a Government ID Number List Item",
         "description": "Create a new item in a list.",
         "inputSchema": {
           "type": "object",
@@ -4547,10 +4730,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-a-government-id-number-list-item",
+        "title": "Retrieve a Government ID Number List Item",
         "description": "Retrieves the details of an existing government ID number List Item.",
         "inputSchema": {
           "type": "object",
@@ -4563,10 +4751,14 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "archive-a-government-id-number-list-item",
+        "title": "Archive a Government ID Number List Item",
         "description": "Archived items are not matched against new inquiries.",
         "inputSchema": {
           "type": "object",
@@ -4579,10 +4771,16 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "create-an-ip-address-list-item",
+        "title": "Create an IP Address List Item",
         "description": "Create a new item in a list.",
         "inputSchema": {
           "type": "object",
@@ -4615,10 +4813,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-an-ip-address-list-item",
+        "title": "Retrieve an IP Address List Item",
         "description": "Retrieves the details of an existing IP address List Item.",
         "inputSchema": {
           "type": "object",
@@ -4631,10 +4834,14 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "archive-an-ip-address-list-item",
+        "title": "Archive an IP Address List Item",
         "description": "Archived items are not matched against new inquiries.",
         "inputSchema": {
           "type": "object",
@@ -4647,10 +4854,16 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "create-a-name-list-item",
+        "title": "Create a Name List Item",
         "description": "Create a new item in a list.",
         "inputSchema": {
           "type": "object",
@@ -4687,10 +4900,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-a-name-list-item",
+        "title": "Retrieve a Name List Item",
         "description": "Retrieves the details of an existing name List Item.",
         "inputSchema": {
           "type": "object",
@@ -4703,10 +4921,14 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "archive-a-name-list-item",
+        "title": "Archive a Name List Item",
         "description": "Archived items are not matched against new inquiries.",
         "inputSchema": {
           "type": "object",
@@ -4719,10 +4941,16 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "create-a-phone-number-list-item",
+        "title": "Create a Phone Number List Item",
         "description": "Create a new item in a list.",
         "inputSchema": {
           "type": "object",
@@ -4755,10 +4983,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-a-phone-number-list-item",
+        "title": "Retrieve a Phone Number List Item",
         "description": "Retrieves the details of an existing phone number List Item.",
         "inputSchema": {
           "type": "object",
@@ -4771,10 +5004,14 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "archive-a-phone-number-list-item",
+        "title": "Archive a Phone Number List Item",
         "description": "Archived items are not matched against new inquiries.",
         "inputSchema": {
           "type": "object",
@@ -4787,10 +5024,16 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "create-a-string-list-item",
+        "title": "Create a String List Item",
         "description": "Create a new item in a list.",
         "inputSchema": {
           "type": "object",
@@ -4823,10 +5066,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-a-string-list-item",
+        "title": "Retrieve a String List Item",
         "description": "Retrieves the details of an existing string List Item.",
         "inputSchema": {
           "type": "object",
@@ -4839,10 +5087,14 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "archive-a-string-list-item",
+        "title": "Archive a String List Item",
         "description": "Archived items are not matched against new inquiries.",
         "inputSchema": {
           "type": "object",
@@ -4855,10 +5107,16 @@
           "required": [
             "list-item-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "create-a-browser-fingerprint-list",
+        "title": "Create a Browser Fingerprint List",
         "description": "Create a new list for your organization.",
         "inputSchema": {
           "type": "object",
@@ -4887,10 +5145,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "create-a-country-list",
+        "title": "Create a Country List",
         "description": "Create a new list for your organization.",
         "inputSchema": {
           "type": "object",
@@ -4919,10 +5182,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "create-an-email-address-list",
+        "title": "Create an Email Address List",
         "description": "Create a new list for your organization.",
         "inputSchema": {
           "type": "object",
@@ -4951,10 +5219,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "create-a-geolocation-list",
+        "title": "Create a Geolocation List",
         "description": "Create a new list for your organization.",
         "inputSchema": {
           "type": "object",
@@ -4983,10 +5256,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "create-a-government-id-number-list",
+        "title": "Create a Government ID Number List",
         "description": "Create a new list for your organization.",
         "inputSchema": {
           "type": "object",
@@ -5015,10 +5293,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "create-an-ip-address-list",
+        "title": "Create an IP Address List",
         "description": "Create a new list for your organization.",
         "inputSchema": {
           "type": "object",
@@ -5047,10 +5330,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "create-a-name-list",
+        "title": "Create a Name List",
         "description": "Create a new list for your organization.",
         "inputSchema": {
           "type": "object",
@@ -5083,10 +5371,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "create-a-phone-number-list",
+        "title": "Create a Phone Number List",
         "description": "Create a new list for your organization.",
         "inputSchema": {
           "type": "object",
@@ -5115,10 +5408,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "create-a-strings-list",
+        "title": "Create a String List",
         "description": "Create a new list for your organization.",
         "inputSchema": {
           "type": "object",
@@ -5147,10 +5445,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "list-all-lists",
+        "title": "List all Lists",
         "description": "Returns a list of your organization's lists. Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
@@ -5170,10 +5473,14 @@
               }
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-list",
+        "title": "Retrieve a List",
         "description": "Retrieves the details of an existing list.",
         "inputSchema": {
           "type": "object",
@@ -5186,10 +5493,14 @@
           "required": [
             "list-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "archive-a-list",
+        "title": "Archive a List",
         "description": "Archive an existing list. Archived lists are still retrievable, but will no longer match on inquiries.",
         "inputSchema": {
           "type": "object",
@@ -5202,36 +5513,16 @@
           "required": [
             "list-id"
           ]
-        }
-      },
-      {
-        "name": "create-authorization",
-        "description": "Authorizes another Organization to access your Inquiry, Verifications, or other Persona resources.",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "requestBody": {
-              "type": "string",
-              "description": "Request body (content type: application/x-www-form-urlencoded)"
-            }
-          }
-        }
-      },
-      {
-        "name": "create-access-token",
-        "description": "Exchange a credential for an access token. Supports two grant types:\n- `authorization_code`: Exchange an authorization code for an access token\n  (cross-org data sharing).\n- `client_credentials`: Exchange a signed JWT assertion (`private_key_jwt`)\n  for a short-lived access token (machine-to-machine auth, RFC 7523).",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "requestBody": {
-              "type": "string",
-              "description": "Request body (content type: application/x-www-form-urlencoded)"
-            }
-          }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "create-a-privacy-pass",
+        "title": "Create a Privacy Pass",
         "description": "Issues a Privacy Pass token by blind-signing a client-provided blinded token (Blind RSA, RFC 9578). The returned blind signature is unblinded client-side to produce a Privacy Pass token that can later be redeemed anonymously (for example, when generating a Relay claim).",
         "inputSchema": {
           "type": "object",
@@ -5262,18 +5553,27 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "list-all-rate-limits",
+        "title": "List all Rate Limits",
         "description": "Returns a list of your current rate limits.",
         "inputSchema": {
           "type": "object",
           "properties": {}
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "create-a-relay",
+        "title": "Create a Relay",
         "description": "Creates a new Relay.",
         "inputSchema": {
           "type": "object",
@@ -5311,10 +5611,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "request-a-relay-challenge",
+        "title": "Request a Relay challenge",
         "description": "Requests a Privacy Pass challenge for a claim type. The challenge materials returned here are used to obtain a Privacy Pass token, which is then redeemable to read claims from Relays with the same claim type.",
         "inputSchema": {
           "type": "object",
@@ -5344,10 +5649,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "generate-a-relay-claim",
+        "title": "Generate a Relay claim",
         "description": "Returns a relay's claim.",
         "inputSchema": {
           "type": "object",
@@ -5371,10 +5681,15 @@
             "relay-token",
             "Persona-Relay-Secret"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "list-all-reports",
+        "title": "List all Reports",
         "description": "Returns a list of all your organization's Reports. Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
@@ -5394,10 +5709,14 @@
               }
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "create-a-report",
+        "title": "Create a Report",
         "description": "Creates a new Report of any type.",
         "inputSchema": {
           "type": "object",
@@ -5509,10 +5828,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-a-report",
+        "title": "Retrieve a Report",
         "description": "Retrieves the details of an existing Report.",
         "inputSchema": {
           "type": "object",
@@ -5524,10 +5848,14 @@
           "required": [
             "report-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "redact-a-report",
+        "title": "Redact a Report",
         "description": "Permanently deletes personally identifiable information (PII) for a Report.\n\nThis endpoint can be used to comply with privacy regulations such as GDPR / CCPA or to enforce data privacy.\n\nNote that this will only delete the report -- it does not delete associated accounts, inquiries, verifications, or other Persona resources.",
         "inputSchema": {
           "type": "object",
@@ -5539,10 +5867,16 @@
           "required": [
             "report-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "reports-add-tag",
+        "title": "Add tag to a Report",
         "description": "Adds a new tag to the Report",
         "inputSchema": {
           "type": "object",
@@ -5575,10 +5909,15 @@
           "required": [
             "report-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "dismiss-matches",
+        "title": "Report Action: Dismiss Matches",
         "description": "Dismisses active matches for supported report types",
         "inputSchema": {
           "type": "object",
@@ -5628,10 +5967,15 @@
           "required": [
             "report-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "list-report-history",
+        "title": "List Report history",
         "description": "Retrieves the history of an existing Report, including runs and actions. See [Pagination](https://docs.withpersona.com/pagination) for more details about handling the response. Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
@@ -5643,10 +5987,14 @@
           "required": [
             "report-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "report-action-pause-continuous-monitoring",
+        "title": "Report Action: Pause Continuous Monitoring",
         "description": "Pauses continuous monitoring on a report. Requires additional permissions.",
         "inputSchema": {
           "type": "object",
@@ -5658,10 +6006,15 @@
           "required": [
             "report-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "print-report-pdf",
+        "title": "Print Report PDF",
         "description": "Prints a report in PDF format.",
         "inputSchema": {
           "type": "object",
@@ -5673,10 +6026,14 @@
           "required": [
             "report-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "reports-remove-tag",
+        "title": "Remove tag from a Report",
         "description": "Removes an existing tag from a Report.",
         "inputSchema": {
           "type": "object",
@@ -5709,10 +6066,15 @@
           "required": [
             "report-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "report-action-resume-continuous-monitoring",
+        "title": "Report Action: Resume Continuous Monitoring",
         "description": "Resumes continuous monitoring on paused report. Requires additional permissions.",
         "inputSchema": {
           "type": "object",
@@ -5724,10 +6086,15 @@
           "required": [
             "report-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "review-matches",
+        "title": "Report Action: Review Matches",
         "description": "Records a review decision on the matches of a Screening report. Review either every matched record at once, or a single matched record by its token from `matched-records`.",
         "inputSchema": {
           "type": "object",
@@ -5810,10 +6177,15 @@
           "required": [
             "report-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "report-action-re-run-report",
+        "title": "Report Action: Re-run Report",
         "description": "Re-runs a continuously monitored report immediately, outside of its existing recurrence schedule.",
         "inputSchema": {
           "type": "object",
@@ -5825,10 +6197,15 @@
           "required": [
             "report-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "reports-set-all-tags",
+        "title": "Set tags on a Report",
         "description": "Sets all tags on a Report. Any tags that are not provided in the request will be removed.",
         "inputSchema": {
           "type": "object",
@@ -5867,23 +6244,38 @@
           "required": [
             "report-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "list-all-theme-sets",
+        "title": "List all Theme Sets",
         "description": "Returns a list of your organization's theme sets. Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
           "properties": {
-            "filter[status]": {
-              "type": "string",
-              "description": "Filter theme sets by status — one of \"active\" or \"archived\"."
+            "filter": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "Filter theme sets by status — one of \"active\" or \"archived\"."
+                }
+              }
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "create-a-theme-set",
+        "title": "Create a Theme Set",
         "description": "Creates a new theme set. The `data` attribute carries the nested theme tree (`settings` / `light` / `dark`) — the same shape as the Code-First theme-set YAML. Style cells that are not supported are rejected with a 400 naming each offending path.",
         "inputSchema": {
           "type": "object",
@@ -5924,10 +6316,15 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-a-theme-set",
+        "title": "Retrieve a Theme Set",
         "description": "Retrieves the details of an existing theme set.",
         "inputSchema": {
           "type": "object",
@@ -5940,10 +6337,14 @@
           "required": [
             "theme-set-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "archive-a-theme-set",
+        "title": "Archive a Theme Set",
         "description": "Archive an existing theme set. Archived theme sets are still retrievable, but can no longer be assigned to inquiry templates. Archiving also detaches the theme set from any inquiry templates it is assigned to — live flows fall back to default styling. The organization's default theme set cannot be archived and returns a 409.",
         "inputSchema": {
           "type": "object",
@@ -5956,10 +6357,16 @@
           "required": [
             "theme-set-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "update-a-theme-set",
+        "title": "Update a Theme Set",
         "description": "Updates an existing theme set. Both attributes are optional — an omitted attribute is left unchanged. When `styles` is present it replaces the stored styling wholesale: the tree carries the complete desired styling, and any cell absent from it falls back to the Persona default cascade.",
         "inputSchema": {
           "type": "object",
@@ -6004,10 +6411,15 @@
           "required": [
             "theme-set-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "list-all-transactions",
+        "title": "List all Transactions",
         "description": "Returns a list of your organization's transactions. Note that this endpoint aggregates transactions across all transaction type(s). See [Pagination](https://docs.withpersona.com/pagination) for more details about handling the response. Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
@@ -6040,10 +6452,14 @@
               }
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "create-a-transaction",
+        "title": "Create a Transaction",
         "description": "Creates a new Transaction for a specific transaction type in your organization.",
         "inputSchema": {
           "type": "object",
@@ -6116,10 +6532,15 @@
           "required": [
             "requestBody"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-a-transaction",
+        "title": "Retrieve a Transaction",
         "description": "Retrieves the details of an existing Transaction.",
         "inputSchema": {
           "type": "object",
@@ -6132,10 +6553,14 @@
           "required": [
             "transaction-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "redact-a-transaction",
+        "title": "Redact a Transaction",
         "description": "Permanently deletes personally identifiable information (PII) for a Transaction. The response indicates a successful redaction of the Transaction. Redaction of the Transaction's associated child objects is done asynchronously and may take some time before all associated child objects are fully redacted. **This action cannot be undone**.",
         "inputSchema": {
           "type": "object",
@@ -6147,10 +6572,16 @@
           "required": [
             "transaction-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "update-a-transaction",
+        "title": "Update a Transaction",
         "description": "Updates a Transaction that has been previously created.",
         "inputSchema": {
           "type": "object",
@@ -6210,10 +6641,15 @@
           "required": [
             "transaction-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "transactions-add-objects",
+        "title": "Add Persona objects to a Transaction",
         "description": "Adds Persona objects (such as inquiries or verifications) to a Transaction. To link a Transaction to an Account or another Transaction, use add-relation instead.",
         "inputSchema": {
           "type": "object",
@@ -6253,10 +6689,15 @@
           "required": [
             "transaction-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "transactions-add-relation",
+        "title": "Add a relation to a Transaction",
         "description": "Adds a relation between this Transaction and a target Account or Transaction using a relation schema key. No effect if the relation already exists.",
         "inputSchema": {
           "type": "object",
@@ -6297,10 +6738,15 @@
           "required": [
             "transaction-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "transactions-add-tag",
+        "title": "Add tag to a Transaction",
         "description": "Adds a tag to a Transaction. Create a new tag if the tag does not already exist. No effect if the transaction already has the tag.",
         "inputSchema": {
           "type": "object",
@@ -6334,10 +6780,15 @@
           "required": [
             "transaction-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "create-a-transaction-label",
+        "title": "Create a Transaction label",
         "description": "Create a new label for an existing Transaction.",
         "inputSchema": {
           "type": "object",
@@ -6373,10 +6824,15 @@
           "required": [
             "transaction-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "transactions-remove-objects",
+        "title": "Remove Persona objects from a Transaction",
         "description": "Removes Persona objects (such as inquiries or verifications) from a Transaction. This operation is idempotent — removing an object that is not attached succeeds without modifying the transaction. To unlink a Transaction from an Account or another Transaction, use remove-relation instead.",
         "inputSchema": {
           "type": "object",
@@ -6416,10 +6872,15 @@
           "required": [
             "transaction-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "transactions-remove-relation",
+        "title": "Remove a relation from a Transaction",
         "description": "Removes a relation between this Transaction and a target Account or Transaction. No effect if the relation does not exist.",
         "inputSchema": {
           "type": "object",
@@ -6460,10 +6921,15 @@
           "required": [
             "transaction-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "transactions-remove-tag",
+        "title": "Remove tag from a Transaction",
         "description": "Remove a tag from a transaction. No effect if the transaction does not have the tag.",
         "inputSchema": {
           "type": "object",
@@ -6497,10 +6963,15 @@
           "required": [
             "transaction-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "transactions-set-tags",
+        "title": "Set tags on a Transaction",
         "description": "Set the list of tags on a transaction. Remove all tags on the transaction that don't appear on the list. Add all tags on the transaction from the list.",
         "inputSchema": {
           "type": "object",
@@ -6540,10 +7011,16 @@
           "required": [
             "transaction-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "redact-transaction-biometrics",
+        "title": "Redact Transaction biometrics",
         "description": "Permanently deletes biometric data for a Transaction AND all its associated objects. **This action cannot be undone**.",
         "inputSchema": {
           "type": "object",
@@ -6555,10 +7032,15 @@
           "required": [
             "transaction-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "retrieve-a-transaction-type",
+        "title": "Retrieve a Transaction Type",
         "description": "Retrieves the details of an existing Transaction Type.",
         "inputSchema": {
           "type": "object",
@@ -6571,18 +7053,26 @@
           "required": [
             "transaction-type-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "list-all-user-audit-logs",
+        "title": "List all User Audit Logs",
         "description": "Returns a list of your organization’s user audit logs for up to the most recent 6 months.\n\nNote: You must use a production API key to access this endpoint. For security reasons, we do not expose organization-level resources like user audit logs in Sandbox via API. Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
           "properties": {}
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-user-audit-log",
+        "title": "Retrieve a User Audit Log",
         "description": "Retrieves the details of an existing user audit logs for up to the most recent 6 months.\n\nNote: You must use a production API key to access this endpoint. For security reasons, we do not expose organization-level resources like user audit logs in Sandbox via API.",
         "inputSchema": {
           "type": "object",
@@ -6594,10 +7084,14 @@
           "required": [
             "user-audit-log-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-an-aamva-verification",
+        "title": "Retrieve an AAMVA Verification",
         "description": "Retrieve an AAMVA verification",
         "inputSchema": {
           "type": "object",
@@ -6610,10 +7104,14 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-an-ecbsv-database-verification",
+        "title": "Retrieve an eCBSV Database Verification",
         "description": "Retrieve an eCBSV database verification",
         "inputSchema": {
           "type": "object",
@@ -6626,10 +7124,14 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-phone-carrier-database-verification",
+        "title": "Retrieve a Phone Carrier Database Verification",
         "description": "Retrieve a phone carrier database verification",
         "inputSchema": {
           "type": "object",
@@ -6642,10 +7144,14 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-serpro-database-verification",
+        "title": "Retrieve a Serpro Database Verification",
         "description": "Retrieve a Serpro database verification",
         "inputSchema": {
           "type": "object",
@@ -6658,10 +7164,14 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-database-standard-verification",
+        "title": "Retrieve a Database Standard Verification",
         "description": "Retrieve a database standard verification",
         "inputSchema": {
           "type": "object",
@@ -6674,10 +7184,14 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-tin-database-verification",
+        "title": "Retrieve a TIN Database Verification",
         "description": "Retrieve a TIN database verification",
         "inputSchema": {
           "type": "object",
@@ -6690,10 +7204,14 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-database-verification",
+        "title": "Retrieve a Database Verification",
         "description": "Retrieve a database verification",
         "inputSchema": {
           "type": "object",
@@ -6706,11 +7224,15 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-document-verification",
-        "description": "Retrieves the details of a specific document verification",
+        "title": "Retrieve a Document Verification",
+        "description": "Retrieves a document verification, including its status, checks, extracted fields, and the name and size of each uploaded file.",
         "inputSchema": {
           "type": "object",
           "properties": {
@@ -6721,10 +7243,14 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-email-address-verification",
+        "title": "Retrieve an Email Address Verification",
         "description": "Retrieve a email address verification",
         "inputSchema": {
           "type": "object",
@@ -6737,11 +7263,15 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-government-id-verification",
-        "description": "Retrieve a government ID verification",
+        "title": "Retrieve a Government ID Verification",
+        "description": "Retrieves a government ID verification, including its status, checks, the fields extracted from the ID (such as name, birthdate, address, ID number and expiration date), and the page, file name and size of each captured photo.",
         "inputSchema": {
           "type": "object",
           "properties": {
@@ -6752,11 +7282,15 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-government-id-nfc-verification",
-        "description": "Retrieve a Government ID NFC verification",
+        "title": "Retrieve a Government ID NFC Verification",
+        "description": "Retrieves a government ID NFC verification, including its status, checks and the fields read from the ID chip.",
         "inputSchema": {
           "type": "object",
           "properties": {
@@ -6767,10 +7301,14 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-phone-number-verification",
+        "title": "Retrieve a Phone Number Verification",
         "description": "Retrieve a phone number verification",
         "inputSchema": {
           "type": "object",
@@ -6783,11 +7321,15 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-selfie-verification",
-        "description": "Retrieve a selfie ID verification",
+        "title": "Retrieve a Selfie Verification",
+        "description": "Retrieves a selfie verification, including its status, checks, similarity scores, and the page, file name and size of each captured photo.",
         "inputSchema": {
           "type": "object",
           "properties": {
@@ -6798,11 +7340,15 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-verification",
-        "description": "Retrieves the details of an existing Verification.",
+        "title": "Retrieve a Verification",
+        "description": "Retrieves the details of an existing verification of any type, such as its status, checks, extracted fields, file names and sizes, and related objects.",
         "inputSchema": {
           "type": "object",
           "properties": {
@@ -6813,10 +7359,14 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "redact-a-verification",
+        "title": "Redact a Verification",
         "description": "Permanently deletes personally identifiable information (PII) for a Verification. **This action cannot be undone**. This endpoint can be used to comply with privacy regulations such as GDPR / CCPA or to enforce data privacy.",
         "inputSchema": {
           "type": "object",
@@ -6828,10 +7378,16 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true
         }
       },
       {
         "name": "print-a-verification-as-pdf",
+        "title": "Print Verification PDF",
         "description": "Prints a verification in PDF format.",
         "inputSchema": {
           "type": "object",
@@ -6843,10 +7399,14 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "investigation-lock-a-verification",
+        "title": "Investigation Lock a Verification",
         "description": "Locks a Verification from redaction while it is under investigation. While locked, redaction requests for the Verification will be rejected.",
         "inputSchema": {
           "type": "object",
@@ -6858,10 +7418,15 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "investigation-unlock-a-verification",
+        "title": "Investigation Unlock a Verification",
         "description": "Unlocks a Verification that was previously locked from redaction during an investigation.",
         "inputSchema": {
           "type": "object",
@@ -6873,10 +7438,15 @@
           "required": [
             "verification-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "search-webhook-events",
+        "title": "Search Webhook Events",
         "description": "Search for webhook events using a flexible query language.\n\nWebhook events are the individual delivery records for your webhooks — one per event, per\nwebhook. Use this endpoint to find events (for example, all `failed` deliveries for a given\nwebhook in a time window) before re-running them.\n\n## Data Freshness\n\nDo not use search for read-after-write flows because the data will not be immediately available\nto search. Under normal operating conditions, data is searchable within approximately 1 minute\nof creation or modification. Propagation could be delayed during an outage.\n\n## Retention\n\nWebhook events are retained for a limited window. Searches are automatically bounded to that\nwindow, so events older than the retention period are not returned even if requested.\n\n### Searchable Attributes\n\nThe following attributes can be used in query predicates:\n\n| Attribute | Description |\n|-----------|-------------|\n| `updated_at` | Timestamp the event was last updated (i.e. last delivery attempt). Supports `eq`, `gt`, `gte`, `lt`, `lte`. |\n| `status` | Delivery status: `pending`, `completed`, `failed`, or `skipped`. |\n| `webhook_id` | Webhook token (e.g. `wbh_ABC123`). |\n| `event_id` | Event token the webhook event was created from (e.g. `evt_ABC123`). |\n| `event_name` | Event name (e.g. `inquiry.completed`). |\n| `webhook_event_id` | Webhook event token (e.g. `wbhe_ABC123`). |\n| `related_object_ids` | A related object token contained in the event payload. |\n\nAll attributes other than `updated_at` support only the `eq` operator.\n",
         "inputSchema": {
           "type": "object",
@@ -7094,50 +7664,27 @@
               "description": "The JSON request body."
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "list-all-webhooks",
+        "title": "List all Webhooks",
         "description": "Returns a list of your environment's webhooks. Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
           "properties": {}
-        }
-      },
-      {
-        "name": "create-a-webhook",
-        "description": "Creates a new webhook with response defaults.",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "requestBody": {
-              "properties": {
-                "data": {
-                  "properties": {
-                    "attributes": {
-                      "type": "object"
-                    }
-                  },
-                  "required": [
-                    "attributes"
-                  ],
-                  "type": "object",
-                  "additionalProperties": false
-                }
-              },
-              "required": [
-                "data"
-              ],
-              "type": "object",
-              "additionalProperties": false,
-              "description": "The JSON request body."
-            }
-          }
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "retrieve-a-webhook",
-        "description": "Retrieves the details of an existing webhook, including its secret.",
+        "title": "Retrieve a Webhook",
+        "description": "Retrieves the details of an existing webhook, such as its URL, enabled events and status.",
         "inputSchema": {
           "type": "object",
           "properties": {
@@ -7149,42 +7696,14 @@
           "required": [
             "webhook-id"
           ]
-        }
-      },
-      {
-        "name": "update-a-webhook",
-        "description": "Updates an existing Webhook.",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "webhook-id": {
-              "type": "string",
-              "description": "Webhook's ID (starts with \"wbh_\")"
-            },
-            "requestBody": {
-              "properties": {
-                "data": {
-                  "properties": {
-                    "attributes": {
-                      "type": "object"
-                    }
-                  },
-                  "type": "object",
-                  "additionalProperties": false
-                }
-              },
-              "type": "object",
-              "additionalProperties": false,
-              "description": "The JSON request body."
-            }
-          },
-          "required": [
-            "webhook-id"
-          ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "archive-a-webhook",
+        "title": "Archive a Webhook",
         "description": "Archives a webhook.",
         "inputSchema": {
           "type": "object",
@@ -7197,10 +7716,15 @@
           "required": [
             "webhook-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "enable-a-webhook",
+        "title": "Enable a Webhook",
         "description": "Enables a webhook.",
         "inputSchema": {
           "type": "object",
@@ -7213,10 +7737,15 @@
           "required": [
             "webhook-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "disable-a-webhook",
+        "title": "Disable a Webhook",
         "description": "Disables a webhook.",
         "inputSchema": {
           "type": "object",
@@ -7229,59 +7758,15 @@
           "required": [
             "webhook-id"
           ]
-        }
-      },
-      {
-        "name": "rotate-a-webhook-secret",
-        "description": "Rotates a webhook's secret.",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "webhook-id": {
-              "type": "string",
-              "description": "Webhook's ID (starts with \"wbh_\")"
-            },
-            "requestBody": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "meta": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "expires-in-seconds": {
-                      "description": "Seconds until currently active webhook expires",
-                      "type": "number"
-                    }
-                  }
-                }
-              },
-              "description": "The JSON request body."
-            }
-          },
-          "required": [
-            "webhook-id"
-          ]
-        }
-      },
-      {
-        "name": "clone-a-webhook",
-        "description": "Creates a copy of an existing webhook. All attributes except the secret are copied over to the new webhook.",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "webhook-id": {
-              "type": "string",
-              "description": "The ID of the Webhook to clone (starts with \"wbh_\")"
-            }
-          },
-          "required": [
-            "webhook-id"
-          ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true
         }
       },
       {
         "name": "create-a-workflow-run",
+        "title": "Create a Workflow Run",
         "description": "Creates a new Workflow Run.\n\nNote: The payload is arbitrary and defined by the Workflow version trigger schema.",
         "inputSchema": {
           "type": "object",
@@ -7332,10 +7817,15 @@
           "required": [
             "workflow-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false
         }
       },
       {
         "name": "retrieve-a-workflow-run",
+        "title": "Retrieve a Workflow Run",
         "description": "Retrieves the details of an existing workflow run.",
         "inputSchema": {
           "type": "object",
@@ -7348,10 +7838,14 @@
           "required": [
             "workflow-run-id"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "list-all-workflow-runs",
+        "title": "List all Workflow Runs",
         "description": "Returns a list of your environment's workflow runs. Results are returned in reverse chronological order, with the most recently created objects first.",
         "inputSchema": {
           "type": "object",
@@ -7367,10 +7861,14 @@
               }
             }
           }
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       },
       {
         "name": "list-all-workflow-versions",
+        "title": "List all Workflow Versions",
         "description": "Retrieves the published versions and current draft version of a Workflow. Archived versions are not returned.\n\nProvide the Workflow ID in `filter[workflow-id]`, which you can copy from the Workflow in your Persona dashboard. The `live`, `rollout-label`, and `rollout-percentage` attributes are relative to the environment your API key belongs to: a version live in Production is not live in Sandbox. Sandbox API keys are supported, and report `live: false` for every version of a Workflow that is only deployed to Production.",
         "inputSchema": {
           "type": "object",
@@ -7395,6 +7893,9 @@
           "required": [
             "filter"
           ]
+        },
+        "annotations": {
+          "readOnlyHint": true
         }
       }
     ]
