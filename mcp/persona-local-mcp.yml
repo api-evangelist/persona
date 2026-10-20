@@ -143,3 +143,943 @@ tool_quality:
   scored: false
   note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
     from Glimind's agent-readiness audit.
+tools:
+- name: retrieve-an-account-type
+  description: Retrieves the details of an existing Account Type, including its configured field schemas.
+- name: list-all-accounts
+  description: Returns a list of your organization's account(s). Results are returned in reverse chronological
+    order, with the most recently created objects first.
+- name: create-an-account
+  description: Creates a new Account for your organization.
+- name: retrieve-an-account
+  description: Retrieves the details of an existing Account.
+- name: redact-an-account
+  description: 'Permanently deletes personally identifiable information (PII) for an Account and all associated
+    Inquiries, Verifications and Reports. The response indicates a successful redaction of the Account.
+    Redaction of the Account''s associated child objects is done asynchronously and may take  some time
+    before all associated child objects are fully redacted. **This action cannot be undone**.
+
+
+    This endpoint can be used to comply with privacy regulations such as GDPR / CCPA or to enforce data
+    privacy.
+
+
+    Note: An account is still updatable after redaction. If you want to delete data continuously, please
+    reach out to us to help you setup a retention policy.'
+- name: update-an-account
+  description: Updates an existing Account.
+- name: accounts-add-objects
+  description: Adds Persona objects (such as inquiries, documents, or reports) to an Account. To link
+    an Account to another Account or a Transaction, use add-relation instead.
+- name: accounts-add-relation
+  description: Adds a relation from an Account to a target Account or Transaction
+- name: accounts-add-tag
+  description: Adds a new tag to an Account
+- name: consolidate-into-an-account
+  description: 'Consolidates several source Accounts'' information into one target Account. Any Persona
+    resource associated with the source Account will be transferred over to the destination Account. However,
+    the Account''s attributes will **not** be transferred. After consolidation, you can update the destination
+    Account''s attributes using the [Account update endpoint](https://docs.withpersona.com/api-reference/accounts/update-an-account).
+
+
+    This endpoint can be used to clean up duplicate Accounts.
+
+
+    Note: A source account can only be consolidated once. Afterwards, the source account will be archived
+    and unable to be used moving forward - any attempts to create an inquiry attached to the source account
+    will fail.'
+- name: accounts-list-all-relations
+  description: Gets relations for an Account by key
+- name: accounts-remove-objects
+  description: Removes Persona objects (such as inquiries, documents, or reports) from an Account. This
+    operation is idempotent — removing an object that is not attached succeeds without modifying the account.
+    To unlink an Account from another Account or a Transaction, use remove-relation instead.
+- name: accounts-remove-relation
+  description: Removes a relation from an Account to a target Account or Transaction.
+- name: accounts-remove-tag
+  description: Removes an existing tag from an Account
+- name: accounts-set-all-tags
+  description: Sets all tags on an Account. Any tags that are not provided in the request will be removed.
+- name: runAccountAction
+  description: Triggers an account action for the specified account
+- name: search-accounts
+  description: 'Search for accounts using a flexible query language.
+
+
+    ## Search vs. List Endpoints
+
+
+    The Search and List endpoints serve different purposes and have distinct performance characteristics.
+
+
+    Use the **Search** endpoint (`POST /accounts/search`) when you need to perform complex queries with
+    boolean logic (AND/OR/NOT), filter by custom fields or identifiers, or apply multiple conditions simultaneously.
+    Search is optimized for flexible querying and is faster than paginating through all resources when
+    looking for specific records.
+
+
+    Use the **List** endpoint (`GET /accounts`) for simple listing with basic filters like reference ID.
+
+
+    ## Data Freshness
+
+
+    Do not use search for read-after-write flows because the data will not be immediately available to
+    search.
+
+    Under normal operating conditions, data is searchable within approximately 1 minute of creation or
+    modification.
+
+    Propagation of new or updated data could be delayed during an outage.
+
+    For workflows that require immediate data availability after creating or updating an account, use
+    the List Accounts endpoint instead.
+
+
+    ### Searchable Attributes
+
+
+    The following attributes can be used in query predicates:
+
+
+    | Attribute | Description |
+
+    |-----------|-------------|
+
+    | `type` | Account type (e.g., `acttp_ABC123`) |
+
+    | `status` | Account status (e.g., `actst_ABC123`) |
+
+    | `created_at` | Account creation timestamp |
+
+    | `updated_at` | Account last updated timestamp |
+
+    | `identifiers.*` | Custom identifier (e.g., `identifiers.user_id`) |
+
+    | `fields.*` | Custom account field (e.g., `fields.age`) |
+
+
+    **Note:** Custom fields (`fields.*`) must be configured as searchable on the Account Type to be queryable.'
+- name: list-all-api-keys
+  description: Returns a list of your organization's API keys. Results are returned in reverse chronological
+    order, with the most recently created objects first.
+- name: create-an-api-key
+  description: Creates a new API key with response defaults and permissions.
+- name: retrieve-an-api-key
+  description: Retrieves the information for an existing API key. The plaintext value is only returned
+    when creating or cloning an API key.
+- name: update-an-api-key
+  description: Updates an existing API key.
+- name: expire-an-api-key
+  description: Deactivates an API key within some time period
+- name: clone-api-key
+  description: Creates a copy of an existing API key. All attributes except the value are copied over
+    to the new API key.
+- name: list-all-connect-connections
+  description: Returns a list of connect connections associated with your organization, including both
+    outbound connections your organization created and inbound connections where your organization is
+    the destination. Results are returned in reverse chronological order, with the most recently created
+    objects first.
+- name: create-a-connect-connection
+  description: Creates a new Connection from your organization to a destination organization in the `pending`
+    state. The destination organization must accept the connection before it transitions to `active`;
+    share tokens cannot be redeemed through the connection until then. Connections cannot be deleted,
+    but they can be deactivated and later reactivated to control access.
+- name: retrieve-a-connect-connection
+  description: Retrieves the details of an existing Connection.
+- name: deactivate-a-connect-connection
+  description: Deactivates a Connection. Either the source or destination organization may deactivate
+    a connection that is currently `pending` or `active`. Deactivation prevents further access through
+    the connection but maintains the connection record. Connections that are already `inactive` cannot
+    be deactivated again.
+- name: reactivate-a-connect-connection
+  description: Reactivates an inactive Connection, returning it to the `pending` state. Only the source
+    organization can reactivate a connection. Once reactivated, the destination organization must accept
+    the connection again before it returns to the `active` state. Only inactive connections can be reactivated.
+- name: list-all-share-tokens
+  description: Returns a list of your organization's Share Tokens. Results are returned in reverse chronological
+    order, with the most recently created objects first.
+- name: create-a-share-token
+  description: Creates a new Share Token with the specified connection and source. Share Tokens can be
+    created from Accounts, Inquiries, Transactions, or Verifications.
+- name: retrieve-a-share-token
+  description: Retrieve the information for an existing Share Token.
+- name: expire-share-token
+  description: Expires a Share Token, setting its status to expired and preventing further use.
+- name: redeem-share-token
+  description: "Initiates redemption of a Share Token in one of two modes:\n\n- **Clone:** Omit `data.attributes.destination-id`\
+    \ to create a new object from the source.\n  Inquiry and Verification Share Tokens can be cloned.\n\
+    - **Hydrate:** Provide `data.attributes.destination-id` to import source data into an existing\n \
+    \ object. Account, Transaction, and Inquiry Share Tokens can hydrate an existing Account,\n  Transaction,\
+    \ or Inquiry.\n\nRedemption is asynchronous. A successful request returns the Share Token with a `pending`\n\
+    status while Persona processes the import."
+- name: list-all-api-logs
+  description: Returns a list of your organization's API Logs. Results are returned in reverse chronological
+    order, with the most recently created objects first.
+- name: retrieve-an-api-log
+  description: Retrieves the details of an existing API Log.
+- name: create-a-batch-job
+  description: "Submits a batch of rows to update or upsert Accounts, or update Inquiries, in bulk. Persona\n\
+    processes the rows asynchronously as a Batch Job; poll the returned job or retrieve its\nerrors to\
+    \ check progress.\n\n- **`object: account`** supports `operation: update` (lookup by `token` or `reference_id`)\
+    \ or\n  `operation: upsert` (lookup by `reference_id` only, and requires `account_type_id` on the\n\
+    \  pipeline or on each row).\n- **`object: inquiry`** only supports `operation: update` with `lookup_field:\
+    \ token`."
+- name: retrieve-a-batch-job
+  description: Retrieve the status and counts for an existing Batch Job.
+- name: retrieve-batch-job-errors
+  description: Retrieve global and per-row errors for an existing Batch Job.
+- name: retrieve-a-case-template
+  description: Retrieves the details of an existing Case Template, including its configured field schemas.
+- name: list-all-cases
+  description: 'Returns a list of your organization''s cases.
+
+
+    Note that this endpoint aggregates cases across all case template(s). See [Pagination](https://docs.withpersona.com/pagination)for
+    more details about handling the response. Results are returned in reverse chronological order, with
+    the most recently created objects first.'
+- name: create-a-case
+  description: Creates a new case in your organization.
+- name: retrieve-case
+  description: Retrieves the details of an existing Case.
+- name: redact-a-case
+  description: Permanently redacts a Case and its fields. Case objects must be redacted individually.
+    **This action cannot be undone**.
+- name: update-a-case
+  description: Updates the fields and add attachments on a Case that has been previously created.
+- name: add-persona-objects
+  description: Adds Persona objects (such as inquiries, accounts, or reports) to a Case
+- name: remove-persona-objects
+  description: Removes Persona objects (such as inquiries, accounts, or reports) from a Case. This operation
+    is idempotent — removing an object that is not attached succeeds without modifying the case.
+- name: assign-a-case
+  description: Assigns a Case to a Persona user.
+- name: set-status-for-a-case
+  description: Sets the status of a Case.
+- name: add-tag
+  description: Adds a new tag to a Case
+- name: remove-tag
+  description: Removes an existing tag from a Case
+- name: set-tags
+  description: Sets all tags on a Case. Any tags that are not provided in the request will be removed.
+- name: add-comment
+  description: Adds a comment to a Case
+- name: search-cases
+  description: 'Search for cases using a flexible query language.
+
+
+    ## Search vs. List Endpoints
+
+
+    The Search and List endpoints serve different purposes and have distinct performance characteristics.
+
+
+    Use the **Search** endpoint (`POST /cases/search`) when you need to perform complex queries with boolean
+    logic (AND/OR/NOT), filter by custom fields, assignee, case queue, or SLA expiration, or apply multiple
+    conditions simultaneously. Search is optimized for flexible querying and is faster than paginating
+    through all resources when looking for specific records.
+
+
+    Use the **List** endpoint (`GET /cases`) for simple listing with basic filters like status, case template,
+    account, inquiry, or report.
+
+
+    ## Data Freshness
+
+
+    Do not use search for read-after-write flows because the data will not be immediately available to
+    search.
+
+    Under normal operating conditions, data is searchable within approximately 1 minute of creation or
+    modification.
+
+    Propagation of new or updated data could be delayed during an outage.
+
+    For workflows that require immediate data availability after creating or updating a case, use the
+    List Cases endpoint instead.
+
+
+    ### Searchable Attributes
+
+
+    The following attributes can be used in query predicates:
+
+
+    | Attribute | Description |
+
+    |-----------|-------------|
+
+    | `template` | Case template (e.g., `ctmpl_ABC123`) |
+
+    | `case_template_id` | Case template (e.g., `ctmpl_ABC123`) |
+
+    | `status` | Case status (e.g., `open`, `pending`, `resolved`) |
+
+    | `state` | Case state |
+
+    | `resolution` | Case resolution |
+
+    | `created_at` | Case creation timestamp |
+
+    | `updated_at` | Case last updated timestamp |
+
+    | `resolved_at` | Case resolution timestamp |
+
+    | `sla_expires_at` | SLA expiration timestamp |
+
+    | `assignee` | Assigned user (e.g., `user_ABC123`) |
+
+    | `case_queue` | Case queue (e.g., `cqueue_ABC123`) |
+
+    | `case_queue_id` | Case queue (e.g., `cqueue_ABC123`) |
+
+    | `resolver` | Resolver user |
+
+    | `account_id` | Related account (e.g., `act_ABC123`) |
+
+    | `inquiry_id` | Related inquiry (e.g., `inq_ABC123`) |
+
+    | `tag_id` | Related tag (e.g., `tag_ABC123`) |
+
+    | `fields.*` | Custom case field (e.g., `fields.priority`) |
+
+
+    **Note:** Custom fields (`fields.*`) must be configured as searchable on the Case Template to be queryable.
+
+
+    **Note:** `account_id`, `inquiry_id`, `tag_id`, `case_template_id`, `case_queue_id`, and
+
+    `resolution` cannot be used in `sort`.
+
+
+    **Note:** `account_id`, `inquiry_id`, and `tag_id` match against the 50 most recently added
+
+    accounts, inquiries, and tags on a case. A case related to more than 50 of one of these will not
+
+    match on the older ones.'
+- name: list-all-devices
+  description: Retrieves a list of Devices. Results are returned in reverse chronological order, with
+    the most recently created objects first.
+- name: retrieve-a-device
+  description: Retrieves details of a specific Device.
+- name: retrieve-a-generic-document
+  description: Retrieves the details of a generic document that has been previously created.
+- name: retrieve-a-government-id-document
+  description: Retrieves the details of a government-id document that has been previously created.
+- name: retrieve-a-document
+  description: Retrieves the details of a Document.
+- name: list-all-events
+  description: Returns a list of your organization's events. Results are returned in reverse chronological
+    order, with the most recently created objects first.
+- name: retrieve-an-event
+  description: Retrieves the details of an existing event.
+- name: create-a-graph-query
+  description: Create a Graph Query
+- name: retrieve-a-graph-query
+  description: Retrieve a Graph Query
+- name: list-all-importers
+  description: Returns a list of your organization's importers. Results are returned in reverse chronological
+    order, with the most recently created objects first.
+- name: retrieve-an-importer
+  description: Retrieve the details of an existing importer.
+- name: import-an-account
+  description: "Bulk import accounts by uploading a CSV file.\n\nEach row should be the details for a\
+    \ new account. The columns we allow are:\n  - reference_id\n  - name_first\n  - name_middle\n  - name_last\n\
+    \  - birthdate\n  - social_security_number\n  - tags"
+- name: import-email-address-lists
+  description: "Bulk import email address List Items by uploading a CSV file.\n\nEach row should be the\
+    \ details for a new List Item. The columns we allow are:\n  - value\n  - match_type (either 'email_address'\
+    \ or 'domain')\n\nA match_type of 'email_address' will need to match the entire email address of an\
+    \ individual, while a match_type of 'domain' will match on the email address domain of an individual\
+    \ (i.e. all email addresses with domain 'gmail.com')."
+- name: import-geolocation-lists
+  description: "Bulk import geolocation List Items by uploading a CSV file.\n\nEach row should be the\
+    \ details for a new List Item. The columns we allow are:\n  - latitude\n  - longitude\n  - radius_meters"
+- name: import-government-id-number-lists
+  description: "Bulk import government ID number List Items by uploading a CSV file.\n\nEach row should\
+    \ be the details for a new List Item. The columns we allow are:\n  - id_number\n  - id_class\n\nCommon\
+    \ values for id_class include `pp` for passport and `dl` for driver license. Please contact us or\
+    \ reach out to [support@withpersona.com](mailto:support@withpersona.com) if you need help getting\
+    \ id_class values."
+- name: import-ip-address-lists
+  description: "Bulk import IP address List Items by uploading a CSV file.\n\nEach row should be the details\
+    \ for a new List Item. The columns we allow are:\n  - value\n\nBoth IPv4 and IPv6 are supported."
+- name: import-name-lists
+  description: "Bulk import name List Items by uploading a CSV file.\n\nEach row should be the details\
+    \ for a new list item. The columns we allow are:\n  - name_first\n  - name_last"
+- name: import-phone-number-lists
+  description: "Bulk import phone number List Items by uploading a CSV file.\n\nEach row should be the\
+    \ details for a new list item. The columns we allow are:\n  - value"
+- name: list-all-inquiries
+  description: 'Returns a list of your organization''s inquiries.
+
+
+    Note that this endpoint aggregates inquiries across all inquiry template(s). See [Pagination](https://docs.withpersona.com/pagination)
+    for more details about handling the response. Results are returned in reverse chronological order,
+    with the most recently created objects first.'
+- name: create-an-inquiry
+  description: 'Creates a new inquiry with optional pre-filled attributes.
+
+
+    See [Sessions](https://docs.withpersona.com/inquiry-sessions) for how to continue the inquiry in [Embedded
+    Flow](https://docs.withpersona.com/embedded-flow) or [Hosted Flow](https://docs.withpersona.com/hosted-flow).'
+- name: retrieve-an-inquiry
+  description: 'Retrieves the details of an existing Inquiry.
+
+
+    In the [Embedded Flow](https://docs.withpersona.com/embedded-flow), the `inquiry-id` is the first
+    parameter of the onStart callback. In the [Hosted Flow](https://docs.withpersona.com/hosted-flow),
+    the `inquiry-id` is a query parameter in the onComplete callback.
+
+
+    Template information will be found in `data.relationships.inquiry-template` if the inquiry is a Dynamic
+    Flow inquiry, and in `data.relationships.template` if the inquiry is a Legacy 2.0 inquiry. For more
+    information, see [Dynamic Flow vs. Legacy Templates](https://docs.withpersona.com/inquiry-templates#dynamic-flow-vs-legacy-templates).'
+- name: redact-an-inquiry
+  description: 'Permanently deletes personally identifiable information (PII) for an Inquiry and all associated
+    Verifications, Reports, or other Persona resources. The response indicates a successful redaction
+    of the Inquiry. Redaction of the Inquiry''s associated child objects are done asynchronously and may
+    take some time before all associated child objects are fully redacted. **This action cannot be undone**.
+
+
+    This endpoint can be used to comply with privacy regulations such as GDPR / CCPA or to enforce data
+    privacy.'
+- name: update-an-inquiry
+  description: 'Updates an existing Inquiry.
+
+
+    Note that if you use webhooks, updates to inquiries that are not in progress can result in data getting
+    out of sync. For example, updating a completed Inquiry will not cause your Inquiry completed webhook
+    to retrigger.
+
+
+    Inquiries represent a snapshot of data collected from an individual, so we generally do not recommend
+    updating an Inquiry''s data after the Inquiry has been finalized.'
+- name: inquiries-add-tag
+  description: Adds a new tag to an Inquiry.
+- name: approve-an-inquiry
+  description: 'Approves an Inquiry.
+
+
+    Note that this action will trigger any associated workflows and webhooks.
+
+
+    Approving an inquiry will prevent further progress on the inquiry.'
+- name: decline-an-inquiry
+  description: 'Declines an Inquiry.
+
+
+    Note that this action will trigger any associated workflows and webhooks.
+
+
+    Declining an inquiry will prevent further progress on the inquiry.'
+- name: mark-an-inquiry-for-review
+  description: 'Marks an Inquiry for manual review. Inquiries that are already
+
+    approved or declined cannot be marked for review.
+
+
+    Note that this action will trigger any associated workflows and webhooks.
+
+
+    Marking an inquiry for review will prevent further progress on the inquiry.'
+- name: expire-an-inquiry
+  description: 'Expires an Inquiry and all sessions on the Inquiry. Cancels any pending Verifications
+    on the inquiry.
+
+
+    The Inquiry can still be resumed after expiry.'
+- name: generate-a-one-time-link
+  description: Creates a new inquiry session and returns `meta.one-time-link`.
+- name: print-an-inquiry-pdf
+  description: Prints an Inquiry as PDF.
+- name: inquiries-remove-tag
+  description: Removes an existing tag from an Inquiry.
+- name: resume-an-inquiry
+  description: 'Creates a session token that is returned as `meta.session-token`. If the inquiry''s status
+    is `expired`, changes the status to `pending`. The `session-token` must be included when loading the
+    inquiry flow if the inquiry''s status is `pending`.
+
+    This endpoint will error if the inquiry is redacted.
+
+    This endpoint first tries to reuse any existing valid unused [sessions](https://docs.withpersona.com/inquiry-sessions).
+    If none exist, a new session is created.
+
+    For more information, see [Resuming Inquiries](https://docs.withpersona.com/resuming-inquiries).'
+- name: inquiries-set-all-tags
+  description: Sets all tags on an Inquiry. Any tags that are not provided in the request will be removed.
+- name: inquiries-perform-simulate-actions
+  description: Performs a series of simulated actions on a Sandbox Inquiry.
+- name: search-inquiries
+  description: 'Search for inquiries using a flexible query language.
+
+
+    ## Search vs. List Endpoints
+
+
+    The Search and List endpoints serve different purposes and have distinct performance characteristics.
+
+
+    Use the **Search** endpoint (`POST /inquiries/search`) when you need to perform complex queries with
+    boolean logic (AND/OR/NOT), filter on multiple statuses simultaneously, or apply multiple conditions
+    at once. Search is optimized for flexible querying and is faster than paginating through all resources
+    when looking for specific records.
+
+
+    Use the **List** endpoint (`GET /inquiries`) for simple listing with basic filters like reference
+    ID.
+
+
+    ## Data Freshness
+
+
+    Do not use search for read-after-write flows because the data will not be immediately available to
+    search.
+
+    Under normal operating conditions, data is searchable within approximately 1 minute of creation or
+    modification.
+
+    Propagation of new or updated data could be delayed during an outage.
+
+    For workflows that require immediate data availability after creating or updating an inquiry, use
+    the List Inquiries endpoint instead.
+
+
+    ### Searchable Attributes
+
+
+    The following attributes can be used in query predicates:
+
+
+    | Attribute | Description |
+
+    |-----------|-------------|
+
+    | `status` | Inquiry status (e.g., `pending`, `completed`, `approved`, `declined`) |
+
+    | `created_at` | Inquiry creation timestamp |
+
+    | `updated_at` | Inquiry last updated timestamp |
+
+    | `reference_id` | Reference ID associated with the inquiry''s account |
+
+    | `inquiry_template_id` | Inquiry template ID (e.g., `itmpl_ABC123`) |'
+- name: list-all-inquiry-sessions
+  description: Retrieves a list of Inquiry Sessions. Results are returned in reverse chronological order,
+    with the most recently created objects first.
+- name: create-an-inquiry-session
+  description: Creates a new Inquiry Session. By default, we only allow up to 25 sessions per Inquiry.
+- name: expire-inquiry-sessions
+  description: Expires all active Inquiry Sessions for a given set of Inquiries.
+- name: retrieve-an-inquiry-session
+  description: Retrieves details of a specific Inquiry Session.
+- name: expire-an-inquiry-session
+  description: Expires a specific Inquiry Session.
+- name: generate-a-one-time-link-for-an-inquiry-session
+  description: Generates a one-time link for a specific Inquiry Session.
+- name: list-all-inquiry-template-versions
+  description: 'Retrieves the published versions and current draft version of an Inquiry Template.
+
+
+    Use a production API key and provide the Inquiry Template ID in `filter[inquiry-template-id]`. For
+    security reasons, Inquiry Template Versions are not available in Sandbox.'
+- name: list-all-inquiry-templates
+  description: 'Retrieves a list of your organization''s Inquiry Templates.
+
+
+    Note: You must use a production API key to access this endpoint. For security reasons, we do not expose
+    organization-level resources like Inquiry Templates in Sandbox via API. Results are returned in reverse
+    chronological order, with the most recently created objects first.'
+- name: retrieve-an-inquiry-template
+  description: 'Retrieves details of a specific Inquiry Template by ID.
+
+
+    Note: You must use a production API key to access this endpoint. For security reasons, we do not expose
+    organization-level resources like Inquiry Templates in Sandbox via API.'
+- name: retrieve-inquiry-template-translations
+  description: 'Retrieves the translations for an Inquiry Template as a JSON:API resource.
+
+
+    The export uses the latest draft version if one exists, otherwise falls back to the latest published
+    version.
+
+
+    Note: You must use a production API key to access this endpoint. For security reasons, we do not expose
+    organization-level resources like Inquiry Templates in Sandbox via API.'
+- name: import-inquiry-template-translations
+  description: 'Imports translations for an Inquiry Template. Supports partial updates — translation rows
+    not included in the request body are left unchanged.
+
+
+    If a draft version already exists, translations are applied to it. If no draft exists, a new draft
+    is created from the latest published version before importing. The draft is never automatically published
+    — publishing is always a manual step in the dashboard.
+
+
+    Note: You must use a production API key to access this endpoint. For security reasons, we do not expose
+    organization-level resources like Inquiry Templates in Sandbox via API.'
+- name: create-a-browser-fingerprint-list-item
+  description: Create a new item in a list.
+- name: retrieve-a-browser-fingerprint-list-item
+  description: Retrieves the details of an existing browser fingerprint List Item.
+- name: archive-a-browser-fingerprint-list-item
+  description: Archived items are not matched against new inquiries.
+- name: create-a-country-list-item
+  description: Create a new item in a list.
+- name: retrieve-a-country-list-item
+  description: Retrieves the details of an existing country List Item.
+- name: archive-a-country-list-item
+  description: Archived items are not matched against new inquiries.
+- name: create-a-device-fingerprint-list-item
+  description: Create a new item in a list.
+- name: retrieve-a-device-fingerprint-list-item
+  description: Retrieves the details of an existing device fingerprint List Item.
+- name: archive-a-device-fingerprint-list-item
+  description: Archived items are not matched against new inquiries.
+- name: create-an-email-address-list-item
+  description: Create a new item in a list.
+- name: retrieve-an-email-address-list-item
+  description: Retrieves the details of an existing email address List Item.
+- name: archive-an-email-address-list-item
+  description: Archived items are not matched against new inquiries.
+- name: create-a-field-list-item
+  description: Create a new item in a list.
+- name: retrieve-a-field-list-item
+  description: Retrieves the details of an existing field List Item.
+- name: archive-a-field-list-item
+  description: Archived items are not matched against new inquiries.
+- name: create-a-geolocation-list-item
+  description: Create a new item in a list.
+- name: retrieve-a-geolocation-list-item
+  description: Retrieves the details of an existing geolocation List Item.
+- name: archive-a-geolocation-list-item
+  description: Archived items are not matched against new inquiries.
+- name: create-a-government-id-number-list-item
+  description: Create a new item in a list.
+- name: retrieve-a-government-id-number-list-item
+  description: Retrieves the details of an existing government ID number List Item.
+- name: archive-a-government-id-number-list-item
+  description: Archived items are not matched against new inquiries.
+- name: create-an-ip-address-list-item
+  description: Create a new item in a list.
+- name: retrieve-an-ip-address-list-item
+  description: Retrieves the details of an existing IP address List Item.
+- name: archive-an-ip-address-list-item
+  description: Archived items are not matched against new inquiries.
+- name: create-a-name-list-item
+  description: Create a new item in a list.
+- name: retrieve-a-name-list-item
+  description: Retrieves the details of an existing name List Item.
+- name: archive-a-name-list-item
+  description: Archived items are not matched against new inquiries.
+- name: create-a-phone-number-list-item
+  description: Create a new item in a list.
+- name: retrieve-a-phone-number-list-item
+  description: Retrieves the details of an existing phone number List Item.
+- name: archive-a-phone-number-list-item
+  description: Archived items are not matched against new inquiries.
+- name: create-a-string-list-item
+  description: Create a new item in a list.
+- name: retrieve-a-string-list-item
+  description: Retrieves the details of an existing string List Item.
+- name: archive-a-string-list-item
+  description: Archived items are not matched against new inquiries.
+- name: create-a-browser-fingerprint-list
+  description: Create a new list for your organization.
+- name: create-a-country-list
+  description: Create a new list for your organization.
+- name: create-an-email-address-list
+  description: Create a new list for your organization.
+- name: create-a-geolocation-list
+  description: Create a new list for your organization.
+- name: create-a-government-id-number-list
+  description: Create a new list for your organization.
+- name: create-an-ip-address-list
+  description: Create a new list for your organization.
+- name: create-a-name-list
+  description: Create a new list for your organization.
+- name: create-a-phone-number-list
+  description: Create a new list for your organization.
+- name: create-a-strings-list
+  description: Create a new list for your organization.
+- name: list-all-lists
+  description: Returns a list of your organization's lists. Results are returned in reverse chronological
+    order, with the most recently created objects first.
+- name: retrieve-a-list
+  description: Retrieves the details of an existing list.
+- name: archive-a-list
+  description: Archive an existing list. Archived lists are still retrievable, but will no longer match
+    on inquiries.
+- name: create-authorization
+  description: Authorizes another Organization to access your Inquiry, Verifications, or other Persona
+    resources.
+- name: create-access-token
+  description: "Exchange a credential for an access token. Supports two grant types:\n- `authorization_code`:\
+    \ Exchange an authorization code for an access token\n  (cross-org data sharing).\n- `client_credentials`:\
+    \ Exchange a signed JWT assertion (`private_key_jwt`)\n  for a short-lived access token (machine-to-machine\
+    \ auth, RFC 7523)."
+- name: create-a-privacy-pass
+  description: Issues a Privacy Pass token by blind-signing a client-provided blinded token (Blind RSA,
+    RFC 9578). The returned blind signature is unblinded client-side to produce a Privacy Pass token that
+    can later be redeemed anonymously (for example, when generating a Relay claim).
+- name: list-all-rate-limits
+  description: Returns a list of your current rate limits.
+- name: create-a-relay
+  description: Creates a new Relay.
+- name: request-a-relay-challenge
+  description: Requests a Privacy Pass challenge for a claim type. The challenge materials returned here
+    are used to obtain a Privacy Pass token, which is then redeemable to read claims from Relays with
+    the same claim type.
+- name: generate-a-relay-claim
+  description: Returns a relay's claim.
+- name: list-all-reports
+  description: Returns a list of all your organization's Reports. Results are returned in reverse chronological
+    order, with the most recently created objects first.
+- name: create-a-report
+  description: Creates a new Report of any type.
+- name: retrieve-a-report
+  description: Retrieves the details of an existing Report.
+- name: redact-a-report
+  description: 'Permanently deletes personally identifiable information (PII) for a Report.
+
+
+    This endpoint can be used to comply with privacy regulations such as GDPR / CCPA or to enforce data
+    privacy.
+
+
+    Note that this will only delete the report -- it does not delete associated accounts, inquiries, verifications,
+    or other Persona resources.'
+- name: reports-add-tag
+  description: Adds a new tag to the Report
+- name: dismiss-matches
+  description: Dismisses active matches for supported report types
+- name: list-report-history
+  description: Retrieves the history of an existing Report, including runs and actions. See [Pagination](https://docs.withpersona.com/pagination)
+    for more details about handling the response. Results are returned in reverse chronological order,
+    with the most recently created objects first.
+- name: report-action-pause-continuous-monitoring
+  description: Pauses continuous monitoring on a report. Requires additional permissions.
+- name: print-report-pdf
+  description: Prints a report in PDF format.
+- name: reports-remove-tag
+  description: Removes an existing tag from a Report.
+- name: report-action-resume-continuous-monitoring
+  description: Resumes continuous monitoring on paused report. Requires additional permissions.
+- name: review-matches
+  description: Records a review decision on the matches of a Screening report. Review either every matched
+    record at once, or a single matched record by its token from `matched-records`.
+- name: report-action-re-run-report
+  description: Re-runs a continuously monitored report immediately, outside of its existing recurrence
+    schedule.
+- name: reports-set-all-tags
+  description: Sets all tags on a Report. Any tags that are not provided in the request will be removed.
+- name: list-all-theme-sets
+  description: Returns a list of your organization's theme sets. Results are returned in reverse chronological
+    order, with the most recently created objects first.
+- name: create-a-theme-set
+  description: Creates a new theme set. The `data` attribute carries the nested theme tree (`settings`
+    / `light` / `dark`) — the same shape as the Code-First theme-set YAML. Style cells that are not supported
+    are rejected with a 400 naming each offending path.
+- name: retrieve-a-theme-set
+  description: Retrieves the details of an existing theme set.
+- name: archive-a-theme-set
+  description: Archive an existing theme set. Archived theme sets are still retrievable, but can no longer
+    be assigned to inquiry templates. Archiving also detaches the theme set from any inquiry templates
+    it is assigned to — live flows fall back to default styling. The organization's default theme set
+    cannot be archived and returns a 409.
+- name: update-a-theme-set
+  description: 'Updates an existing theme set. Both attributes are optional — an omitted attribute is
+    left unchanged. When `styles` is present it replaces the stored styling wholesale: the tree carries
+    the complete desired styling, and any cell absent from it falls back to the Persona default cascade.'
+- name: list-all-transactions
+  description: Returns a list of your organization's transactions. Note that this endpoint aggregates
+    transactions across all transaction type(s). See [Pagination](https://docs.withpersona.com/pagination)
+    for more details about handling the response. Results are returned in reverse chronological order,
+    with the most recently created objects first.
+- name: create-a-transaction
+  description: Creates a new Transaction for a specific transaction type in your organization.
+- name: retrieve-a-transaction
+  description: Retrieves the details of an existing Transaction.
+- name: redact-a-transaction
+  description: Permanently deletes personally identifiable information (PII) for a Transaction. The response
+    indicates a successful redaction of the Transaction. Redaction of the Transaction's associated child
+    objects is done asynchronously and may take some time before all associated child objects are fully
+    redacted. **This action cannot be undone**.
+- name: update-a-transaction
+  description: Updates a Transaction that has been previously created.
+- name: transactions-add-objects
+  description: Adds Persona objects (such as inquiries or verifications) to a Transaction. To link a Transaction
+    to an Account or another Transaction, use add-relation instead.
+- name: transactions-add-relation
+  description: Adds a relation between this Transaction and a target Account or Transaction using a relation
+    schema key. No effect if the relation already exists.
+- name: transactions-add-tag
+  description: Adds a tag to a Transaction. Create a new tag if the tag does not already exist. No effect
+    if the transaction already has the tag.
+- name: create-a-transaction-label
+  description: Create a new label for an existing Transaction.
+- name: transactions-remove-objects
+  description: Removes Persona objects (such as inquiries or verifications) from a Transaction. This operation
+    is idempotent — removing an object that is not attached succeeds without modifying the transaction.
+    To unlink a Transaction from an Account or another Transaction, use remove-relation instead.
+- name: transactions-remove-relation
+  description: Removes a relation between this Transaction and a target Account or Transaction. No effect
+    if the relation does not exist.
+- name: transactions-remove-tag
+  description: Remove a tag from a transaction. No effect if the transaction does not have the tag.
+- name: transactions-set-tags
+  description: Set the list of tags on a transaction. Remove all tags on the transaction that don't appear
+    on the list. Add all tags on the transaction from the list.
+- name: redact-transaction-biometrics
+  description: Permanently deletes biometric data for a Transaction AND all its associated objects. **This
+    action cannot be undone**.
+- name: retrieve-a-transaction-type
+  description: Retrieves the details of an existing Transaction Type.
+- name: list-all-user-audit-logs
+  description: 'Returns a list of your organization’s user audit logs for up to the most recent 6 months.
+
+
+    Note: You must use a production API key to access this endpoint. For security reasons, we do not expose
+    organization-level resources like user audit logs in Sandbox via API. Results are returned in reverse
+    chronological order, with the most recently created objects first.'
+- name: retrieve-a-user-audit-log
+  description: 'Retrieves the details of an existing user audit logs for up to the most recent 6 months.
+
+
+    Note: You must use a production API key to access this endpoint. For security reasons, we do not expose
+    organization-level resources like user audit logs in Sandbox via API.'
+- name: retrieve-an-aamva-verification
+  description: Retrieve an AAMVA verification
+- name: retrieve-an-ecbsv-database-verification
+  description: Retrieve an eCBSV database verification
+- name: retrieve-a-phone-carrier-database-verification
+  description: Retrieve a phone carrier database verification
+- name: retrieve-a-serpro-database-verification
+  description: Retrieve a Serpro database verification
+- name: retrieve-a-database-standard-verification
+  description: Retrieve a database standard verification
+- name: retrieve-a-tin-database-verification
+  description: Retrieve a TIN database verification
+- name: retrieve-a-database-verification
+  description: Retrieve a database verification
+- name: retrieve-a-document-verification
+  description: Retrieves the details of a specific document verification
+- name: retrieve-a-email-address-verification
+  description: Retrieve a email address verification
+- name: retrieve-a-government-id-verification
+  description: Retrieve a government ID verification
+- name: retrieve-a-government-id-nfc-verification
+  description: Retrieve a Government ID NFC verification
+- name: retrieve-a-phone-number-verification
+  description: Retrieve a phone number verification
+- name: retrieve-a-selfie-verification
+  description: Retrieve a selfie ID verification
+- name: retrieve-a-verification
+  description: Retrieves the details of an existing Verification.
+- name: redact-a-verification
+  description: Permanently deletes personally identifiable information (PII) for a Verification. **This
+    action cannot be undone**. This endpoint can be used to comply with privacy regulations such as GDPR
+    / CCPA or to enforce data privacy.
+- name: print-a-verification-as-pdf
+  description: Prints a verification in PDF format.
+- name: investigation-lock-a-verification
+  description: Locks a Verification from redaction while it is under investigation. While locked, redaction
+    requests for the Verification will be rejected.
+- name: investigation-unlock-a-verification
+  description: Unlocks a Verification that was previously locked from redaction during an investigation.
+- name: search-webhook-events
+  description: 'Search for webhook events using a flexible query language.
+
+
+    Webhook events are the individual delivery records for your webhooks — one per event, per
+
+    webhook. Use this endpoint to find events (for example, all `failed` deliveries for a given
+
+    webhook in a time window) before re-running them.
+
+
+    ## Data Freshness
+
+
+    Do not use search for read-after-write flows because the data will not be immediately available
+
+    to search. Under normal operating conditions, data is searchable within approximately 1 minute
+
+    of creation or modification. Propagation could be delayed during an outage.
+
+
+    ## Retention
+
+
+    Webhook events are retained for a limited window. Searches are automatically bounded to that
+
+    window, so events older than the retention period are not returned even if requested.
+
+
+    ### Searchable Attributes
+
+
+    The following attributes can be used in query predicates:
+
+
+    | Attribute | Description |
+
+    |-----------|-------------|
+
+    | `updated_at` | Timestamp the event was last updated (i.e. last delivery attempt). Supports `eq`,
+    `gt`, `gte`, `lt`, `lte`. |
+
+    | `status` | Delivery status: `pending`, `completed`, `failed`, or `skipped`. |
+
+    | `webhook_id` | Webhook token (e.g. `wbh_ABC123`). |
+
+    | `event_id` | Event token the webhook event was created from (e.g. `evt_ABC123`). |
+
+    | `event_name` | Event name (e.g. `inquiry.completed`). |
+
+    | `webhook_event_id` | Webhook event token (e.g. `wbhe_ABC123`). |
+
+    | `related_object_ids` | A related object token contained in the event payload. |
+
+
+    All attributes other than `updated_at` support only the `eq` operator.'
+- name: list-all-webhooks
+  description: Returns a list of your environment's webhooks. Results are returned in reverse chronological
+    order, with the most recently created objects first.
+- name: create-a-webhook
+  description: Creates a new webhook with response defaults.
+- name: retrieve-a-webhook
+  description: Retrieves the details of an existing webhook, including its secret.
+- name: update-a-webhook
+  description: Updates an existing Webhook.
+- name: archive-a-webhook
+  description: Archives a webhook.
+- name: enable-a-webhook
+  description: Enables a webhook.
+- name: disable-a-webhook
+  description: Disables a webhook.
+- name: rotate-a-webhook-secret
+  description: Rotates a webhook's secret.
+- name: clone-a-webhook
+  description: Creates a copy of an existing webhook. All attributes except the secret are copied over
+    to the new webhook.
+- name: create-a-workflow-run
+  description: 'Creates a new Workflow Run.
+
+
+    Note: The payload is arbitrary and defined by the Workflow version trigger schema.'
+- name: retrieve-a-workflow-run
+  description: Retrieves the details of an existing workflow run.
+- name: list-all-workflow-runs
+  description: Returns a list of your environment's workflow runs. Results are returned in reverse chronological
+    order, with the most recently created objects first.
+- name: list-all-workflow-versions
+  description: 'Retrieves the published versions and current draft version of a Workflow. Archived versions
+    are not returned.
+
+
+    Provide the Workflow ID in `filter[workflow-id]`, which you can copy from the Workflow in your Persona
+    dashboard. The `live`, `rollout-label`, and `rollout-percentage` attributes are relative to the environment
+    your API key belongs to: a version live in Production is not live in Sandbox. Sandbox API keys are
+    supported, and report `live: false` for every version of a Workflow that is only deployed to Production.'
+tools_count: 219
