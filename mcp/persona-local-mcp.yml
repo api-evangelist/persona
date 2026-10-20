@@ -25,3 +25,121 @@ tools_note: No tool list captured. This manifest records a PROBED, reachable end
   not perform. Run signals/audit_mcp_authorship.py --probe to enumerate tools and settle platform-vs-provider
   authorship. Do NOT derive a tool list from the OpenAPI and store it here -- that is a candidate manifest,
   and it belongs under an X-MCPServerCandidate pointer.
+tool_quality:
+  tool_count: 219
+  tokens_total: 41670
+  tokens_per_tool_median: 126
+  heavy_tools:
+  - name: search-cases
+    tokens: 1884
+  - name: search-webhook-events
+    tokens: 1694
+  - name: search-accounts
+    tokens: 1617
+  - name: search-inquiries
+    tokens: 1593
+  - name: create-an-inquiry
+    tokens: 1492
+  heavy_tool_count: 5
+  params_total: 258
+  params_undescribed: 78
+  params_described_pct: 69.8
+  tools_with_undescribed_params: 77
+  tools_annotated: 0
+  annotated_pct: 0.0
+  state_changing_unhinted:
+  - create-an-account
+  - update-an-account
+  - runAccountAction
+  - create-an-api-key
+  - update-an-api-key
+  - create-a-connect-connection
+  - create-a-share-token
+  - create-a-batch-job
+  - create-a-case
+  - update-a-case
+  - add-persona-objects
+  - remove-persona-objects
+  - assign-a-case
+  - set-status-for-a-case
+  - add-tag
+  - remove-tag
+  - set-tags
+  - add-comment
+  - create-a-graph-query
+  - import-an-account
+  - import-email-address-lists
+  - import-geolocation-lists
+  - import-government-id-number-lists
+  - import-ip-address-lists
+  - import-name-lists
+  - import-phone-number-lists
+  - create-an-inquiry
+  - update-an-inquiry
+  - approve-an-inquiry
+  - generate-a-one-time-link
+  - create-an-inquiry-session
+  - generate-a-one-time-link-for-an-inquiry-session
+  - import-inquiry-template-translations
+  - create-a-browser-fingerprint-list-item
+  - archive-a-browser-fingerprint-list-item
+  - create-a-country-list-item
+  - archive-a-country-list-item
+  - create-a-device-fingerprint-list-item
+  - archive-a-device-fingerprint-list-item
+  - create-an-email-address-list-item
+  - archive-an-email-address-list-item
+  - create-a-field-list-item
+  - archive-a-field-list-item
+  - create-a-geolocation-list-item
+  - archive-a-geolocation-list-item
+  - create-a-government-id-number-list-item
+  - archive-a-government-id-number-list-item
+  - create-an-ip-address-list-item
+  - archive-an-ip-address-list-item
+  - create-a-name-list-item
+  - archive-a-name-list-item
+  - create-a-phone-number-list-item
+  - archive-a-phone-number-list-item
+  - create-a-string-list-item
+  - archive-a-string-list-item
+  - create-a-browser-fingerprint-list
+  - create-a-country-list
+  - create-an-email-address-list
+  - create-a-geolocation-list
+  - create-a-government-id-number-list
+  - create-an-ip-address-list
+  - create-a-name-list
+  - create-a-phone-number-list
+  - create-a-strings-list
+  - archive-a-list
+  - create-authorization
+  - create-access-token
+  - create-a-privacy-pass
+  - create-a-relay
+  - generate-a-relay-claim
+  - create-a-report
+  - create-a-theme-set
+  - archive-a-theme-set
+  - update-a-theme-set
+  - create-a-transaction
+  - update-a-transaction
+  - create-a-transaction-label
+  - create-a-webhook
+  - update-a-webhook
+  - archive-a-webhook
+  - enable-a-webhook
+  - disable-a-webhook
+  - create-a-workflow-run
+  tools_missing_schema: 0
+  short_descriptions: 3
+  duplicate_descriptions: 28
+  duplicate_names: 0
+  nonportable_names: []
+  output_schema_count: 0
+  token_estimate: chars/3.6 of each compact tool definition
+  source: mcp/persona-mcp-tools.json
+  measured: '2026-10-20'
+  scored: false
+  note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
+    from Glimind's agent-readiness audit.
