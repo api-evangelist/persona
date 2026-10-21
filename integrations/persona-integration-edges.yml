@@ -248,6 +248,33 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-biometrics-testing.py
   first_seen: '2026-10-20'
+- partner_name: Index Ventures
+  partner: index-ventures
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.indexventures.com/companies/persona/
+  category: vc portfolio participation
+  contract_reference:
+    register: Index Ventures companies (indexventures.com/companies/)
+    standard: null
+    spec_file: null
+    role: vc-portfolio-company
+    registered_name: Persona
+    register_id: https://www.indexventures.com/companies/persona/
+    register_country: north-america
+    register_website: https://withpersona.com/
+    matched_domain: withpersona.com
+    matched_by: domain
+    signal_note: 'participation only: the venture firm''s own published portfolio lists the company (investment);
+      an ownership and participation record, not conformance or certification'
+    detected_by: sweep-vc-portfolios.py
+    detected: '2026-10-21'
+    sector: security
+  detected_by: sweep-vc-portfolios.py
+  first_seen: '2026-10-21'
 generated: '2026-10-12'
 method: searched
 checked:
@@ -268,6 +295,12 @@ checked:
 - https://pages.nist.gov/frvt/html/frvt11.html
 - https://pages.nist.gov/frvt/html/frvt1N.html
 - https://www.ibeta.com/iso-30107-3-presentation-attack-detection-confirmation-letters/
+- https://a16z.com/portfolio/
+- https://www.battery.com/company/
+- https://www.battery.com/wp-admin/admin-ajax.php
+- https://www.indexventures.com/companies/
+- https://www.sequoiacap.com/our-companies/
+- https://www.sequoiacap.com/sitemap.xml
 source:
 - greenhouse/integrations/greenhouse-integration-edges.yml
 - okta/integrations/okta-integration-edges.yml
